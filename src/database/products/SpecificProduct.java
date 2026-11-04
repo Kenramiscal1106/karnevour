@@ -19,15 +19,15 @@ public enum SpecificProduct {
     PORK_RIBS(GeneralProduct.PIG),
 
     //COWNINI
-    BEEF_CHUCK(GeneralProduct.CHICKEN),
-    BEEF_BRISKET(GeneralProduct.CHICKEN),
-    BEEF_RIBEYE(GeneralProduct.CHICKEN),
-    BEEF_LOIN(GeneralProduct.CHICKEN),
-    BEEF_PLATE(GeneralProduct.CHICKEN),
-    BEEF_FLANK(GeneralProduct.CHICKEN),
-    BEEF_SHORT_RIBS(GeneralProduct.CHICKEN),
-    BEEF_SIRLOIN(GeneralProduct.CHICKEN),
-    BEEF_TENDERLOIN(GeneralProduct.CHICKEN),
+    BEEF_CHUCK(GeneralProduct.COW),
+    BEEF_BRISKET(GeneralProduct.COW),
+    BEEF_RIBEYE(GeneralProduct.COW),
+    BEEF_LOIN(GeneralProduct.COW),
+    BEEF_PLATE(GeneralProduct.COW),
+    BEEF_FLANK(GeneralProduct.COW),
+    BEEF_SHORT_RIBS(GeneralProduct.COW),
+    BEEF_SIRLOIN(GeneralProduct.COW),
+    BEEF_TENDERLOIN(GeneralProduct.COW),
 
     //OTHERNINI
     EGG_SMALL(GeneralProduct.OTHER),

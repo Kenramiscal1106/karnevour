@@ -26,11 +26,17 @@ public class ProductHolder {
         if(product.getGeneralProductType() != this.generalProductHold)
             return;
 
+        if(!containsProduct(product))
+            return;
+
+        if(productMap.get(product)<amount)
+            return;
+
         int toAdd = operation.equalsIgnoreCase("subtract") ? -amount:amount;
         this.productMap.compute(product, (key,value) -> {
             int newVal = (value==null) ? toAdd:value+toAdd;
 
-            return (newVal<0) ? null : newVal;
+            return (newVal>=0) ? newVal : null;
         });
     }
 
