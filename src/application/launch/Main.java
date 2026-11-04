@@ -16,5 +16,6 @@ public class Main extends Application {
         stage.setTitle("Hello World!");
         stage.setScene(new Scene(sceneryLoader.load(), 500, 500));
         stage.show();
+        // test commit
     }
 }
