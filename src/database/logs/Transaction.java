@@ -1,6 +1,6 @@
 package database.logs;
 
-public class Transaction implements Log{
+public class Transaction implements Logable {
     private String transactionName;
     private String date;
     private String description;

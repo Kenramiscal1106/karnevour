@@ -1,6 +1,6 @@
 package database.logs;
 
-public class Activity implements Log{
+public class Activity implements Logable {
     private String logName;
     private String date;
     private String description;

@@ -15,7 +15,7 @@ public class ProductHolder {
      */
     private String holderName;
     private GeneralProduct generalProductHold;
-    private Map<Product, Integer> productMap;
+    private Map<Product, Double> productMap;
 
     ProductHolder(String holderName, GeneralProduct generalProductHold){
         this.generalProductHold = Objects.requireNonNull(generalProductHold);
@@ -23,16 +23,19 @@ public class ProductHolder {
         this.productMap = new HashMap<>();
     }
 
-    void setProduct(Product product, int amount){
+    public void setProduct(Product product, double amount){
         Objects.requireNonNull(product, "Null passed");
 
         if(amount<0)
             return;
 
-        this.productMap.put(product, amount);
+        if(productMap.containsKey(product))
+            updateProductCount(product, amount,"add");
+        else
+            this.productMap.put(product, amount);
     }
 
-    void updateProductCount(Product product, int amount, String operation){
+    void updateProductCount(Product product, double amount, String operation){
         /*
         For business logic people, this func takes in the product, amount, and the operation needed to be done
          */
@@ -45,9 +48,9 @@ public class ProductHolder {
         if(productMap.get(product)<amount)
             return;
 
-        int toAdd = operation.equalsIgnoreCase("subtract") ? -amount:amount;
+        double toAdd = operation.equalsIgnoreCase("subtract") ? -amount:amount;
         this.productMap.compute(product, (key,value) -> {
-            int newVal = (value==null) ? toAdd:value+toAdd;
+            double newVal = (value==null) ? toAdd:value+toAdd;
 
             return (newVal>=0) ? newVal : null;
         });
@@ -64,7 +67,7 @@ public class ProductHolder {
     public String getHolderName()                   {  return this.holderName;  }
     public GeneralProduct getGeneralProductHold()   {  return this.generalProductHold;  }
     public Set<Product> getAllProducts()            {  return this.productMap.keySet(); }
-    public int getProductCount(Product product)     {  return this.productMap.get(product); }
+    public double getProductInInventory(Product product)     {  return this.productMap.get(product); }
     public Product getProductByUid(String uid){
         for(Product product: this.productMap.keySet()){
             if(product.getUid().equals(uid)){

@@ -70,12 +70,5 @@ public class Inventory {
         return this.transactionList;
     }
 
-    // save and load
-    void saveToJson(){
-
-    }
-
-    void loadFromJson(){
-
-    }
+    public Map<GeneralProduct, ProductHolder> getProductHolderMap(){    return this.productHolderMap;   }
 }

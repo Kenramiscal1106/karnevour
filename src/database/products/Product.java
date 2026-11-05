@@ -1,5 +1,6 @@
 package database.products;
 
+import java.io.File;
 import java.util.Objects;
 
 public class Product {
@@ -9,7 +10,7 @@ public class Product {
     private double price;
     private String unit;
     private String description;
-    private String imagePath;
+    private File imagePath;
 
     public Product(String uid, String nickName, SpecificProduct specificProductType, double price, String unit, String description){
         try{
@@ -23,7 +24,7 @@ public class Product {
         this.price = price;
         this.unit = unit;
         this.description = description;
-        this.imagePath = null; // "/nickname_path".exists() ? "/nickname_path":"/default_specific_path"
+        this.imagePath = new File("pictures/"+nickName+".jpg").exists()? new File("pictures/"+nickName+".jpg"): new File("pictures/"+specificProductType.toString()+".jpg"); // "/nickname_path".exists() ? "/nickname_path":"/default_specific_path"
     }
 
     //overrides for map
@@ -60,7 +61,7 @@ public class Product {
     public double getPrice()                        {   return this.price;  }
     public String getUnit()                         {   return this.unit;   }
     public String getDescription()                  {   return this.description;    }
-    public String getImagePath()                    {   return this.imagePath;  }
+    public File getImagePath()                      {   return this.imagePath;  }
     public String getUid()                          {   return this.uid; }
 
     // setters

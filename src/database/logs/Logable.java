@@ -1,6 +1,6 @@
 package database.logs;
 
-public interface Log {
+public interface Logable {
     public String getDate();
     public String getDescription();
     public String getAuthor();
