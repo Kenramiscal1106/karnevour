@@ -1,7 +1,11 @@
-package database.products;
+package database.inventory;
+
+import database.products.GeneralProduct;
+import database.products.Product;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class ProductHolder {
@@ -14,9 +18,18 @@ public class ProductHolder {
     private Map<Product, Integer> productMap;
 
     ProductHolder(String holderName, GeneralProduct generalProductHold){
+        this.generalProductHold = Objects.requireNonNull(generalProductHold);
         this.holderName = holderName;
-        this.generalProductHold = generalProductHold;
         this.productMap = new HashMap<>();
+    }
+
+    void setProduct(Product product, int amount){
+        Objects.requireNonNull(product, "Null passed");
+
+        if(amount<0)
+            return;
+
+        this.productMap.put(product, amount);
     }
 
     void updateProductCount(Product product, int amount, String operation){
@@ -26,7 +39,7 @@ public class ProductHolder {
         if(product.getGeneralProductType() != this.generalProductHold)
             return;
 
-        if(!containsProduct(product))
+        if(!this.productMap.containsKey(product))
             return;
 
         if(productMap.get(product)<amount)
@@ -40,15 +53,12 @@ public class ProductHolder {
         });
     }
 
-    void removeProduct(Product product){
-        if(!containsProduct(product)){
+    void removeProduct(Product product) {
+        if (!this.productMap.containsKey(product)) {
             return;
         }
         this.productMap.remove(product);
     }
-
-    // validation
-    public boolean containsProduct(Product product) {   return this.productMap.containsKey(product);    }
 
     // getters
     public String getHolderName()                   {  return this.holderName;  }

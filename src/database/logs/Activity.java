@@ -5,6 +5,7 @@ public class Activity implements Log{
     private String date;
     private String description;
     private String author;
+    private String uid;
 
     Activity(String logName, String date, String description, String author){
         this.logName = logName;

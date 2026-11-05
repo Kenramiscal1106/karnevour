@@ -11,7 +11,7 @@ public class Product {
     private String description;
     private String imagePath;
 
-    Product(String uid, String nickName, SpecificProduct specificProductType, double price, String unit, String description){
+    public Product(String uid, String nickName, SpecificProduct specificProductType, double price, String unit, String description){
         try{
             this.uid = Objects.requireNonNull(uid, "Null ");
             this.specificProductType = Objects.requireNonNull(specificProductType);

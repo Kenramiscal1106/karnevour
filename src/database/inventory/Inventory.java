@@ -10,26 +10,25 @@ import java.util.Map;
 
 public class Inventory {
     /*
-    holds the inventory of the product
+    holds the inventory of the company
      */
 
     private Map<GeneralProduct, ProductHolder> productHolderMap;
-    private double cash;
     private List<Activity> inventoryActivityList;
     private List<Transaction> transactionList;
 
     public Inventory(){
         this.productHolderMap = new HashMap<GeneralProduct, ProductHolder>();
-        this.cash = 0;
         this.inventoryActivityList = new ArrayList<Activity>();
         this.transactionList = new ArrayList<Transaction>();
     }
 
-    public void setProductHolder(GeneralProduct generalProduct, ProductHolder specificProductHolder){
+    // map functions
+    public void setProductHolder(GeneralProduct generalProduct, String holderName){
         if(productHolderMap.containsKey(generalProduct))
             return;
 
-        this.productHolderMap.put(generalProduct,specificProductHolder);
+        this.productHolderMap.put(generalProduct, new ProductHolder(holderName, generalProduct));
     }
 
     public void replaceProductHolder(GeneralProduct key, ProductHolder updateHolder){
@@ -46,4 +45,37 @@ public class Inventory {
         productHolderMap.remove(key);
     }
 
+    // getters
+    public Activity getInventoryActivityByUid(String uid){
+        for(Activity activity: this.inventoryActivityList){
+            if(activity.getUid().equals(uid))
+                return activity;
+        }
+        return null;
+    }
+
+    public List<Activity> getAllInventoryActivityList(){
+        return this.inventoryActivityList;
+    }
+
+    public Transaction getTransactionByUid(String uid){
+        for(Transaction transaction: this.transactionList){
+            if(transaction.getUid().equals(uid))
+                return transaction;
+        }
+        return null;
+    }
+
+    public List<Transaction> getAllTransactionList(){
+        return this.transactionList;
+    }
+
+    // save and load
+    void saveToJson(){
+
+    }
+
+    void loadFromJson(){
+
+    }
 }
