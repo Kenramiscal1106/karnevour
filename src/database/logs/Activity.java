@@ -7,11 +7,12 @@ public class Activity implements Logable {
     private String author;
     private String uid;
 
-    Activity(String logName, String date, String description, String author){
+    Activity(String logName, String date, String description, String author, String uid){
         this.logName = logName;
         this.date = date;
         this.description = description;
         this.author = author;
+        this.uid = uid;
     }
 
     // getters
@@ -19,4 +20,5 @@ public class Activity implements Logable {
     public String getDate()         {   return this.date;   }
     public String getDescription()  {   return this.description;    }
     public String getAuthor()       {   return this.author;  }
+    public String getUid()          {   return this.uid;    }
 }

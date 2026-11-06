@@ -7,11 +7,12 @@ public class Transaction implements Logable {
     private String author;
     private String uid;
 
-    Transaction(String transactionName, String date, String description, String author){
+    Transaction(String transactionName, String date, String description, String author, String uid){
         this.transactionName = transactionName;
         this.date = date;
         this.description = description;
         this.author = author;
+        this.uid = uid;
     }
 
     public String getTransactionName() {   return this.transactionName;    }

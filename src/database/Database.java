@@ -54,7 +54,7 @@ public class Database {
 
     public void loadFromDatabase(Inventory inventory){
         /*
-        should work for now >w<
+        should work for now >w< --reabas
          */
         try(BufferedReader reader = new BufferedReader(new FileReader(INVENTORY_DEFAULT_PATH))){
             String line;

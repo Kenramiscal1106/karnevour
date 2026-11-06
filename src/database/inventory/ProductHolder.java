@@ -39,16 +39,17 @@ public class ProductHolder {
         /*
         For business logic people, this func takes in the product, amount, and the operation needed to be done
          */
+        double toAdd = operation.equalsIgnoreCase("subtract") ? -amount:amount;
+
         if(product.getGeneralProductType() != this.generalProductHold)
             return;
 
         if(!this.productMap.containsKey(product))
             return;
 
-        if(productMap.get(product)<amount)
+        if(0>toAdd)
             return;
 
-        double toAdd = operation.equalsIgnoreCase("subtract") ? -amount:amount;
         this.productMap.compute(product, (key,value) -> {
             double newVal = (value==null) ? toAdd:value+toAdd;
 
