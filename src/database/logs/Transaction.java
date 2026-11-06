@@ -1,21 +1,21 @@
 package database.logs;
 
 public class Transaction implements Logable {
-    private String transactionName;
+    private String name;
     private String date;
     private String description;
     private String author;
     private String uid;
 
-    Transaction(String transactionName, String date, String description, String author, String uid){
-        this.transactionName = transactionName;
+    public Transaction(String name, String date, String description, String author, String uid){
+        this.name = name;
         this.date = date;
         this.description = description;
         this.author = author;
         this.uid = uid;
     }
 
-    public String getTransactionName() {   return this.transactionName;    }
+    public String getName()            {   return this.name;    }
     public String getDate()            {   return this.date;   }
     public String getDescription()     {   return this.description;  }
     public String getAuthor()          {   return this.author;  }

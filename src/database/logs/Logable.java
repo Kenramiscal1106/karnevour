@@ -5,4 +5,5 @@ public interface Logable {
     public String getDescription();
     public String getAuthor();
     public String getUid();
+    public String getName();
 }
