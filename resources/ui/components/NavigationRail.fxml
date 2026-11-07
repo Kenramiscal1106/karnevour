@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.controllers.NavigationRailController"
+      prefWidth="108" stylesheets="@/style.css" >
+    <!--  Logo  -->
+    <VBox VBox.vgrow="ALWAYS" spacing="12">
+        <padding>
+            <Insets left="2" right="2" top="12" bottom="12"/>
+        </padding>
+        <Button contentDisplay="TOP" alignment="CENTER" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000" onAction="#homeClick" fx:id="homeButton">
+<!--            <graphic>-->
+<!--                <VBox styleClass="icon-container" alignment="CENTER" fillWidth="false" style="-fx-background-color:#FFFFFF">-->
+<!--                    <padding>-->
+<!--                        <Insets left="12" right="12" top="2" bottom="2"/>-->
+<!--                    </padding>-->
+<!--                    <SVGPath content="M5.33333 28V12L16 4L26.6667 12V28H18.6667V18.6667H13.3333V28H5.33333Z"/>-->
+<!--                </VBox>-->
+<!--            </graphic>-->
+            Home
+        </Button>
+        <Button styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000">
+            Sale
+        </Button>
+        <Button styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000">
+            Inventory
+        </Button>
+        <Button styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000">
+            Activity History
+        </Button>
+    </VBox>
+    <!--  Bottom Section  -->
+</VBox>
