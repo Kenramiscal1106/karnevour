@@ -12,7 +12,7 @@
       fx:controller="application.controllers.RootController"
       prefHeight="400.0" prefWidth="600.0" style="-fx-background-color:#FFCFD1">
     <fx:include source="../components/NavigationRail.fxml" />
-    <HBox fx:id="content" HBox.hgrow="ALWAYS">
+    <HBox fx:id="content" HBox.hgrow="ALWAYS" style="-fx-background-color: #FFE4E4">
         <Text>Temporary</Text>
     </HBox>
 </HBox>

@@ -1,5 +1,6 @@
 package application.controllers;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.services.NavigationService;
+import javafx.util.Duration;
 
 public class NavigationRailController implements Initializable {
 

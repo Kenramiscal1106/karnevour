@@ -1,17 +1,12 @@
 package application.controllers;
 
 import application.services.NavigationService;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
-import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class RootController implements Initializable {
 

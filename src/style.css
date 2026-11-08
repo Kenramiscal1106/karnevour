@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Instrument Sans';
+    src: url('fonts/InstrumentSans.ttf'); /* Path relative to your resources directory */
+}
+
+.navigation-item {
+    -fx-font-family: 'Instrument Sans', sans-serif;
+    -fx-background-color:none;
+    -fx-font-size:16px;
+    -fx-cursor:pointer;
+}
+
+.navigation-item.navigation-item--active .icon-container  {
+    -fx-background-color: #FFA3B5;
+}
+.navigation-item.navigation-item--active {
+    -fx-font-weight: bold;
+}
+.icon-container {
+    -fx-background-radius:900px;
+}
+
+.transaction-entry {
+    -fx-padding: 8 12;
+}
+
+.transaction-entry__leading-detail {
+    -fx-spacing: 16;
+}
