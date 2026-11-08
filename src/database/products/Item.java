@@ -3,28 +3,28 @@ package database.products;
 import java.io.File;
 
 public abstract class Item {
-    protected SpecificItem specificItem;
+    protected SpecificProduct specificProduct;
     protected File imagePath;
     protected String description;
     protected String alternativeName;
 
-    Item(SpecificItem specificItem, String description, String alternativeName) {
-        this.specificItem = specificItem;
-        this.imagePath = new File("/pictures/" + alternativeName +".jpg").exists() ? new File("/pictures/" + alternativeName +".jpg") : new File("/pictures/" + specificItem +".jpg");
+    Item(SpecificProduct specificProduct, String description, String alternativeName) {
+        this.specificProduct = specificProduct;
+        this.imagePath = new File("/pictures/" + alternativeName +".jpg").exists() ? new File("/pictures/" + alternativeName +".jpg") : new File("/pictures/" + specificProduct +".jpg");
         this.description = description;
         this.alternativeName = alternativeName;
     }
 
-    Item(SpecificItem specificItem, String description) {
-        this.specificItem = specificItem;
-        this.imagePath = new File("/pictures/" + specificItem +".jpg");
+    Item(SpecificProduct specificProduct, String description) {
+        this.specificProduct = specificProduct;
+        this.imagePath = new File("/pictures/" + specificProduct +".jpg");
         this.description = description;
         this.alternativeName = "";
     }
 
     // getters
-    public SpecificItem getSpecificItemType() {return this.specificItem;}
-    public GeneralItem getGeneralItem() {return this.specificItem.getGeneralProductType();}
+    public SpecificProduct getSpecificItemType() {return this.specificProduct;}
+    public GeneralProduct getGeneralItem() {return this.specificProduct.getGeneralProductType();}
     public String getDescription() {return this.description;}
     public String getAlternativeName() { return this.alternativeName; }
     public String getImagePath() {return this.imagePath.toString();}

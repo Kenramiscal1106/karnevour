@@ -194,9 +194,9 @@ public class Database {
             while((line=reader.readLine())!=null){
                 if(line.isBlank())
                     continue;
-                SpecificItem enumConst = null;
+                SpecificProduct enumConst = null;
                 String[] rawText = line.split((",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
-                enumConst = SpecificItem.valueOf(rawText[2]);
+                enumConst = SpecificProduct.valueOf(rawText[2]);
                 Item rawItem = getRawItem(rawText, enumConst);
                 inventory.addItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
             }
@@ -205,7 +205,7 @@ public class Database {
         }
     }
 
-    private static Item getRawItem(String[] rawText, SpecificItem enumConst) {
+    private static Item getRawItem(String[] rawText, SpecificProduct enumConst) {
         Item rawItem = null;
         if (rawText[0].equals("Product")){
             rawItem = new Product(
