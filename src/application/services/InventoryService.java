@@ -1,26 +1,33 @@
 package application.services;
 
+import database.Database;
+import database.inventory.Inventory;
+//import database.inventory.ItemHolder;
+import database.products.Item;
+//import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import database.inventory.*;
-//import database.pictures.*;
-import database.products.*;
 
-// TODO: make LoadService()
+// TODO: save
 
 public class InventoryService {
     //private Inventory inventory = new Inventory();
 
-    // skeleton code for loading inventory items
+    // load only on startup
     public class LoadService extends Service<Inventory> {
+        private Database database = new Database();
+
+//        public LoadService(Inventory inventory) {
+//            this.inventory = inventory;
+//        }
+
         @Override
         protected Task<Inventory> createTask() {
             return new Task<>() {
                 protected Inventory call() throws Exception {
-
-
-
-                    return null;
+                   Inventory inventory = new Inventory();
+                   database.loadFromDatabase(inventory);
+                   return inventory;
                 }
             };
         }
