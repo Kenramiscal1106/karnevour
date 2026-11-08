@@ -143,12 +143,11 @@ public class Database {
                 String[] rawText = line.split(",");
                 if(rawText[1].equals(name) && rawText[3].equals(password) && rawText[4].equals("offline"))
                     switch(rawText[0]){
-                        case "Admin" -> {
+                        case "Admin":
                             return new Admin(rawText[1], rawText[2], rawText[3]);
-                        }
-                        case "Clerk" -> {
+
+                        case "Clerk":
                             return new Clerk(rawText[1], rawText[2], rawText[3]);
-                        }
                     }
             }
         }catch (IOException e){
