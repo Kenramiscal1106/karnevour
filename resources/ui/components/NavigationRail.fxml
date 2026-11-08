@@ -28,13 +28,13 @@
 <!--            </graphic>-->
             Home
         </Button>
-        <Button styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000">
+        <Button styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000" onAction="#saleClick" fx:id="saleButton">
             Sale
         </Button>
-        <Button styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000">
+        <Button styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000" onAction="#inventoryClick" fx:id="inventoryButton">>
             Inventory
         </Button>
-        <Button styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000">
+        <Button styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000" onAction="#activityHistoryClick" fx:id="activityHistoryButton">
             Activity History
         </Button>
     </VBox>
