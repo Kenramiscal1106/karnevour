@@ -13,7 +13,7 @@ public abstract class Item {
     Item(String uid, SpecificItem specificItem, String unit, String description, String alternativeName) {
         this.uid = uid;
         this.specificItem = specificItem;
-        this.imagePath = new File("/pictures/" + alternativeName).exists() ? new File("/pictures/" + alternativeName) : new File("/pictures/" + specificItem);
+        this.imagePath = new File("/pictures/" + alternativeName +".jpg").exists() ? new File("/pictures/" + alternativeName +".jpg") : new File("/pictures/" + specificItem +".jpg");
         this.unit = unit;
         this.description = description;
         this.alternativeName = alternativeName;
@@ -22,7 +22,7 @@ public abstract class Item {
     Item(String uid, SpecificItem specificItem, String unit, String description) {
         this.uid = uid;
         this.specificItem = specificItem;
-        this.imagePath = new File("/pictures/" + specificItem);
+        this.imagePath = new File("/pictures/" + specificItem +".jpg");
         this.unit = unit;
         this.description = description;
         this.alternativeName = "";

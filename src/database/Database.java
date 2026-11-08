@@ -6,18 +6,24 @@ import database.logs.Activity;
 import database.logs.Logable;
 import database.logs.Transaction;
 import database.products.*;
+import database.user.User;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.List;
-import java.util.Map;
 
 public class Database {
 
     private final File ITEMHOLDER_MAP_DEFAULT_FILE = new File("data/itemholder.kar");
     private final File ACTIVTIY_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
     private final File TRANSACTION_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
+    private final File USER_STAFF_LIST_DEFAULT_FILE = new File("data/stafflist.kar");
 
-    public void saveToDatabase(Map<String, ItemHolder> itemHolderMap) {
+    public void saveInventoryToDatabase(ObservableList<ItemHolder> itemHolderList) {
+        if(itemHolderList==null)
+            throw new IllegalArgumentException("No Inventory found");
+
         File parentFolder = ITEMHOLDER_MAP_DEFAULT_FILE.getParentFile();
         if(parentFolder != null && !parentFolder.exists())
             parentFolder.mkdirs();
@@ -27,19 +33,20 @@ public class Database {
          */
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(ITEMHOLDER_MAP_DEFAULT_FILE, false))){
             writer.write("Class,Uid,SpecificItemType,Unit,Description,{Price},AlternativeName,ItemInStock,LowerLimitStock");
-            itemHolderMap.forEach((id, itemHolder)->{
+            writer.newLine();
+            itemHolderList.forEach(( itemHolder)->{
                 Item rawItem = itemHolder.getItem();
                 String isProduct = "-1";
                 if (rawItem instanceof Product product){
                     isProduct = String.valueOf(product.getPrice());
                 }
-                String saveLine = rawItem.getClass().getName()+","+
+                String saveLine = rawItem.getClass().getSimpleName()+","+
                         rawItem.getUid()+","+
                         rawItem.getSpecificItemType()+","+
                         rawItem.getUnit()+","+
-                        rawItem.getDescription()+","+
+                        "\""+rawItem.getDescription()+"\""+","+
                         isProduct+","+
-                        rawItem.getAlternativeName()+","+
+                        "\""+rawItem.getAlternativeName()+"\""+","+
                         itemHolder.getItemInStock()+","+
                         itemHolder.getLowStockLimit();
                 try {
@@ -55,15 +62,22 @@ public class Database {
 
     }
 
-    public void saveToDatabase(List<Logable> activityList){
+    public void saveLogsToDatabase(ObservableList<Logable> activityList){
+        if (activityList==null)
+            throw new IllegalArgumentException("No logs found");
+
         File defaultFile = activityList.getFirst().getClass().getName().equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
+        File parentFile = defaultFile.getParentFile();
+        if(parentFile==null)
+            parentFile.mkdir();
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, false))){
             writer.write("Name,Date,Description,Author,Uid");
+            writer.newLine();
             activityList.forEach(log->{
                 String saveLine = log.getName()+","+
                         log.getDate()+","+
-                        log.getDescription()+","+
+                        "\""+log.getDescription()+"\""+","+
                         log.getAuthor()+","+
                         log.getUid();
                 try {
@@ -78,6 +92,9 @@ public class Database {
         }
     }
 
+    public void saveUsersToDatabase(ObservableList<User> users){
+    }
+
     public void loadFromDatabase(Inventory inventory) throws FileNotFoundException {
         /*
         should work for now >w<
@@ -88,7 +105,7 @@ public class Database {
 
     }
 
-   private void loadLogs(Inventory inventory) {
+    private void loadLogs(Inventory inventory) {
         String[] logs = {"Activity", "Transaction"};
         String line;
         for (String log: logs){
@@ -114,33 +131,39 @@ public class Database {
             reader.readLine();
             while((line=reader.readLine())!=null){
                 if(line.isBlank())
-                    break;
+                    continue;
                 SpecificItem enumConst = null;
-                String[] rawText = line.split(",");
+                String[] rawText = line.split((",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
                 enumConst = SpecificItem.valueOf(rawText[2]);
-                if (rawText[0].equals("Product")){
-                    Item rawItem = new Product(
-                            rawText[1],
-                            enumConst,
-                            rawText[3],
-                            rawText[4],
-                            Double.parseDouble(rawText[5]),
-                            rawText[6]
-                    );
-                } else {
-                    Item rawItem = new Consumable(
-                            rawText[1],
-                            enumConst,
-                            rawText[3],
-                            rawText[4],
-                            rawText[6]
-                    );
-                    inventory.addItemToInventory(rawItem,Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
-                }
+                Item rawItem = getRawItem(rawText, enumConst);
+                inventory.addItemToInventory(rawItem,Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
             }
         } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static Item getRawItem(String[] rawText, SpecificItem enumConst) {
+        Item rawItem = null;
+        if (rawText[0].equals("Product")){
+            rawItem = new Product(
+                    rawText[1],
+                    enumConst,
+                    rawText[3],
+                    rawText[4].substring(1, rawText[4].length()-1),
+                    Double.parseDouble(rawText[5]),
+                    rawText[6].substring(1, rawText[6].length()-1)
+            );
+        } else {
+            rawItem = new Consumable(
+                    rawText[1],
+                    enumConst,
+                    rawText[3],
+                    rawText[4].substring(1, rawText[4].length()-1),
+                    rawText[6].substring(1, rawText[6].length()-1)
+            );
+        }
+        return rawItem;
     }
 
 }
