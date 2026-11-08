@@ -8,6 +8,9 @@
       <root url="file://$PROJECT_DIR$/../javafx-sdk-25.0.5/lib" />
     </NATIVE>
     <SOURCES />
+    <excluded>
+      <root url="file://$PROJECT_DIR$/../javafx-sdk-25.0.5/lib" />
+    </excluded>
     <jarDirectory url="file://$PROJECT_DIR$/../javafx-sdk-25.0.5/lib" recursive="false" />
   </library>
 </component>

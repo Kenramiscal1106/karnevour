@@ -28,7 +28,7 @@ public class ItemHolder {
     public String getItemAlternativeName() { return this.getItem().getAlternativeName(); }
 
     // setters
-    public void updateItemInStock(double stock, String operation){
+    void updateItemInStock(double stock, String operation){
         if (stock<0)
             throw new IllegalArgumentException("Negative stock passed");
 
