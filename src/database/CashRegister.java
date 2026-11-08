@@ -1,5 +1,6 @@
-package application;
+package database;
 
+import database.logs.*;
 import database.inventory.Inventory;
 
 public class CashRegister {
@@ -45,5 +46,25 @@ public class CashRegister {
     protected double computeBalance() {
         double computedAmount = 0;
         return computedAmount;
+    }
+
+    public void donateMoney(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Donation amount must be greater than zero.");
+        }
+
+        this.currentBalance += amount;
+        String description = "Donation received";
+
+        // maybe add donor name tas log din
+    }
+
+    public void addToLogList(Logable log){
+//        switch (log) {
+//            case null -> throw new NullPointerException("Log does not exist");
+//            case Activity activity -> this.activityList.add(activity);
+//            case Transaction transaction -> this.transactionList.add(transaction);
+//            default -> {
+//            }
     }
 }
