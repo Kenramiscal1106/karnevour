@@ -1,32 +1,45 @@
 package application;
+
 import database.inventory.Inventory;
 
 public class CashRegister {
-    private double currentBalance; // puwede pa tong iexpand into bills para mas maangas
+    private double currentBalance;
     private int totalSales;
     private Inventory inventory;
 
     public CashRegister(double currentBalance, int totalSales, Inventory inventory) {
         this.currentBalance = currentBalance;
         this.totalSales = totalSales;
+        this.inventory = inventory;
     }
 
-    //getters
+    // getters
     public int getTotalSales() {
         return totalSales;
     }
-
     public double getCurrentBalance() {
         return currentBalance;
     }
-
-    // methods
-    public void sellItem() {
-
+    public Inventory getInventory() {
+        return inventory;
     }
 
-    public void refundItem() {
+    // methods
+    public void sellItem(String uid, double amount, double totalPrice) {
+    }
+    public void refundItem(String uid, double amount, double refundAmount) {
+    }
 
+    public void cashIn(double amount) {
+        if (amount <= 0)
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        this.currentBalance += amount;
+    }
+
+    public void cashOut(double amount, String reason) {
+        if (amount > currentBalance)
+            throw new IllegalArgumentException("Insufficient cash in drawer");
+        this.currentBalance -= amount;
     }
 
     protected double computeBalance() {
