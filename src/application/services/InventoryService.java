@@ -3,8 +3,10 @@ package application.services;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import database.inventory.*;
-import database.pictures.*;
+//import database.pictures.*;
 import database.products.*;
+
+import java.util.Locale;
 
 public class InventoryService {
     //private Inventory inventory = new Inventory();
@@ -70,5 +72,40 @@ public class InventoryService {
         }
     }
 
+    public class updateStockService extends Service<Void> {
+        private Inventory inventory;
+        private String uid;
+        private double amount;
+        private String actionType;
 
+        public updateStockService(Inventory inventory, String uid, double amount, String actionType) {
+            this.inventory = inventory;
+            this.uid = uid;
+            this.amount = amount;
+            this.actionType = actionType;
+        }
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    if(actionType.toLowerCase().equals("restock")) {
+                        inventory.restockItem(uid, amount);
+                        return null;
+                    }
+                    if(actionType.toLowerCase().equals("sell")) {
+                        inventory.sellItem(uid, amount);
+                        return null;
+                    }
+                    if(actionType.toLowerCase().equals("override")) {
+                        inventory.setItemHolderInStock(uid, amount);
+                        return null;
+                    }
+                    throw new IllegalArgumentException("No stock type");
+//                    return null;
+                }
+            };
+        }
+    }
 }
