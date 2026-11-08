@@ -1,13 +1,9 @@
 package database.inventory;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import database.logs.*;
 import database.products.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Inventory {
     /*
@@ -35,7 +31,7 @@ public class Inventory {
 
     // shortcuts
     public ItemHolder getItemHolderByUid(String uid){
-        return this.itemHolderList.stream().filter(itemHolder -> itemHolder.getItem().getUid().equals(uid)).findFirst().orElse(null);
+        return this.itemHolderList.stream().filter(itemHolder -> itemHolder.getUid().equals(uid)).findFirst().orElse(null);
     }
 
     public Item getItemById(String uid){
@@ -45,13 +41,13 @@ public class Inventory {
     }
 
     // ill add these for now
-    public void addItemToInventory(Item item, double itemInStock, double lowStockLimit){
+    public void addItemToInventory(String uid, Item item, double itemInStock, double lowStockLimit){
         if (item==null)
             throw new NullPointerException("No such item");
-        if (this.getItemById(item.getUid())!=null)
+        if (this.getItemHolderByUid(uid).getItem()!=null)
             throw new IllegalArgumentException("Item already in inventory");
 
-        this.itemHolderList.add(new ItemHolder(item, itemInStock, lowStockLimit));
+        this.itemHolderList.add(new ItemHolder(uid, item, itemInStock, lowStockLimit));
     }
 
     public void removeItemInInventory(String uid){
@@ -78,7 +74,7 @@ public class Inventory {
         hold.updateItemInStock(amount,"subtract");
     }
 
-    public void replaceItemInInventory(String oldUid, Item newItem, double newItemInStock, double newLowStockLimit){
+    public void replaceItemInInventory(String oldUid, String newUid, Item newItem, double newItemInStock, double newLowStockLimit){
         ItemHolder itemHolder = this.getItemHolderByUid(oldUid);
 
         if (itemHolder==null)
@@ -86,7 +82,7 @@ public class Inventory {
         if (newItem==null)
             throw new NullPointerException("No such item passed");
         int i = this.itemHolderList.indexOf(itemHolder);
-        this.itemHolderList.set(i, new ItemHolder(newItem, newItemInStock, newLowStockLimit));
+        this.itemHolderList.set(i, new ItemHolder(newUid, newItem, newItemInStock, newLowStockLimit));
     }
 
     public void setItemHolderInStock(String uid, double inStock){

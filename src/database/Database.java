@@ -6,6 +6,8 @@ import database.logs.Activity;
 import database.logs.Logable;
 import database.logs.Transaction;
 import database.products.*;
+import database.user.Admin;
+import database.user.Clerk;
 import database.user.User;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
@@ -15,12 +17,12 @@ import java.util.List;
 
 public class Database {
 
-    private final File ITEMHOLDER_MAP_DEFAULT_FILE = new File("data/itemholder.kar");
-    private final File ACTIVTIY_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
-    private final File TRANSACTION_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
-    private final File USER_STAFF_LIST_DEFAULT_FILE = new File("data/stafflist.kar");
+    private static final File ITEMHOLDER_MAP_DEFAULT_FILE = new File("data/itemholder.kar");
+    private static final File ACTIVTIY_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
+    private static final File TRANSACTION_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
+    private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("data/stafflist.kar");
 
-    public void saveInventoryToDatabase(ObservableList<ItemHolder> itemHolderList) {
+    public synchronized void saveInventoryToDatabase(ObservableList<ItemHolder> itemHolderList) {
         if(itemHolderList==null)
             throw new IllegalArgumentException("No Inventory found");
 
@@ -41,7 +43,7 @@ public class Database {
                     isProduct = String.valueOf(product.getPrice());
                 }
                 String saveLine = rawItem.getClass().getSimpleName()+","+
-                        rawItem.getUid()+","+
+                        itemHolder.getUid()+","+
                         rawItem.getSpecificItemType()+","+
                         rawItem.getUnit()+","+
                         "\""+rawItem.getDescription()+"\""+","+
@@ -62,14 +64,14 @@ public class Database {
 
     }
 
-    public void saveLogsToDatabase(ObservableList<Logable> activityList){
+    public synchronized void saveLogsToDatabase(ObservableList<Logable> activityList){
         if (activityList==null)
             throw new IllegalArgumentException("No logs found");
 
         File defaultFile = activityList.getFirst().getClass().getName().equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
-        File parentFile = defaultFile.getParentFile();
-        if(parentFile==null)
-            parentFile.mkdir();
+        File parentFolder = defaultFile.getParentFile();
+        if(parentFolder != null && !parentFolder.exists())
+            parentFolder.mkdirs();
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, false))){
             writer.write("Name,Date,Description,Author,Uid");
@@ -92,10 +94,72 @@ public class Database {
         }
     }
 
-    public void saveUsersToDatabase(ObservableList<User> users){
+    public synchronized boolean saveUsersToDatabase(User user, String operation){
+        if (user==null)
+            throw new IllegalArgumentException("No users found");
+
+        File parentFolder = USER_STAFF_LIST_DEFAULT_FILE.getParentFile();
+        boolean needHeader = USER_STAFF_LIST_DEFAULT_FILE.exists() || USER_STAFF_LIST_DEFAULT_FILE.length()==0;
+        if(parentFolder != null && !parentFolder.exists())
+            parentFolder.mkdirs();
+
+        String session = "offline";
+        switch (operation.trim().toLowerCase()){
+            case "signin" -> session = "online";
+            case "logout" -> session = "offline";
+        }
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(USER_STAFF_LIST_DEFAULT_FILE, true))){
+
+            if(needHeader){
+                writer.write("Class,Name,Uid,Password,Login_Status");
+                writer.newLine();
+            }
+
+            if(userExists(user.getUid())) {
+                return false;
+            }
+
+            writer.write(
+                    user.getClass().getSimpleName()+","+
+                            user.getName()+","+
+                            user.getUid()+","+
+                            user.getPassword()+
+                            session
+            );
+            writer.newLine();
+            return true;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void loadFromDatabase(Inventory inventory) throws FileNotFoundException {
+    public synchronized User loadUserFromDatabase(String name, String password) {
+        if(!USER_STAFF_LIST_DEFAULT_FILE.exists())
+            return null;
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(USER_STAFF_LIST_DEFAULT_FILE))){
+            String line;
+            reader.readLine();
+            while((line=reader.readLine())!=null){
+                String[] rawText = line.split(",");
+                if(rawText[1].equals(name) && rawText[3].equals(password) && rawText[4].equals("offline"))
+                    switch(rawText[0]){
+                        case "Admin" -> {
+                            return new Admin(rawText[1], rawText[2], rawText[3]);
+                        }
+                        case "Clerk" -> {
+                            return new Clerk(rawText[1], rawText[2], rawText[3]);
+                        }
+                    }
+            }
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public synchronized void loadFromDatabase(Inventory inventory) throws FileNotFoundException {
         /*
         should work for now >w<
          */
@@ -105,7 +169,7 @@ public class Database {
 
     }
 
-    private void loadLogs(Inventory inventory) {
+    private synchronized void loadLogs(Inventory inventory) {
         String[] logs = {"Activity", "Transaction"};
         String line;
         for (String log: logs){
@@ -113,7 +177,7 @@ public class Database {
             try(BufferedReader reader = new BufferedReader(new FileReader(defaultFile))){
                 reader.readLine();
                 while((line=reader.readLine())!=null){
-                    String[] rawText = line.split(",");
+                    String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                     Logable rawLog = log.equals("Activity")? new Activity(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]): new Transaction(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]);
                     inventory.addToLogList(rawLog);
                 }
@@ -125,7 +189,7 @@ public class Database {
 
    }
 
-    private void loadItemHolder(Inventory inventory){
+    private synchronized void loadItemHolder(Inventory inventory){
         try(BufferedReader reader = new BufferedReader(new FileReader(ITEMHOLDER_MAP_DEFAULT_FILE))){
             String line;
             reader.readLine();
@@ -136,7 +200,7 @@ public class Database {
                 String[] rawText = line.split((",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
                 enumConst = SpecificItem.valueOf(rawText[2]);
                 Item rawItem = getRawItem(rawText, enumConst);
-                inventory.addItemToInventory(rawItem,Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
+                inventory.addItemToInventory(rawText[1], rawItem, Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
             }
         } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);
@@ -147,7 +211,6 @@ public class Database {
         Item rawItem = null;
         if (rawText[0].equals("Product")){
             rawItem = new Product(
-                    rawText[1],
                     enumConst,
                     rawText[3],
                     rawText[4].substring(1, rawText[4].length()-1),
@@ -156,7 +219,6 @@ public class Database {
             );
         } else {
             rawItem = new Consumable(
-                    rawText[1],
                     enumConst,
                     rawText[3],
                     rawText[4].substring(1, rawText[4].length()-1),
@@ -164,6 +226,23 @@ public class Database {
             );
         }
         return rawItem;
+    }
+
+    private static boolean userExists(String uid) throws IOException {
+        try(BufferedReader reader = new BufferedReader(new FileReader(USER_STAFF_LIST_DEFAULT_FILE))) {
+            String line;
+            reader.readLine();
+            while((line = reader.readLine())!=null){
+                if(line.isEmpty())
+                    continue;
+                String[] rawText = line.split(",");
+                if(rawText.length==3 && rawText[2].equals(uid.trim()))
+                    return true;
+            }
+        } catch(IOException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 
 }

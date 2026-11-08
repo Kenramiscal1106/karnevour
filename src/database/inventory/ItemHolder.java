@@ -8,8 +8,10 @@ public class ItemHolder {
     private final Item item;
     private double itemInStock;
     private double lowStockLimit;
+    protected String uid;
 
-    ItemHolder(Item item, double itemInStock, double lowStockLimit){
+    ItemHolder(String uid, Item item, double itemInStock, double lowStockLimit){
+        this.uid = uid;
         this.item = item;
         this.itemInStock = itemInStock;
         this.lowStockLimit = lowStockLimit;
@@ -21,7 +23,7 @@ public class ItemHolder {
     public double getLowStockLimit() {return this.lowStockLimit;}
 
     // shortcuts
-    public String getItemUid() {return this.getItem().getUid();}
+    public String getUid() {return this.uid;}
     public SpecificItem getItemSpecificType() {return this.getItem().getSpecificItemType();}
     public GeneralItem getItemGeneralType() {return this.getItemSpecificType().getGeneralProductType();}
     public String getItemDescription() {return this.getItem().getDescription();}
@@ -37,11 +39,11 @@ public class ItemHolder {
                 this.itemInStock+=stock;
                 break;
             case "subtract":
-                if (stock>this.getItemInStock())
-                    throw new IllegalArgumentException("Item in stock results in negative");
-                this.itemInStock-=stock;
+                this.itemInStock = stock>this.itemInStock ? 0:itemInStock-stock;
                 break;
             case "override":
+                if (stock>this.itemInStock)
+                    throw new IllegalArgumentException("Item in stock results in negative");
                 this.itemInStock = stock;
                 break;
         }

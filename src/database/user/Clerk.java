@@ -1,7 +1,7 @@
 package database.user;
 
 public class Clerk extends User{
-    Clerk(String name, String uid) {
-        super(name, uid);
+    public Clerk(String name, String uid, String password) {
+        super(name, uid, password);
     }
 }

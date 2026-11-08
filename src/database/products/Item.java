@@ -3,15 +3,13 @@ package database.products;
 import java.io.File;
 
 public abstract class Item {
-    protected String uid;
     protected SpecificItem specificItem;
     protected File imagePath;
     protected String unit;
     protected String description;
     protected String alternativeName;
 
-    Item(String uid, SpecificItem specificItem, String unit, String description, String alternativeName) {
-        this.uid = uid;
+    Item(SpecificItem specificItem, String unit, String description, String alternativeName) {
         this.specificItem = specificItem;
         this.imagePath = new File("/pictures/" + alternativeName +".jpg").exists() ? new File("/pictures/" + alternativeName +".jpg") : new File("/pictures/" + specificItem +".jpg");
         this.unit = unit;
@@ -19,8 +17,7 @@ public abstract class Item {
         this.alternativeName = alternativeName;
     }
 
-    Item(String uid, SpecificItem specificItem, String unit, String description) {
-        this.uid = uid;
+    Item(SpecificItem specificItem, String unit, String description) {
         this.specificItem = specificItem;
         this.imagePath = new File("/pictures/" + specificItem +".jpg");
         this.unit = unit;
@@ -29,7 +26,6 @@ public abstract class Item {
     }
 
     // getters
-    public String getUid() {return this.uid;}
     public SpecificItem getSpecificItemType() {return this.specificItem;}
     public GeneralItem getGeneralItem() {return this.specificItem.getGeneralProductType();}
     public String getDescription() {return this.description;}
