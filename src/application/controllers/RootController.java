@@ -1,9 +1,11 @@
 package application.controllers;
 
 import application.services.NavigationService;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
@@ -20,10 +22,15 @@ public class RootController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         var navService = NavigationService.getInstance();
-        if (content.getChildren().isEmpty()) {
-            content.getChildren().add(navService.getValue());
-        } else {
-            content.getChildren().set(0, navService.getValue());
-        }
+        navService.updateView("/ui/views/LoginView.fxml");
+        navService.getViewProperty().addListener((observable, oldValue, newValue) -> {
+            var valueBin = newValue == null ? oldValue : newValue;
+            if (valueBin == null) return;
+            if (content.getChildren().isEmpty()) {
+                content.getChildren().add(newValue);
+            } else {
+                content.getChildren().set(0, newValue);
+            }
+        });
     }
 }
