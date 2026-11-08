@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.services.*;
+import database.inventory.ItemHolder;
 import database.products.Item;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,9 +32,10 @@ public class InventoryController implements Initializable {
 	}
 	
 	// for adding items
-	private HBox makeCard(Item item) {
+	private HBox makeCard(ItemHolder itemHolder) {
+		var item = itemHolder.getItem();
 		Label name = new Label(item.getSpecificItemType().toString());
-		Label quantity = new Label(item.getUnit().toString());
+		Label quantity = new Label(itemHolder.getUnit());
 		
 		// add other elements
 		

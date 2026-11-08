@@ -41,13 +41,13 @@ public class Inventory {
     }
 
     // ill add these for now
-    public void addItemToInventory(String uid, Item item, double itemInStock, double lowStockLimit){
+    public void addItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit){
         if (item==null)
             throw new NullPointerException("No such item");
         if (this.getItemHolderByUid(uid).getItem()!=null)
             throw new IllegalArgumentException("Item already in inventory");
 
-        this.itemHolderList.add(new ItemHolder(uid, item, itemInStock, lowStockLimit));
+        this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));
     }
 
     public void removeItemInInventory(String uid){
@@ -74,7 +74,7 @@ public class Inventory {
         hold.updateItemInStock(amount,"subtract");
     }
 
-    public void replaceItemInInventory(String oldUid, String newUid, Item newItem, double newItemInStock, double newLowStockLimit){
+    public void replaceItemInInventory(String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit){
         ItemHolder itemHolder = this.getItemHolderByUid(oldUid);
 
         if (itemHolder==null)
@@ -82,7 +82,7 @@ public class Inventory {
         if (newItem==null)
             throw new NullPointerException("No such item passed");
         int i = this.itemHolderList.indexOf(itemHolder);
-        this.itemHolderList.set(i, new ItemHolder(newUid, newItem, newItemInStock, newLowStockLimit));
+        this.itemHolderList.set(i, new ItemHolder(newUid, newItem, newUnit, newItemInStock, newLowStockLimit));
     }
 
     public void setItemHolderInStock(String uid, double inStock){

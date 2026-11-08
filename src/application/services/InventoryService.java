@@ -51,7 +51,7 @@ public class InventoryService {
             return new Task<>() {
                 @Override
                 protected Void call() throws Exception{
-                    inventory.addItemToInventory(item, stock, limit);
+                    inventory.addItem(item, stock, limit);
                     return null;
                 }
             };
@@ -166,6 +166,8 @@ public class InventoryService {
     public class replaceInventoryItemService extends Service<Void> {
         private Inventory inventory;
         private Item item;
+
+        private String unit;
         private String oldUid;
         private double newItemInStock;
         private double newLowStockLimit;
@@ -183,7 +185,7 @@ public class InventoryService {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.replaceItemInInventory(oldUid, item, newItemInStock, newLowStockLimit);
+//                    inventory.replaceItemInInventory(oldUid, item, unit, newItemInStock, newLowStockLimit);
                     return null;
                 }
             };

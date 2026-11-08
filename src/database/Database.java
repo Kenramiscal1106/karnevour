@@ -9,11 +9,9 @@ import database.products.*;
 import database.user.Admin;
 import database.user.Clerk;
 import database.user.User;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 
 import java.io.*;
-import java.util.List;
 
 public class Database {
 
@@ -45,7 +43,7 @@ public class Database {
                 String saveLine = rawItem.getClass().getSimpleName()+","+
                         itemHolder.getUid()+","+
                         rawItem.getSpecificItemType()+","+
-                        rawItem.getUnit()+","+
+                        itemHolder.getUnit()+","+
                         "\""+rawItem.getDescription()+"\""+","+
                         isProduct+","+
                         "\""+rawItem.getAlternativeName()+"\""+","+
@@ -200,7 +198,7 @@ public class Database {
                 String[] rawText = line.split((",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
                 enumConst = SpecificItem.valueOf(rawText[2]);
                 Item rawItem = getRawItem(rawText, enumConst);
-                inventory.addItemToInventory(rawText[1], rawItem, Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
+                inventory.addItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
             }
         } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);
@@ -212,15 +210,13 @@ public class Database {
         if (rawText[0].equals("Product")){
             rawItem = new Product(
                     enumConst,
-                    rawText[3],
                     rawText[4].substring(1, rawText[4].length()-1),
                     Double.parseDouble(rawText[5]),
                     rawText[6].substring(1, rawText[6].length()-1)
             );
         } else {
-            rawItem = new Consumable(
+            rawItem = new FarmItem(
                     enumConst,
-                    rawText[3],
                     rawText[4].substring(1, rawText[4].length()-1),
                     rawText[6].substring(1, rawText[6].length()-1)
             );
