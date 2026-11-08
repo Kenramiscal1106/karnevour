@@ -6,7 +6,7 @@ import database.inventory.*;
 //import database.pictures.*;
 import database.products.*;
 
-import java.util.Locale;
+// TODO: make LoadService()
 
 public class InventoryService {
     //private Inventory inventory = new Inventory();
@@ -18,7 +18,7 @@ public class InventoryService {
             return new Task<>() {
                 protected Inventory call() throws Exception {
 
-                    // load inventory program here
+
 
                     return null;
                 }
@@ -72,6 +72,7 @@ public class InventoryService {
         }
     }
 
+    // general update stock service
     public class updateStockService extends Service<Void> {
         private Inventory inventory;
         private String uid;
@@ -107,5 +108,80 @@ public class InventoryService {
                 }
             };
         }
+
+        public class setLowStockService extends Service<Void> {
+            private Inventory inventory;
+            private String uid;
+            private double inStock;
+
+            public void SetLowStockService(Inventory inventory, String uid, double inStock){
+                this.inventory = inventory;
+                this.uid = uid;
+                this.inStock = inStock;
+            }
+
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        inventory.setItemHolderLowInStock(uid, inStock);
+                        return null;
+                    }
+                };
+            }
+        }
+
+        public class setInStockService extends Service<Void> {
+            private Inventory inventory;
+            private String uid;
+            private double inStock;
+
+            public void SetInStockService(Inventory inventory, String uid, double inStock){
+                this.inventory = inventory;
+                this.uid = uid;
+                this.inStock = inStock;
+            }
+
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        inventory.setItemHolderInStock(uid, inStock);
+                        return null;
+                    }
+                };
+            }
+        }
+
+        public class replaceInventoryItemService extends Service<Void> {
+            private Inventory inventory;
+            private Item item;
+            private String oldUid;
+            private double newItemInStock;
+            private double newLowStockLimit;
+
+            public replaceInventoryItemService(Inventory inventory, String oldUid, Item item, double newItemInStock, double newLowStockLimit) {
+                this.inventory = inventory;
+                this.oldUid = oldUid;
+                this.item = item;
+                this.newItemInStock = newItemInStock;
+                this.newLowStockLimit = newLowStockLimit;
+            }
+
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        inventory.replaceItemInInventory(oldUid, item, newItemInStock, newLowStockLimit);
+                        return null;
+                    }
+                };
+            }
+        }
+
+
     }
 }
