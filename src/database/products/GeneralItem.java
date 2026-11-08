@@ -1,5 +1,5 @@
 package database.products;
 
-public enum GeneralProduct {
+public enum GeneralItem {
     CHICKEN,PIG,COW,OTHER
 }
