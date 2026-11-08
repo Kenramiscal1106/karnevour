@@ -19,42 +19,44 @@ public class NavigationRailController implements Initializable {
     public Button saleButton;
     public Button inventoryButton;
     public Button activityHistoryButton;
-    
+
     private static final String ACTIVE = "navigation-item--active";
     private List<Button> buttons;
-    
+
     private void setActive(Button active) {
     	buttons.forEach(b -> b.getStyleClass().remove(ACTIVE));
     	active.getStyleClass().add(ACTIVE);
     }
 
+    private final NavigationService navigationService = NavigationService.getInstance();
+
     @FXML
     public void homeClick(ActionEvent mouseEvent) {
     	setActive(homeButton);
     }
-    
+
     @FXML
     public void saleClick(ActionEvent mouseEvent) {
     	setActive(saleButton);
     }
-    
+
     @FXML
     public void inventoryClick(ActionEvent mouseEvent) {
     	setActive(inventoryButton);
     	NavigationService.getInstance();
     	// (TO BE ADDED) navigate to inventory view navigateTo() method
     }
-    
+
     @FXML
     public void activityHistoryClick(ActionEvent mouseEvent) {
     	setActive(activityHistoryButton);
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     	buttons = List.of(homeButton, saleButton, inventoryButton, activityHistoryButton);
     	setActive(homeButton);
     }
-    
-    
+
+
 }
