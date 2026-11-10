@@ -1,4 +1,4 @@
-package application.controllers;
+package application.controllers.views;
 
 public class CashManagerController {
 }

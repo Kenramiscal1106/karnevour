@@ -1,31 +1,27 @@
-package application.controllers;
+package application.controllers.views;
 
 import application.services.NavigationService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.ScrollPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RootController implements Initializable {
+public class ClerkController {
 
     @FXML
-    public HBox content;
+    public ScrollPane content;
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    public void initialize() {
         var navService = NavigationService.getInstance();
         navService.updateView("/ui/views/LoginView.fxml");
         navService.getViewProperty().addListener((observable, oldValue, newValue) -> {
             var valueBin = newValue == null ? oldValue : newValue;
             if (valueBin == null) return;
-            if (content.getChildren().isEmpty()) {
-                content.getChildren().add(newValue);
-            } else {
-                content.getChildren().set(0, newValue);
-            }
+            content.setContent(newValue);
         });
     }
 }

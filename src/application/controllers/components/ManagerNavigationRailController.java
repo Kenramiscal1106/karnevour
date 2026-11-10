@@ -1,20 +1,17 @@
-package application.controllers;
+package application.controllers.components;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import application.services.NavigationService;
-import javafx.util.Duration;
 
-public class NavigationRailController implements Initializable {
+public class ManagerNavigationRailController implements Initializable {
 
     @FXML
     public Button homeButton;
@@ -35,6 +32,7 @@ public class NavigationRailController implements Initializable {
     @FXML
     public void homeClick(ActionEvent mouseEvent) {
     	setActive(homeButton);
+        navigationService.updateView("/ui/views/TestView.fxml");
     }
 
     @FXML
@@ -45,7 +43,7 @@ public class NavigationRailController implements Initializable {
     @FXML
     public void inventoryClick(ActionEvent mouseEvent) {
     	setActive(inventoryButton);
-    	NavigationService.getInstance();
+        navigationService.updateView("/ui/views/InventoryView.fxml");
     	// (TO BE ADDED) navigate to inventory view navigateTo() method
     }
 

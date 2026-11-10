@@ -10,15 +10,19 @@
 <?import javafx.scene.text.Text?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.InventoryEntryController"
-      prefHeight="400.0" prefWidth="600.0" styleClass="transaction-entry">
-    <HBox styleClass="transaction-entry__leading-detail">
-        <ImageView />
-        <VBox>
+      styleClass="inventory-entry"
+      stylesheets="@/style.css"
+
+>
+    <HBox styleClass="inventory-entry__leading-detail" spacing="16" alignment="CENTER_LEFT">
+        <ImageView fx:id="imageView" fitHeight="56" fitWidth="56"/>
+        <VBox alignment="CENTER_LEFT">
+            <Text fx:id="itemName" styleClass="inventory-entry__primary-text"/>
+            <Text fx:id="itemQuantity" styleClass="inventory-entry__secondary-text"/>
         </VBox>
     </HBox>
-    <HBox styleClass="transaction-entry__trailing-detail">
-        <Text>Lorem ipsum dolor</Text>
-    </HBox>
+    <!--    <HBox styleClass="transaction-entry__trailing-detail">-->
+    <!--        <Text>Lorem ipsum dolor</Text>-->
+    <!--    </HBox>-->
 
 </HBox>

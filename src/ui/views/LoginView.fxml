@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 <HBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="application.controllers.LoginController"
+            fx:controller="application.controllers.views.LoginController"
             prefHeight="400.0" prefWidth="600.0">
     <Text>This is a login view</Text>
 </HBox>

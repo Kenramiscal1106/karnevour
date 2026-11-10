@@ -13,6 +13,12 @@ public class Inventory {
     private ObservableList<Activity> activityList;
     private ObservableList<Transaction> transactionList;
 
+    private final static Inventory instance =  new Inventory();
+
+    public static Inventory getInstance() {
+        return instance;
+    }
+
     public Inventory(){
         this.itemHolderList = FXCollections.observableArrayList();
         this.activityList = FXCollections.observableArrayList();

@@ -11,7 +11,7 @@ public class ItemHolder {
     protected String unit;
     protected String uid;
 
-    ItemHolder(String uid, Item item, String unit, double itemInStock, double lowStockLimit){
+    public ItemHolder(String uid, Item item, String unit, double itemInStock, double lowStockLimit){
         this.uid = uid;
         this.item = item;
         this.unit = unit;

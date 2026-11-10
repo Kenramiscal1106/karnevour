@@ -3,7 +3,10 @@ module karnevour {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
-    opens application.controllers to javafx.fxml;
+
     opens images to javafx.graphics;
+    opens application.controllers.views to javafx.fxml;
+    opens application.controllers.components to javafx.fxml;
+
     exports application.launch;
 }

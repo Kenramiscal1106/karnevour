@@ -51,7 +51,7 @@ public class InventoryService {
             return new Task<>() {
                 @Override
                 protected Void call() throws Exception{
-                    inventory.addItem(item, stock, limit);
+//                    inventory.addItem(item, stock, limit);
                     return null;
                 }
             };

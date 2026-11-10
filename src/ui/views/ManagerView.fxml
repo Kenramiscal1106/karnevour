@@ -6,9 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="application.controllers.ManagerController"
+            fx:controller="application.controllers.views.ManagerController"
             prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+    <left>
+        <fx:include source="../components/ManagerNavigationRail.fxml" BorderPane.alignment="CENTER"/>
+    </left>
+    <center>
+        <ScrollPane fx:id="content" styleClass="main-content" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER"
+                    fitToWidth="true">
+            <fx:include source="TestView.fxml"/>
+        </ScrollPane>
+    </center>
+</BorderPane>

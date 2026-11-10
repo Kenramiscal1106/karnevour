@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.NavigationRailController"
+      fx:controller="application.controllers.components.ClerkNavigationRailController"
       prefWidth="108" stylesheets="@/style.css">
     <!--  Logo  -->
     <VBox VBox.vgrow="ALWAYS" spacing="12">
@@ -62,20 +62,6 @@
                 </VBox>
             </graphic>
             Inventory
-        </Button>
-        <Button contentDisplay="TOP" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000" onAction="#activityHistoryClick"
-                fx:id="activityHistoryButton" wrapText="true" textAlignment="CENTER">
-            <graphic>
-                <VBox styleClass="icon-container" alignment="CENTER" fillWidth="false">
-                    <padding>
-                        <Insets left="12" right="12" top="2" bottom="2"/>
-                    </padding>
-                    <ImageView fitWidth="32" fitHeight="32">
-                        <Image url="@../../images/history.png" preserveRatio="true"/>
-                    </ImageView>
-                </VBox>
-            </graphic>
-            Activity History
         </Button>
     </VBox>
     <!--  Bottom Section  -->
