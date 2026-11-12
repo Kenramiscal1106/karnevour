@@ -14,11 +14,14 @@ public abstract class User {
     // getters
     public final String getName(){  return this.name;   }
     public final String getUid() {  return this.uid;    }
-    public final boolean matchPassword(String inputPasswod){
-        return this.password.equals(inputPasswod);
-    }
-
     public String getPassword() {
         return this.password;
+    }
+
+    public final String toCSVFormat() {
+        return this.getClass().getSimpleName()+","+
+                "\""+this.getName()+"\""+","+
+                "\""+this.getUid()+"\""+","+
+                "\""+this.getPassword()+"\"";
     }
 }

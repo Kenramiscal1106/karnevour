@@ -6,4 +6,5 @@ public interface Logable {
     public String getAuthor();
     public String getUid();
     public String getName();
+    public String toCSVFormat();
 }

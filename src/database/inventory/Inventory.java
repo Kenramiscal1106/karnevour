@@ -1,14 +1,20 @@
 package database.inventory;
 
+import database.Database;
+import database.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import database.logs.*;
 import database.products.*;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 public class Inventory {
     /*
     holds the inventory of the company
      */
+
     private ObservableList<ItemHolder> itemHolderList;
     private ObservableList<Activity> activityList;
     private ObservableList<Transaction> transactionList;
@@ -36,6 +42,16 @@ public class Inventory {
     }
 
     // shortcuts
+
+    private ItemHolder itemEnsureExists(String uid) {
+        ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if(itemHolder == null || itemHolder.getItem() == null)
+            throw new IllegalArgumentException("No such items exist.");
+
+        return itemHolder;
+    }
+
     public ItemHolder getItemHolderByUid(String uid){
         return this.itemHolderList.stream().filter(itemHolder -> itemHolder.getUid().equals(uid)).findFirst().orElse(null);
     }
@@ -47,67 +63,125 @@ public class Inventory {
     }
 
     // ill add these for now
-    public void addItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit){
-        if (item==null)
-            throw new NullPointerException("No such item");
-        if (this.getItemHolderByUid(uid).getItem()!=null)
-            throw new IllegalArgumentException("Item already in inventory");
+    public void addItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, User user){
+        itemEnsureExists(uid);
+
+        addToLogList(new Activity(
+                "Inventory edit: Add Item",
+                LocalDate.now().toString(),
+                user.getName()+" added item ("+item.getSpecificItemType()+") to the inventory",
+                user.getName(),
+                "++"+UUID.randomUUID().toString()
+        ));
 
         this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));
     }
 
-    public void removeItemInInventory(String uid){
+    public void removeItemInInventory(String uid, User user){
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
         if (itemHolder==null)
             throw new NullPointerException("Item already not in inventory");
 
+        addToLogList(new Activity(
+                "Inventory edit: Remove Item",
+                LocalDate.now().toString(),
+                user.getName()+" removed item ("+itemHolder.getItem().getSpecificItemType()+") to the inventory",
+                user.getName(),
+                "--"+UUID.randomUUID().toString()
+        ));
+
         this.itemHolderList.remove(itemHolder);
     }
 
-    public void restockItem(String uid, double amount){
+    public void restockItem(String uid, double amount, User user){
         ItemHolder hold = this.getItemHolderByUid(uid);
         if(hold==null)
             throw new NullPointerException("Item is not in inventory");
+
+        addToLogList(new Activity(
+                "Inventory edit: Restock Item Amount",
+                LocalDate.now().toString(),
+                user.getName()+" restocked item ("+hold.getItem().getSpecificItemType()+") to the inventory (from: "+hold.getItemInStock()+" to: "+(hold.getItemInStock()+amount)+")",
+                user.getName(),
+                "+="+UUID.randomUUID().toString()
+        ));
+
         hold.updateItemInStock(amount,"add");
     }
 
-    public void sellItem(String uid, double amount){
+    public void reduceItemAmount(String uid, double amount, User user){
         ItemHolder hold = this.getItemHolderByUid(uid);
         if(hold==null)
             throw new NullPointerException("Item is not in inventory");
         if(hold.getItemInStock()<amount)
             throw new IllegalArgumentException("Amount to be deducted is more than in stock");
+
+        addToLogList(new Activity(
+                "Inventory edit: Reduce Item Amount",
+                LocalDate.now().toString(),
+                user.getName()+" restocked item ("+hold.getItem().getSpecificItemType()+") to the inventory (from: "+hold.getItemInStock()+" to: "+(hold.getItemInStock()-amount)+")",
+                user.getName(),
+                "-="+UUID.randomUUID().toString()
+        ));
+
         hold.updateItemInStock(amount,"subtract");
     }
 
-    public void replaceItemInInventory(String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit){
+    public void replaceItemInInventory(String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit, User user){
         ItemHolder itemHolder = this.getItemHolderByUid(oldUid);
 
         if (itemHolder==null)
             throw new NullPointerException("No such item exists");
         if (newItem==null)
             throw new NullPointerException("No such item passed");
+
         int i = this.itemHolderList.indexOf(itemHolder);
+
+        addToLogList(new Activity(
+                "Inventory edit: Replace Item",
+                LocalDate.now().toString(),
+                user.getName()+" replaced item "+itemHolder.getItem()+", with item "+ newItem.getSpecificItemType(),
+                user.getName(),
+                "+-"+UUID.randomUUID().toString()
+        ));
+
         this.itemHolderList.set(i, new ItemHolder(newUid, newItem, newUnit, newItemInStock, newLowStockLimit));
     }
 
-    public void setItemHolderInStock(String uid, double inStock){
+    public void setItemHolderInStock(String uid, double inStock, User user){
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
         if (itemHolder == null)
             throw new NullPointerException("No such item exists");
         if (inStock<0)
             throw new IllegalArgumentException("Item cannot have negative stock");
+
+        addToLogList(new Activity(
+                "Inventory edit: Set Item Stock",
+                LocalDate.now().toString(),
+                user.getName()+" set the item ("+ itemHolder.getItem().getSpecificItemType()+") stock from: "+itemHolder.getItemInStock()+", to: "+inStock,
+                user.getName(),
+                "+-"+UUID.randomUUID().toString()
+        ));
+
         itemHolder.updateItemInStock(inStock, "override");
     }
 
-    public void setItemHolderLowInStock(String uid, double inStock){
+    public void setItemHolderLowInStock(String uid, double inStock, User user){
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
         if (itemHolder==null)
             throw new NullPointerException("No such item exists");
         if (inStock<0)
             throw new IllegalArgumentException("Limit cannot be in negative");
+
+        addToLogList(new Activity(
+                "Inventory edit: Set Item Stock",
+                LocalDate.now().toString(),
+                user.getName()+" set the low stock limit of item ("+ itemHolder.getItem().getSpecificItemType()+") from: "+itemHolder.getLowStockLimit()+", to: "+inStock,
+                user.getName(),
+                "+-"+UUID.randomUUID().toString()
+        ));
 
         itemHolder.setLowStockLimit(inStock);
     }
@@ -121,5 +195,105 @@ public class Inventory {
             }
         }
 
+    }
+
+    public double getPrice(String uid) {
+        ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if(itemHolder == null || itemHolder.getItem() == null)
+            throw new IllegalArgumentException("No such items exist.");
+
+        Item item = itemHolder.getItem();
+
+        if(!(item instanceof Product)) {
+            throw new IllegalArgumentException("Not a product item");
+        }
+        return ((Product) item).getPrice();
+    }
+
+    public void setItemPrice(String uid, double newPrice, User user) {
+        ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if(itemHolder == null || itemHolder.getItem() == null)
+            throw new IllegalArgumentException("No such items exist.");
+        if(user==null)
+            throw new IllegalArgumentException("No user passed");
+
+        Item item = itemHolder.getItem();
+
+        if(item instanceof FarmItem)
+            throw new IllegalArgumentException("Farm items don't have prices");
+
+        if(item instanceof Product) {
+            if (newPrice < 0)
+                throw new IllegalArgumentException("Price cannot be less than zero.");
+
+            addToLogList(new Activity(
+                    "Inventory edit: Set Item Price",
+                    LocalDate.now().toString(),
+                    user.getName()+" set the item ("+ itemHolder.getItem().getSpecificItemType()+") price from: "+((Product) item).getPrice()+", to: "+ newPrice,
+                    user.getName(),
+                    "I$"+UUID.randomUUID().toString()
+            ));
+
+            ((Product) item).setPrice(newPrice);
+        }
+    }
+
+    public void setItemDescription(String uid, String desc, User user){
+        ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if(itemHolder==null || itemHolder.getItem()==null)
+            throw new IllegalArgumentException("No such item exists");
+        if(user==null)
+            throw new IllegalArgumentException("No user passed");
+
+        addToLogList(new Activity(
+                "Inventory edit: Set Item Description",
+                LocalDate.now().toString(),
+                user.getName()+" set the item ("+ itemHolder.getItem().getSpecificItemType()+") description from: "+itemHolder.getLowStockLimit()+", to: "+ desc,
+                user.getName(),
+                "ID"+UUID.randomUUID().toString()
+        ));
+
+        itemHolder.getItem().setDescription(desc);
+    }
+
+    public void setItemAlternativeName(String uid, String altName, User user){
+        ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if(itemHolder==null || itemHolder.getItem()==null)
+            throw new IllegalArgumentException("No such item exists");
+        if(user==null)
+            throw new IllegalArgumentException("No user passed");
+
+        addToLogList(new Activity(
+                "Inventory edit: Set Item Description",
+                LocalDate.now().toString(),
+                user.getName()+" set the item ("+ itemHolder.getItem().getSpecificItemType()+") alternative name from: "+itemHolder.getLowStockLimit()+", to: "+ altName,
+                user.getName(),
+                "IA"+UUID.randomUUID().toString()
+        ));
+
+        itemHolder.getItem().setAlternativeName(altName);
+    }
+
+    public void setItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, Database db){
+        if (item==null)
+            throw new NullPointerException("No such item");
+        if (this.getItemHolderByUid(uid)!=null)
+            throw new IllegalArgumentException("Item already in inventory");
+        if (Database.getInstance()==null)
+            throw new IllegalArgumentException("Database not found");
+
+        addToLogList(new Activity(
+                "Inventory edit: Load Item",
+                LocalDate.now().toString(),
+                "the database loaded item ("+item.getSpecificItemType()+") to the inventory",
+                "database",
+                "+?"+UUID.randomUUID().toString()
+        ));
+
+        this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));
     }
 }

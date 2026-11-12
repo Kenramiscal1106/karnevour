@@ -1,8 +1,8 @@
 package database.inventory;
 
-import database.products.GeneralProduct;
+import database.products.GeneralItem;
 import database.products.Item;
-import database.products.SpecificProduct;
+import database.products.SpecificItem;
 
 public class ItemHolder {
     private final Item item;
@@ -26,8 +26,8 @@ public class ItemHolder {
 
     // shortcuts
     public String getUid() {return this.uid;}
-    public SpecificProduct getItemSpecificType() {return this.getItem().getSpecificItemType();}
-    public GeneralProduct getItemGeneralType() {return this.getItemSpecificType().getGeneralProductType();}
+    public SpecificItem getItemSpecificType() {return this.getItem().getSpecificItemType();}
+    public GeneralItem getItemGeneralType() {return this.getItemSpecificType().getGeneralProductType();}
     public String getItemDescription() {return this.getItem().getDescription();}
     public String getItemAlternativeName() { return this.getItem().getAlternativeName(); }
 

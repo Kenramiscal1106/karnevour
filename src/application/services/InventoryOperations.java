@@ -20,7 +20,7 @@ public class InventoryOperations {
         protected Task<Void> createTask() {
             return new Task<>() {
                 protected Void call() throws Exception {
-                    database.loadFromDatabase(inventory);
+                    database.loadAllFromDatabase(inventory);
                     return null;
                 }
             };
@@ -95,7 +95,7 @@ public class InventoryOperations {
                         return null;
                     }
                     if (actionType.equalsIgnoreCase("sell")) {
-                        inventory.sellItem(uid, amount);
+                        inventory.reduceItemAmount(uid, amount);
                         return null;
                     }
                     if (actionType.equalsIgnoreCase("override")) {
