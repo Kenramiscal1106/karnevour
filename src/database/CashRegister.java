@@ -4,6 +4,8 @@ import database.logs.*;
 import database.inventory.Inventory;
 
 public class CashRegister {
+    private static CashRegister instance;
+
     private double currentBalance;
     private int totalSales;
     private Inventory inventory;
@@ -13,6 +15,11 @@ public class CashRegister {
         this.totalSales = totalSales;
         this.inventory = inventory;
     }
+
+    public static CashRegister getInstance() {
+        return instance;
+    }
+
 
     // getters
     public int getTotalSales() {
@@ -39,13 +46,13 @@ public class CashRegister {
         cashOut(inventory.getPrice(uid)*unit);
     }
 
-    public void cashIn(double amount) {
+    private void cashIn(double amount) {
         if (amount <= 0)
             throw new IllegalArgumentException("Amount must be greater than zero");
         this.currentBalance += amount;
     }
 
-    public void cashOut(double amount) {
+    private void cashOut(double amount) {
         if (amount > currentBalance)
             throw new IllegalArgumentException("Insufficient cash in drawer");
         this.currentBalance -= amount;
