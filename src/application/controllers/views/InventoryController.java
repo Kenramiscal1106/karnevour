@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 public class InventoryController implements Initializable {
-    private final InventoryService service = new InventoryService();
+    private final InventoryOperations service = new InventoryOperations();
 
     @FXML
     private VBox container;

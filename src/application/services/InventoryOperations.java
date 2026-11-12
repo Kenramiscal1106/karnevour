@@ -3,7 +3,6 @@ package application.services;
 import database.Database;
 import database.inventory.Inventory;
 //import database.inventory.ItemHolder;
-import database.inventory.ItemHolder;
 import database.products.Item;
 //import javafx.collections.FXCollections;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -12,11 +11,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-public class InventoryService {
-    //private Inventory inventory = new Inventory();
-
+public class InventoryOperations {
     private Inventory inventory = Inventory.getInstance();
-    // load only on startup
     public Service<Void> loadService = new Service<>() {
         private final Database database = new Database();
 
