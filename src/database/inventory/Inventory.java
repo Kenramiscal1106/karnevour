@@ -1,5 +1,6 @@
 package database.inventory;
 
+import database.Database;
 import database.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,12 +64,7 @@ public class Inventory {
 
     // ill add these for now
     public void addItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, User user){
-        if (item==null)
-            throw new NullPointerException("No such item");
-        if (this.getItemHolderByUid(uid).getItem()!=null)
-            throw new IllegalArgumentException("Item already in inventory");
-        if (user==null)
-            throw new NullPointerException("User passed is null");
+        itemEnsureExists(uid);
 
         addToLogList(new Activity(
                 "Inventory edit: Add Item",
@@ -282,19 +278,19 @@ public class Inventory {
         itemHolder.getItem().setAlternativeName(altName);
     }
 
-    public void setItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, String from){
+    public void setItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, Database db){
         if (item==null)
             throw new NullPointerException("No such item");
         if (this.getItemHolderByUid(uid)!=null)
             throw new IllegalArgumentException("Item already in inventory");
-        if (!from.equals("database"))
-            throw new IllegalArgumentException("Item not from database");
+        if (Database.getInstance()==null)
+            throw new IllegalArgumentException("Database not found");
 
         addToLogList(new Activity(
                 "Inventory edit: Load Item",
                 LocalDate.now().toString(),
-                from+" loaded item ("+item.getSpecificItemType()+") to the inventory",
-                from,
+                "the database loaded item ("+item.getSpecificItemType()+") to the inventory",
+                "database",
                 "+?"+UUID.randomUUID().toString()
         ));
 
