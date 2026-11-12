@@ -19,8 +19,9 @@ public class Database {
     private static final File ACTIVTIY_LIST_DEFAULT_FILE = new File("database/data/activitylist.kar");
     private static final File TRANSACTION_LIST_DEFAULT_FILE = new File("database/data/transactionlist.kar");
     private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("database/data/stafflist.kar");
+    private static final File CASH_REGISTER_DEFAULT_FILE = new File("database/data/cash-register.kar");
 
-    public synchronized void saveInventoryToDatabase(ObservableList<ItemHolder> itemHolderList) {
+    public void saveInventoryToDatabase(ObservableList<ItemHolder> itemHolderList) {
         if(itemHolderList==null)
             throw new IllegalArgumentException("No Inventory found");
 
@@ -62,7 +63,7 @@ public class Database {
 
     }
 
-    public synchronized void saveLogsToDatabase(ObservableList<Logable> activityList){
+    public void saveLogsToDatabase(ObservableList<Logable> activityList){
         if (activityList==null || activityList.isEmpty())
             throw new IllegalArgumentException("No logs found");
 
@@ -75,11 +76,7 @@ public class Database {
             writer.write("Name,Date,Description,Author,Uid");
             writer.newLine();
             activityList.forEach(log->{
-                String saveLine = log.getName()+","+
-                        log.getDate()+","+
-                        "\""+log.getDescription()+"\""+","+
-                        log.getAuthor()+","+
-                        log.getUid();
+                String saveLine = log.toCSVFormat();
                 try {
                     writer.write(saveLine);
                     writer.newLine();
@@ -92,7 +89,24 @@ public class Database {
         }
     }
 
-    public synchronized boolean saveUsersToDatabase(User user){
+    public void saveCashRegisterCredentials(CashRegister cashRegister){
+        if(CashRegister.getInstance()==null)
+            throw new NullPointerException("No instance of cash register");
+
+        File parentFolder = CASH_REGISTER_DEFAULT_FILE.getParentFile();
+        if(parentFolder != null && !parentFolder.exists())
+            parentFolder.mkdirs();
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(CASH_REGISTER_DEFAULT_FILE, false))) {
+            writer.write("CurrentBalance,TotalSales");
+            writer.newLine();
+            writer.write(cashRegister.getCurrentBalance()+","+cashRegister.getTotalSales());
+        }catch (IOException e){
+            throw new RuntimeException();
+        }
+    }
+
+    public boolean saveUsersToDatabase(User user){
         if (user==null)
             throw new IllegalArgumentException("No users found");
 
@@ -112,12 +126,7 @@ public class Database {
                 return false;
             }
 
-            writer.write(
-                    user.getClass().getSimpleName()+","+
-                            "\""+user.getName()+"\""+","+
-                            "\""+user.getUid()+"\""+","+
-                            "\""+user.getPassword()+"\""
-            );
+            writer.write(user.toCSVFormat());
             writer.newLine();
             return true;
         } catch (IOException e) {
@@ -125,7 +134,7 @@ public class Database {
         }
     }
 
-    public synchronized User loadUserFromDatabase(String name, String password) {
+    public User loadUserFromDatabase(String name, String password) {
         if(!USER_STAFF_LIST_DEFAULT_FILE.exists())
             return null;
 
@@ -134,7 +143,7 @@ public class Database {
             reader.readLine();
             while((line=reader.readLine())!=null){
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                if(rawText[1].equals(name) && rawText[3].equals(password))
+                if(removeQuotes(rawText[1]).equals(name) && removeQuotes(rawText[3]).equals(password))
                     switch(rawText[0]){
                         case "Admin":
                             return new Admin(removeQuotes(rawText[1]), removeQuotes(rawText[2]), removeQuotes(rawText[3]));
@@ -149,10 +158,7 @@ public class Database {
         return null;
     }
 
-    public synchronized void loadAllFromDatabase(Inventory inventory) throws FileNotFoundException {
-        /*
-        should work for now >w<
-         */
+    public void loadAllFromDatabase(Inventory inventory, CashRegister cashRegister) throws FileNotFoundException {
         if(ITEMHOLDER_LIST_DEFAULT_FILE.exists())
             loadItemHolder(inventory);
 
@@ -163,10 +169,26 @@ public class Database {
                 loadLogs(inventory, type);
         }
 
+        if(CashRegister.getInstance()!=null)
+            loadCashRegisterCredentials(cashRegister);
+
     }
 
-    private synchronized void loadLogs(Inventory inventory, String logType) {
+    private void loadCashRegisterCredentials(CashRegister cashRegister){
+        try (BufferedReader reader = new BufferedReader(new FileReader(CASH_REGISTER_DEFAULT_FILE))){
+            reader.readLine();
+            String rawLine = reader.readLine();
+            if(rawLine!=null && !rawLine.isBlank()){
+                String[] line = rawLine.split(",");
+                cashRegister.setCurrentBalance(Double.parseDouble(line[0]));
+                cashRegister.setTotalSales(Double.parseDouble(line[1]));
+            }
+        } catch (IOException e){
+            throw new RuntimeException();
+        }
+    }
 
+    private void loadLogs(Inventory inventory, String logType) {
         String line;
         File defaultFile = logType.equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
         try(BufferedReader reader = new BufferedReader(new FileReader(defaultFile))){
@@ -183,17 +205,17 @@ public class Database {
         }
     }
 
-    private synchronized void loadItemHolder(Inventory inventory){
+    private void loadItemHolder(Inventory inventory){
         try(BufferedReader reader = new BufferedReader(new FileReader(ITEMHOLDER_LIST_DEFAULT_FILE))){
             String line;
             reader.readLine();
             while((line=reader.readLine())!=null){
                 if(line.isBlank())
                     continue;
-                SpecificProduct enumConst = SpecificProduct.NOT_FOUND;
+                SpecificItem enumConst = SpecificItem.NOT_FOUND;
                 String[] rawText = line.split((",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
                 try{
-                    enumConst = SpecificProduct.valueOf(rawText[2]);
+                    enumConst = SpecificItem.valueOf(rawText[2]);
                 } catch (IllegalArgumentException e){
                 }
                 Item rawItem = getRawItem(rawText, enumConst);
@@ -204,7 +226,7 @@ public class Database {
         }
     }
 
-    private static Item getRawItem(String[] rawText, SpecificProduct enumConst) {
+    private static Item getRawItem(String[] rawText, SpecificItem enumConst) {
         Item rawItem = null;
         if (rawText[0].equals("Product")){
             rawItem = new Product(
@@ -225,7 +247,7 @@ public class Database {
 
     private static boolean userExists(String uid) throws IOException {
         if(!USER_STAFF_LIST_DEFAULT_FILE.exists())
-            throw new FileNotFoundException("File not found");
+           return false;
 
         try(BufferedReader reader = new BufferedReader(new FileReader(USER_STAFF_LIST_DEFAULT_FILE))) {
             String line;

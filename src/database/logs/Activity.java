@@ -21,4 +21,11 @@ public class Activity implements Logable {
     public String getDescription()  {   return this.description;    }
     public String getAuthor()       {   return this.author;  }
     public String getUid()          {   return this.uid;    }
+    public String toCSVFormat() {
+        return  this.getName()+","+
+                this.getDate()+","+
+                "\""+this.getDescription()+"\""+","+
+                this.getAuthor()+","+
+                this.getUid();
+    }
 }

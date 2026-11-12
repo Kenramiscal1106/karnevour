@@ -2,6 +2,10 @@ package database;
 
 import database.logs.*;
 import database.inventory.Inventory;
+import database.user.User;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 public class CashRegister {
     private static CashRegister instance;
@@ -33,17 +37,46 @@ public class CashRegister {
     }
 
     // methods
-    public void sellItem(String uid, double amount, double payment) {
-
-        if(payment < inventory.getPrice(uid)*amount)
+    // TODO: make it readable, unit is in string
+    // CHANGES: added exception handling, also inventory editing, unless sa services sya lalagay
+    public void sellItem(String uid, double unit, double payment, User user) {
+        if(inventory.getItemHolderByUid(uid)==null)
+            throw new NullPointerException("Item does not exist");
+        if(unit<=0)
+            throw new IllegalArgumentException("Item quantity must be greater than 0");
+        if(payment < inventory.getPrice(uid)*unit)
             throw new IllegalArgumentException("The buyer does not have enough cash.");
 
+        inventory.addToLogList(new Transaction(
+                "Transaction Processed: Item Sold",
+                LocalDate.now().toString(),
+                "Item ("+inventory.getItemById(uid).getSpecificItemType()+") is sold with "+unit+" sold, by employee "+user.getName()+", for "+(inventory.getPrice(uid)*unit),
+                user.getName(),
+                "+S"+UUID.randomUUID().toString()
+        ));
+
+        inventory.reduceItemAmount(uid,unit,user);
         cashIn(payment);
         totalSales++;
     }
 
-    public void refundItem(String uid, double amount) {
-        cashOut(inventory.getPrice(uid)*amount);
+    // TODO: again, unit is string
+    // CHANGES: added exception handling, also inventory editing, unless sa services sya lalagay
+    public void refundItem(String uid, double unit, User user) {
+        if (inventory.getItemHolderByUid(uid)==null)
+            throw new NullPointerException("Item does not exist");
+        if (unit<=0)
+            throw new IllegalArgumentException("Refund quantity must be greater than 0");
+
+        inventory.addToLogList(new Transaction(
+                "Transaction Processed: Item Refund",
+                LocalDate.now().toString(),
+                "Item ("+inventory.getItemById(uid).getSpecificItemType()+") is refunded with employee "+user.getName()+"\'s discretion",
+                user.getName(),
+                "+R"+UUID.randomUUID().toString()
+        ));
+
+        cashOut(inventory.getPrice(uid)*unit);
     }
 
     private void cashIn(double amount) {
@@ -64,10 +97,22 @@ public class CashRegister {
         if (amount <= 0)
             throw new IllegalArgumentException("Donation amount must be greater than zero.");
 
+        inventory.addToLogList(new Transaction(
+                "Transaction Processed: Donation",
+                LocalDate.now().toString(),
+                name + " donated "+amount,
+                name,
+                "+D"+UUID.randomUUID().toString()
+        ));
+
         cashIn(amount);
 // maybe add donor name tas log din
     }
 
+    void setCurrentBalance(double currentBalance) {currentBalance=currentBalance;}
+    void setTotalSales(double totalSales) {totalSales=totalSales;}
+
+//    wtf is this
 //    public void addToLogList(Logable log){
 //        switch (log) {
 //            case null -> throw new NullPointerException("Log does not exist");

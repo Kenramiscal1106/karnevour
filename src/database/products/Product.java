@@ -3,13 +3,13 @@ package database.products;
 public class Product extends Item {
     protected double price;
 
-    public Product(SpecificProduct specificProductType, String description, double price, String alternativeName) {
-        super(specificProductType, description, alternativeName);
+    public Product(SpecificItem specificItemType, String description, double price, String alternativeName) {
+        super(specificItemType, description, alternativeName);
         this.price = price;
     }
 
-    public Product(SpecificProduct specificProductType, String description, double price) {
-        super(specificProductType, description);
+    public Product(SpecificItem specificItemType, String description, double price) {
+        super(specificItemType, description);
         this.price = price;
     }
 
