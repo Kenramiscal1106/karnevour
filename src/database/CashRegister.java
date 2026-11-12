@@ -26,9 +26,17 @@ public class CashRegister {
     }
 
     // methods
-    public void sellItem(String uid, double amount, double totalPrice) {
+    public void sellItem(String uid, double unit, double payment) {
+
+        if(payment < inventory.getPrice(uid)*unit)
+            throw new IllegalArgumentException("The buyer does not have enough cash.");
+
+        cashIn(payment);
+        totalSales++;
     }
-    public void refundItem(String uid, double amount, double refundAmount) {
+
+    public void refundItem(String uid, double unit) {
+        cashOut(inventory.getPrice(uid)*unit);
     }
 
     public void cashIn(double amount) {
@@ -37,34 +45,28 @@ public class CashRegister {
         this.currentBalance += amount;
     }
 
-    public void cashOut(double amount, String reason) {
+    public void cashOut(double amount) {
         if (amount > currentBalance)
             throw new IllegalArgumentException("Insufficient cash in drawer");
         this.currentBalance -= amount;
     }
 
-    protected double computeBalance() {
-        double computedAmount = 0;
-        return computedAmount;
-    }
-
-    public void donateMoney(double amount) {
-        if (amount <= 0) {
+    // help me here
+    // TODO: add logs for this
+    public void recieveDonateMoney(String name, double amount) {
+        if (amount <= 0)
             throw new IllegalArgumentException("Donation amount must be greater than zero.");
-        }
 
-        this.currentBalance += amount;
-        String description = "Donation received";
-
-        // maybe add donor name tas log din
+        cashIn(amount);
+// maybe add donor name tas log din
     }
 
-    public void addToLogList(Logable log){
+//    public void addToLogList(Logable log){
 //        switch (log) {
 //            case null -> throw new NullPointerException("Log does not exist");
 //            case Activity activity -> this.activityList.add(activity);
 //            case Transaction transaction -> this.transactionList.add(transaction);
 //            default -> {
 //            }
-    }
+//    }
 }

@@ -122,4 +122,33 @@ public class Inventory {
         }
 
     }
+
+    public double getPrice(String uid) {
+        ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if(itemHolder == null || itemHolder.getItem() == null)
+            throw new IllegalArgumentException("No such items exist.");
+
+        Item item = itemHolder.getItem();
+
+        if(!(item instanceof Product)) {
+            throw new IllegalArgumentException("Not a product item");
+        }
+        return ((Product) item).getPrice();
+    }
+
+    public void setPrice(String uid, double newPrice) {
+        ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if(itemHolder == null || itemHolder.getItem() == null)
+            throw new IllegalArgumentException("No such items exist.");
+
+        Item item = itemHolder.getItem();
+
+        if(!(item instanceof Product)) {
+            if (newPrice < 0)
+                throw new IllegalArgumentException("Price cannot be less than zero.");
+            ((Product) item).setPrice(newPrice);
+        }
+    }
 }
