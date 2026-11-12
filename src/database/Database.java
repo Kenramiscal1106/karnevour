@@ -15,23 +15,23 @@ import java.io.*;
 
 public class Database {
 
-    private static final File ITEMHOLDER_MAP_DEFAULT_FILE = new File("data/itemholder.kar");
-    private static final File ACTIVTIY_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
-    private static final File TRANSACTION_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
-    private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("data/stafflist.kar");
+    private static final File ITEMHOLDER_LIST_DEFAULT_FILE = new File("database/data/itemholder.kar");
+    private static final File ACTIVTIY_LIST_DEFAULT_FILE = new File("database/data/activitylist.kar");
+    private static final File TRANSACTION_LIST_DEFAULT_FILE = new File("database/data/transactionlist.kar");
+    private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("database/data/stafflist.kar");
 
     public synchronized void saveInventoryToDatabase(ObservableList<ItemHolder> itemHolderList) {
         if(itemHolderList==null)
             throw new IllegalArgumentException("No Inventory found");
 
-        File parentFolder = ITEMHOLDER_MAP_DEFAULT_FILE.getParentFile();
+        File parentFolder = ITEMHOLDER_LIST_DEFAULT_FILE.getParentFile();
         if(parentFolder != null && !parentFolder.exists())
             parentFolder.mkdirs();
 
         /*
         big line of code yup, cant believe this will be the same for users and logs
          */
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(ITEMHOLDER_MAP_DEFAULT_FILE, false))){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(ITEMHOLDER_LIST_DEFAULT_FILE, false))){
             writer.write("Class,Uid,SpecificItemType,Unit,Description,{Price},AlternativeName,ItemInStock,LowerLimitStock");
             writer.newLine();
             itemHolderList.forEach(( itemHolder)->{
@@ -97,20 +97,14 @@ public class Database {
             throw new IllegalArgumentException("No users found");
 
         File parentFolder = USER_STAFF_LIST_DEFAULT_FILE.getParentFile();
-        boolean needHeader = USER_STAFF_LIST_DEFAULT_FILE.exists() || USER_STAFF_LIST_DEFAULT_FILE.length()==0;
+        boolean needHeader = !USER_STAFF_LIST_DEFAULT_FILE.exists() || USER_STAFF_LIST_DEFAULT_FILE.length()==0;
         if(parentFolder != null && !parentFolder.exists())
             parentFolder.mkdirs();
-
-        String session = "offline";
-        switch (operation.trim().toLowerCase()){
-            case "signin" -> session = "online";
-            case "logout" -> session = "offline";
-        }
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(USER_STAFF_LIST_DEFAULT_FILE, true))){
 
             if(needHeader){
-                writer.write("Class,Name,Uid,Password,Login_Status");
+                writer.write("Class,Name,Uid,Password");
                 writer.newLine();
             }
 
@@ -122,8 +116,7 @@ public class Database {
                     user.getClass().getSimpleName()+","+
                             user.getName()+","+
                             user.getUid()+","+
-                            user.getPassword()+
-                            session
+                            user.getPassword()
             );
             writer.newLine();
             return true;
@@ -141,7 +134,7 @@ public class Database {
             reader.readLine();
             while((line=reader.readLine())!=null){
                 String[] rawText = line.split(",");
-                if(rawText[1].equals(name) && rawText[3].equals(password) && rawText[4].equals("offline"))
+                if(rawText[1].equals(name) && rawText[3].equals(password))
                     switch(rawText[0]){
                         case "Admin":
                             return new Admin(rawText[1], rawText[2], rawText[3]);
@@ -156,38 +149,42 @@ public class Database {
         return null;
     }
 
-    public synchronized void loadFromDatabase(Inventory inventory) throws FileNotFoundException {
+    public synchronized void loadAllFromDatabase(Inventory inventory) throws FileNotFoundException {
         /*
         should work for now >w<
          */
+        if(ITEMHOLDER_LIST_DEFAULT_FILE.exists())
+            loadItemHolder(inventory);
 
-        loadItemHolder(inventory);
-        loadLogs(inventory);
+        String[] logs = {"Activity", "Transaction"};
+        for(String type: logs) {
+            File defaultFile = type.equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
+            if(defaultFile.exists())
+                loadLogs(inventory, type);
+        }
 
     }
 
-    private synchronized void loadLogs(Inventory inventory) {
-        String[] logs = {"Activity", "Transaction"};
+    private synchronized void loadLogs(Inventory inventory, String logType) {
+
         String line;
-        for (String log: logs){
-            File defaultFile = log.equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
-            try(BufferedReader reader = new BufferedReader(new FileReader(defaultFile))){
-                reader.readLine();
-                while((line=reader.readLine())!=null){
-                    String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                    Logable rawLog = log.equals("Activity")? new Activity(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]): new Transaction(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]);
-                    inventory.addToLogList(rawLog);
-                }
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        File defaultFile = logType.equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
+        try(BufferedReader reader = new BufferedReader(new FileReader(defaultFile))){
+            reader.readLine();
+            while((line=reader.readLine())!=null){
+                if(line.isBlank()) continue;
+                String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                Logable rawLog = logType.equals("Activity")? new Activity(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]): new Transaction(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]);
+                inventory.addToLogList(rawLog);
             }
-        }
 
-   }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private synchronized void loadItemHolder(Inventory inventory){
-        try(BufferedReader reader = new BufferedReader(new FileReader(ITEMHOLDER_MAP_DEFAULT_FILE))){
+        try(BufferedReader reader = new BufferedReader(new FileReader(ITEMHOLDER_LIST_DEFAULT_FILE))){
             String line;
             reader.readLine();
             while((line=reader.readLine())!=null){
@@ -231,7 +228,7 @@ public class Database {
                 if(line.isEmpty())
                     continue;
                 String[] rawText = line.split(",");
-                if(rawText.length==3 && rawText[2].equals(uid.trim()))
+                if(rawText.length>=4 && rawText[2].equals(uid.trim()))
                     return true;
             }
         } catch(IOException e) {

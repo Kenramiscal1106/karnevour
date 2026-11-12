@@ -2,7 +2,9 @@ package application.services;
 
 import database.Database;
 import database.inventory.Inventory;
+//import database.inventory.ItemHolder;
 import database.products.Item;
+//import javafx.collections.FXCollections;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,8 +12,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 public class InventoryOperations {
-    protected static Inventory inventory = Inventory.getInstance(); 
-
+    private Inventory inventory = Inventory.getInstance();
     public Service<Void> loadService = new Service<>() {
         private final Database database = new Database();
 
@@ -19,126 +20,171 @@ public class InventoryOperations {
         protected Task<Void> createTask() {
             return new Task<>() {
                 protected Void call() throws Exception {
-                    database.loadFromDatabase(inventory);
+                    database.loadAllFromDatabase(inventory);
                     return null;
                 }
             };
         }
     };
+
 
     public Service<Void> addItemService = new Service<Void>() {
-        private final SimpleStringProperty uid = new SimpleStringProperty();
         private final SimpleObjectProperty<Item> item = new SimpleObjectProperty<>();
+        private final SimpleDoubleProperty stock = new SimpleDoubleProperty();
+
         private final SimpleStringProperty unit = new SimpleStringProperty();
-        private final SimpleDoubleProperty itemInStock = new SimpleDoubleProperty();
-        private final SimpleDoubleProperty lowStockLimit = new SimpleDoubleProperty();
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    inventory.addItem(uid.get(), item.get(), unit.get(), itemInStock.get(), lowStockLimit.get());
-                    return null;
-                }
-            };
-        }
-    };
-
-    public Service<Void> removeItemService = new Service<Void>() {
+        private final SimpleDoubleProperty limit = new SimpleDoubleProperty();
         private final SimpleStringProperty uid = new SimpleStringProperty();
 
+
         @Override
         protected Task<Void> createTask() {
-            return new Task<Void>() {
+            return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.removeItemInInventory(String.valueOf(uid));
+                    inventory.addItem(uid.get(), item.get(), unit.get(), stock.get(), limit.get());
                     return null;
                 }
             };
         }
+
     };
+
+    public class removeItemService extends Service<Void> {
+        private final Inventory inventory;
+        private final String uid;
+
+        public removeItemService(Inventory inventory, String uid) {
+            this.inventory = inventory;
+            this.uid = uid;
+        }
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    inventory.removeItemInInventory(uid);
+                    return null;
+                }
+            };
+        }
+    }
 
     // general update stock service
-    public Service<Void> updateStockService = new Service<Void>() {
-        private final SimpleStringProperty uid = new SimpleStringProperty();
-        private final SimpleDoubleProperty amount = new SimpleDoubleProperty();
-        private final SimpleStringProperty actionType = new SimpleStringProperty();
+    public class updateStockService extends Service<Void> {
+        private final Inventory inventory;
+        private final String uid;
+        private final double amount;
+        private final String actionType;
+
+        public updateStockService(Inventory inventory, String uid, double amount, String actionType) {
+            this.inventory = inventory;
+            this.uid = uid;
+            this.amount = amount;
+            this.actionType = actionType;
+        }
 
         @Override
         protected Task<Void> createTask() {
-            return new Task<Void>() {
+            return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-                    if (actionType.get().equalsIgnoreCase("restock")) {
-                        inventory.restockItem(uid.get(), amount.get());
+                    if (actionType.equalsIgnoreCase("restock")) {
+                        inventory.restockItem(uid, amount);
                         return null;
                     }
-                    if (actionType.get().equalsIgnoreCase("sell")) {
-                        inventory.sellItem(uid.get(), amount.get());
+                    if (actionType.equalsIgnoreCase("sell")) {
+                        inventory.reduceItemAmount(uid, amount);
                         return null;
                     }
-                    if (actionType.get().equalsIgnoreCase("override")) {
-                        inventory.setItemHolderInStock(uid.get(), amount.get());
+                    if (actionType.equalsIgnoreCase("override")) {
+                        inventory.setItemHolderInStock(uid, amount);
                         return null;
                     }
                     throw new IllegalArgumentException("No stock type");
+//                    return null;
                 }
             };
         }
-    };
+    }
 
-    public Service<Void> setLowStockService = new Service<Void>() {
-        private final SimpleStringProperty uid = new SimpleStringProperty();
-        private final SimpleDoubleProperty inStock = new SimpleDoubleProperty();
+    public class setLowStockService extends Service<Void> {
+        private final Inventory inventory;
+        private final String uid;
+        private final double inStock;
+
+        public setLowStockService(Inventory inventory, String uid, double inStock) {
+            this.inventory = inventory;
+            this.uid = uid;
+            this.inStock = inStock;
+        }
 
         @Override
         protected Task<Void> createTask() {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.setItemHolderLowInStock(uid.get(), inStock.get());
+                    inventory.setItemHolderLowInStock(uid, inStock);
                     return null;
                 }
             };
         }
-    };
+    }
 
-    public Service<Void> setInStockService = new Service<Void>() {
-        private final SimpleStringProperty uid = new SimpleStringProperty();
-        private final SimpleDoubleProperty inStock = new SimpleDoubleProperty();
+    public class setInStockService extends Service<Void> {
+        private final Inventory inventory;
+        private final String uid;
+        private final double inStock;
+
+        public setInStockService(Inventory inventory, String uid, double inStock) {
+            this.inventory = inventory;
+            this.uid = uid;
+            this.inStock = inStock;
+        }
 
         @Override
         protected Task<Void> createTask() {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.setItemHolderInStock(uid.get(), inStock.get());
+                    inventory.setItemHolderInStock(uid, inStock);
                     return null;
                 }
             };
         }
-    };
+    }
 
-    public Service<Void> replaceInventoryItemService = new Service<Void>() {
-        private final SimpleObjectProperty<Item> newItem = new SimpleObjectProperty<>();
+    public class replaceInventoryItemService extends Service<Void> {
+        private final Inventory inventory;
+        private final Item newItem;
 
-        private final SimpleStringProperty newUnit = new SimpleStringProperty();
-        private final SimpleStringProperty oldUid = new SimpleStringProperty();
-        private final SimpleStringProperty newUid = new SimpleStringProperty();
-        private final SimpleDoubleProperty newItemInStock = new SimpleDoubleProperty();
-        private final SimpleDoubleProperty newLowStockLimit = new SimpleDoubleProperty();
+        private final String newUnit;
+        private final String oldUid;
+        private final String newUid;
+        private final double newItemInStock;
+        private final double newLowStockLimit;
+
+        public replaceInventoryItemService(Inventory inventory, String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit) {
+            this.inventory = inventory;
+            this.oldUid = oldUid;
+            this.newItem = newItem;
+            this.newItemInStock = newItemInStock;
+            this.newUid = newUid;
+            this.newUnit = newUnit;
+            this.newLowStockLimit = newLowStockLimit;
+        }
 
         @Override
         protected Task<Void> createTask() {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.replaceItemInInventory(oldUid.get(), newUid.get(), newItem.get(), newUnit.get(), newItemInStock.get(), newLowStockLimit.get());
+                    inventory.replaceItemInInventory(oldUid, newUid, newItem, newUnit, newItemInStock, newLowStockLimit);
                     return null;
                 }
             };
         }
-    };
+    }
+
 }
