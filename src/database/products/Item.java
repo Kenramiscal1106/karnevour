@@ -12,7 +12,7 @@ public abstract class Item {
         this.specificProduct = specificProduct;
         this.imagePath = new File("/pictures/" + alternativeName +".jpg").exists() ? new File("/pictures/" + alternativeName +".jpg") : new File("/pictures/" + specificProduct +".jpg");
         this.description = description;
-        this.alternativeName = alternativeName;
+        this.alternativeName = alternativeName.trim();
     }
 
     Item(SpecificProduct specificProduct, String description) {

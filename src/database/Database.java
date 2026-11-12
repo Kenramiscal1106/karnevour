@@ -63,10 +63,10 @@ public class Database {
     }
 
     public synchronized void saveLogsToDatabase(ObservableList<Logable> activityList){
-        if (activityList==null)
+        if (activityList==null || activityList.isEmpty())
             throw new IllegalArgumentException("No logs found");
 
-        File defaultFile = activityList.getFirst().getClass().getName().equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
+        File defaultFile = activityList.getFirst().getClass().getSimpleName().equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
         File parentFolder = defaultFile.getParentFile();
         if(parentFolder != null && !parentFolder.exists())
             parentFolder.mkdirs();
@@ -92,7 +92,7 @@ public class Database {
         }
     }
 
-    public synchronized boolean saveUsersToDatabase(User user, String operation){
+    public synchronized boolean saveUsersToDatabase(User user){
         if (user==null)
             throw new IllegalArgumentException("No users found");
 
@@ -114,9 +114,9 @@ public class Database {
 
             writer.write(
                     user.getClass().getSimpleName()+","+
-                            user.getName()+","+
-                            user.getUid()+","+
-                            user.getPassword()
+                            "\""+user.getName()+"\""+","+
+                            "\""+user.getUid()+"\""+","+
+                            "\""+user.getPassword()+"\""
             );
             writer.newLine();
             return true;
@@ -133,15 +133,15 @@ public class Database {
             String line;
             reader.readLine();
             while((line=reader.readLine())!=null){
-                String[] rawText = line.split(",");
+                String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 if(rawText[1].equals(name) && rawText[3].equals(password))
                     switch(rawText[0]){
                         case "Admin":
-                            return new Admin(rawText[1], rawText[2], rawText[3]);
+                            return new Admin(removeQuotes(rawText[1]), removeQuotes(rawText[2]), removeQuotes(rawText[3]));
 
                         case "Clerk":
-                            return new Clerk(rawText[1], rawText[2], rawText[3]);
-                    }
+                            return new Clerk(removeQuotes(rawText[1]), removeQuotes(rawText[2]), removeQuotes(rawText[3]));
+                }
             }
         }catch (IOException e){
             throw new RuntimeException(e);
@@ -190,11 +190,14 @@ public class Database {
             while((line=reader.readLine())!=null){
                 if(line.isBlank())
                     continue;
-                SpecificProduct enumConst = null;
+                SpecificProduct enumConst = SpecificProduct.NOT_FOUND;
                 String[] rawText = line.split((",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
-                enumConst = SpecificProduct.valueOf(rawText[2]);
+                try{
+                    enumConst = SpecificProduct.valueOf(rawText[2]);
+                } catch (IllegalArgumentException e){
+                }
                 Item rawItem = getRawItem(rawText, enumConst);
-                inventory.addItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
+                inventory.setItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]), "database");
             }
         } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);
@@ -221,14 +224,17 @@ public class Database {
     }
 
     private static boolean userExists(String uid) throws IOException {
+        if(!USER_STAFF_LIST_DEFAULT_FILE.exists())
+            throw new FileNotFoundException("File not found");
+
         try(BufferedReader reader = new BufferedReader(new FileReader(USER_STAFF_LIST_DEFAULT_FILE))) {
             String line;
             reader.readLine();
             while((line = reader.readLine())!=null){
                 if(line.isEmpty())
                     continue;
-                String[] rawText = line.split(",");
-                if(rawText.length>=4 && rawText[2].equals(uid.trim()))
+                String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                if(rawText.length>=4 && removeQuotes(rawText[2]).equals(uid))
                     return true;
             }
         } catch(IOException e) {
@@ -237,4 +243,7 @@ public class Database {
         return false;
     }
 
+    private static String removeQuotes(String rawText){
+        return rawText.substring(1,rawText.length()-1);
+    }
 }

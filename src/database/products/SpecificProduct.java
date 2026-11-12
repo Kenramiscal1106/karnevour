@@ -33,8 +33,10 @@ public enum SpecificProduct {
     EGG_SMALL(GeneralProduct.OTHER),
     EGG_MEDIUM(GeneralProduct.OTHER),
     EGG_LARGE(GeneralProduct.OTHER),
-    MILK_COW(GeneralProduct.OTHER);
+    MILK_COW(GeneralProduct.OTHER),
 
+    //DEFAULTNINI
+    NOT_FOUND(GeneralProduct.OTHER);
 
     private final GeneralProduct generalItem;
 
