@@ -33,17 +33,17 @@ public class CashRegister {
     }
 
     // methods
-    public void sellItem(String uid, double unit, double payment) {
+    public void sellItem(String uid, double amount, double payment) {
 
-        if(payment < inventory.getPrice(uid)*unit)
+        if(payment < inventory.getPrice(uid)*amount)
             throw new IllegalArgumentException("The buyer does not have enough cash.");
 
         cashIn(payment);
         totalSales++;
     }
 
-    public void refundItem(String uid, double unit) {
-        cashOut(inventory.getPrice(uid)*unit);
+    public void refundItem(String uid, double amount) {
+        cashOut(inventory.getPrice(uid)*amount);
     }
 
     private void cashIn(double amount) {

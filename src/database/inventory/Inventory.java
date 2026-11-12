@@ -36,13 +36,22 @@ public class Inventory {
     }
 
     // shortcuts
+
+    private ItemHolder itemEnsureExists(String uid) {
+        ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if(itemHolder == null || itemHolder.getItem() == null)
+            throw new IllegalArgumentException("No such items exist.");
+
+        return itemHolder;
+    }
+
     public ItemHolder getItemHolderByUid(String uid){
         return this.itemHolderList.stream().filter(itemHolder -> itemHolder.getUid().equals(uid)).findFirst().orElse(null);
     }
 
     public Item getItemById(String uid){
         ItemHolder holder = getItemHolderByUid(uid);
-
         return holder==null ? null : holder.getItem();
     }
 
@@ -57,34 +66,24 @@ public class Inventory {
     }
 
     public void removeItemInInventory(String uid){
-        ItemHolder itemHolder = this.getItemHolderByUid(uid);
-        if (itemHolder==null)
-            throw new NullPointerException("Item already not in inventory");
-
+        ItemHolder itemHolder = itemEnsureExists(uid);
         this.itemHolderList.remove(itemHolder);
     }
 
     public void restockItem(String uid, double amount){
-        ItemHolder hold = this.getItemHolderByUid(uid);
-        if(hold==null)
-            throw new NullPointerException("Item is not in inventory");
+        ItemHolder hold = itemEnsureExists(uid);
         hold.updateItemInStock(amount,"add");
     }
 
     public void sellItem(String uid, double amount){
-        ItemHolder hold = this.getItemHolderByUid(uid);
-        if(hold==null)
-            throw new NullPointerException("Item is not in inventory");
+        ItemHolder hold = itemEnsureExists(uid);
         if(hold.getItemInStock()<amount)
             throw new IllegalArgumentException("Amount to be deducted is more than in stock");
         hold.updateItemInStock(amount,"subtract");
     }
 
     public void replaceItemInInventory(String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit){
-        ItemHolder itemHolder = this.getItemHolderByUid(oldUid);
-
-        if (itemHolder==null)
-            throw new NullPointerException("No such item exists");
+        ItemHolder itemHolder = itemEnsureExists(oldUid);
         if (newItem==null)
             throw new NullPointerException("No such item passed");
         int i = this.itemHolderList.indexOf(itemHolder);
@@ -92,20 +91,14 @@ public class Inventory {
     }
 
     public void setItemHolderInStock(String uid, double inStock){
-        ItemHolder itemHolder = this.getItemHolderByUid(uid);
-
-        if (itemHolder == null)
-            throw new NullPointerException("No such item exists");
+        ItemHolder itemHolder = itemEnsureExists(uid);
         if (inStock<0)
             throw new IllegalArgumentException("Item cannot have negative stock");
         itemHolder.updateItemInStock(inStock, "override");
     }
 
     public void setItemHolderLowInStock(String uid, double inStock){
-        ItemHolder itemHolder = this.getItemHolderByUid(uid);
-
-        if (itemHolder==null)
-            throw new NullPointerException("No such item exists");
+        ItemHolder itemHolder = itemEnsureExists(uid);
         if (inStock<0)
             throw new IllegalArgumentException("Limit cannot be in negative");
 
@@ -124,10 +117,7 @@ public class Inventory {
     }
 
     public double getPrice(String uid) {
-        ItemHolder itemHolder = this.getItemHolderByUid(uid);
-
-        if(itemHolder == null || itemHolder.getItem() == null)
-            throw new IllegalArgumentException("No such items exist.");
+        ItemHolder itemHolder = itemEnsureExists(uid);
 
         Item item = itemHolder.getItem();
 
@@ -138,17 +128,16 @@ public class Inventory {
     }
 
     public void setPrice(String uid, double newPrice) {
-        ItemHolder itemHolder = this.getItemHolderByUid(uid);
+        if (newPrice < 0)
+            throw new IllegalArgumentException("Price cannot be less than zero.");
 
-        if(itemHolder == null || itemHolder.getItem() == null)
-            throw new IllegalArgumentException("No such items exist.");
-
+        ItemHolder itemHolder = itemEnsureExists(uid);
         Item item = itemHolder.getItem();
 
-        if(!(item instanceof Product)) {
-            if (newPrice < 0)
-                throw new IllegalArgumentException("Price cannot be less than zero.");
+        if(item instanceof Product) {
             ((Product) item).setPrice(newPrice);
+        }   else {
+            throw new IllegalArgumentException("Not a product item");
         }
     }
 }
