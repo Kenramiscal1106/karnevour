@@ -24,6 +24,11 @@
     -fx-text-fill: #43020F;
 }
 
+.navigation-item .icon-container {
+    -fx-background-color: transparent;
+    transition: -fx-background-color 1s;
+}
+
 .navigation-item.navigation-item--active .icon-container {
     -fx-background-color: #FFA3B5;
 }
@@ -73,4 +78,9 @@
 
 .scroll-pane.main-content .viewport {
     -fx-background-color: #FFE4E4;
+}
+
+.logout-button {
+    -fx-background-color: #F0004C;
+    -fx-background-radius: 12;
 }

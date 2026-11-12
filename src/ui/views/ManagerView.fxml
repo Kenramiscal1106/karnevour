@@ -9,12 +9,12 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="application.controllers.views.ManagerController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F1F1F1">
     <left>
         <fx:include source="../components/ManagerNavigationRail.fxml" BorderPane.alignment="CENTER"/>
     </left>
     <center>
-        <ScrollPane fx:id="content" styleClass="main-content" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER"
+        <ScrollPane fx:id="content" styleClass="main-content" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER"
                     fitToWidth="true">
             <fx:include source="TestView.fxml"/>
         </ScrollPane>

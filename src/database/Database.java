@@ -19,6 +19,11 @@ public class Database {
     private static final File ACTIVTIY_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
     private static final File TRANSACTION_LIST_DEFAULT_FILE = new File("data/activitylist.kar");
     private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("data/stafflist.kar");
+    private static final Database instance = new Database();
+
+    public static Database getInstance() {
+        return instance;
+    }
 
     public synchronized void saveInventoryToDatabase(ObservableList<ItemHolder> itemHolderList) {
         if(itemHolderList==null)
