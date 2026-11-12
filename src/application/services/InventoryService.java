@@ -3,12 +3,11 @@ package application.services;
 import database.Database;
 import database.inventory.Inventory;
 //import database.inventory.ItemHolder;
+import database.inventory.ItemHolder;
 import database.products.Item;
 //import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-
-// TODO: save
 
 public class InventoryService {
     //private Inventory inventory = new Inventory();
@@ -33,13 +32,34 @@ public class InventoryService {
         }
     }
 
+    public class getItemHolderService extends Service<ItemHolder> {
+        private Inventory inventory;
+        private String uid;
+
+        public getItemHolderService(Inventory inventory, String uid) {
+            this.inventory = inventory;
+            this.uid = uid;
+        }
+
+        @Override
+        protected Task<ItemHolder> createTask() {
+            return new Task<ItemHolder>() {
+                @Override
+                protected ItemHolder call() throws Exception {
+                    return inventory.getItemHolderByUid(uid);
+                }
+            };
+        }
+    }
+
+
     public class addItemService extends Service<Void> {
         private Inventory inventory;
         private Item item;
         private double stock;
         private double limit;
 
-        public addItemService(Inventory inventory, Item item, double stock, double limt) {
+        public addItemService(Inventory inventory, Item item, double stock, double limit) {
             this.inventory = inventory;
             this.item = item;
             this.stock = stock;
@@ -122,7 +142,7 @@ public class InventoryService {
         private String uid;
         private double inStock;
 
-        public void SetLowStockService(Inventory inventory, String uid, double inStock){
+        public setLowStockService(Inventory inventory, String uid, double inStock){
             this.inventory = inventory;
             this.uid = uid;
             this.inStock = inStock;
@@ -145,7 +165,7 @@ public class InventoryService {
         private String uid;
         private double inStock;
 
-        public void SetInStockService(Inventory inventory, String uid, double inStock){
+        public setInStockService(Inventory inventory, String uid, double inStock){
             this.inventory = inventory;
             this.uid = uid;
             this.inStock = inStock;
@@ -165,18 +185,21 @@ public class InventoryService {
 
     public class replaceInventoryItemService extends Service<Void> {
         private Inventory inventory;
-        private Item item;
+        private Item newItem;
 
-        private String unit;
+        private String newUnit;
         private String oldUid;
+        private String newUid;
         private double newItemInStock;
         private double newLowStockLimit;
 
-        public replaceInventoryItemService(Inventory inventory, String oldUid, Item item, double newItemInStock, double newLowStockLimit) {
+        public replaceInventoryItemService(Inventory inventory, String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit) {
             this.inventory = inventory;
             this.oldUid = oldUid;
-            this.item = item;
+            this.newItem = newItem;
             this.newItemInStock = newItemInStock;
+            this.newUid = newUid;
+            this.newUnit = newUnit;
             this.newLowStockLimit = newLowStockLimit;
         }
 
@@ -185,7 +208,7 @@ public class InventoryService {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-//                    inventory.replaceItemInInventory(oldUid, item, unit, newItemInStock, newLowStockLimit);
+                    inventory.replaceItemInInventory(oldUid, newUid, newItem, newUnit, newItemInStock, newLowStockLimit);
                     return null;
                 }
             };
