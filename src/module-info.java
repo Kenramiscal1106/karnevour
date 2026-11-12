@@ -4,7 +4,7 @@ module karnevour {
     requires javafx.fxml;
     requires java.desktop;
 
-    opens images to javafx.graphics;
+    opens icons to javafx.graphics;
     opens application.controllers.views to javafx.fxml;
     opens application.controllers.components to javafx.fxml;
 

@@ -15,7 +15,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         loadFonts();
 
-        var sceneryLoader = new FXMLLoader(Main.class.getResource("/ui/views/LoginView.fxml"));
+        var sceneryLoader = new FXMLLoader(Main.class.getResource("/ui/views/ManagerView.fxml"));
         stage.setTitle("Karnevour - Farm Management System");
         stage.setScene(new Scene(sceneryLoader.load(), 500, 500));
         stage.show();

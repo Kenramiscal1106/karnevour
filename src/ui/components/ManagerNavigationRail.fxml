@@ -28,7 +28,7 @@
                         <Insets left="12" right="12" top="2" bottom="2"/>
                     </padding>
                     <ImageView fitWidth="32" fitHeight="32">
-                        <Image url="@../../images/home.png" preserveRatio="true"/>
+                        <Image url="@../../icons/home.png" preserveRatio="true"/>
                     </ImageView>
                 </VBox>
             </graphic>
@@ -43,7 +43,7 @@
                         <Insets left="12" right="12" top="2" bottom="2"/>
                     </padding>
                     <ImageView fitWidth="32" fitHeight="32">
-                        <Image url="@../../images/tag.png" preserveRatio="true"/>
+                        <Image url="@../../icons/tag.png" preserveRatio="true"/>
                     </ImageView>
                 </VBox>
             </graphic>
@@ -57,7 +57,7 @@
                         <Insets left="12" right="12" top="2" bottom="2"/>
                     </padding>
                     <ImageView fitWidth="32" fitHeight="32">
-                        <Image url="@../../images/warehouse.png" preserveRatio="true"/>
+                        <Image url="@../../icons/warehouse.png" preserveRatio="true"/>
                     </ImageView>
                 </VBox>
             </graphic>
@@ -71,7 +71,7 @@
                         <Insets left="12" right="12" top="2" bottom="2"/>
                     </padding>
                     <ImageView fitWidth="32" fitHeight="32">
-                        <Image url="@../../images/history.png" preserveRatio="true"/>
+                        <Image url="@../../icons/history.png" preserveRatio="true"/>
                     </ImageView>
                 </VBox>
             </graphic>
