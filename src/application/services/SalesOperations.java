@@ -1,8 +1,5 @@
 package application.services;
 
-import database.Database;
-import database.inventory.Inventory;
-import database.products.Item;
 import database.CashRegister;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,7 +8,7 @@ import javafx.concurrent.Task;
 
 // TODO: loadCashRegister();
 
-public class TransactionService extends InventoryOperations {
+public class SalesOperations {
     protected static CashRegister cashRegister = CashRegister.getInstance();
 
     public Service<Void> loadCashRegister = new Service<>() {

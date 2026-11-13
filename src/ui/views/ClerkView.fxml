@@ -13,12 +13,12 @@
             stylesheets="@/style.css"
             prefHeight="400.0" prefWidth="600.0" style="-fx-background-color:#FFCFD1">
     <left>
-        <fx:include source="../components/ManagerNavigationRail.fxml" BorderPane.alignment="CENTER"/>
+        <fx:include source="../components/ClerkNavigationRail.fxml" BorderPane.alignment="CENTER"/>
     </left>
     <center>
         <ScrollPane fx:id="content" styleClass="main-content" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER"
                     fitToWidth="true">
-            <fx:include source="TestView.fxml"/>
+            <fx:include source="SalesView.fxml"/>
         </ScrollPane>
     </center>
 </BorderPane>

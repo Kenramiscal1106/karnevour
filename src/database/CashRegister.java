@@ -2,38 +2,36 @@ package database;
 
 import database.logs.*;
 import database.inventory.Inventory;
+import database.products.Product;
 import database.user.User;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 public class CashRegister {
-    private static CashRegister instance;
+    private final static CashRegister instance = new CashRegister(0, 0);
 
-    private double currentBalance;
-    private int totalSales;
-    private Inventory inventory;
+    protected SimpleDoubleProperty currentBalance = new SimpleDoubleProperty();
+    protected SimpleIntegerProperty totalSales = new SimpleIntegerProperty();
+    private final Inventory inventory = Inventory.getInstance();
 
-    public CashRegister(double currentBalance, int totalSales, Inventory inventory) {
-        this.currentBalance = currentBalance;
-        this.totalSales = totalSales;
-        this.inventory = inventory;
+    public CashRegister(double currentBalance, int totalSales) {
+        this.currentBalance.set(currentBalance);
+        this.totalSales.set(totalSales);
     }
 
     public static CashRegister getInstance() {
         return instance;
     }
 
-
     // getters
-    public int getTotalSales() {
-        return totalSales;
+    public double getTotalSales() {
+        return totalSales.get();
     }
     public double getCurrentBalance() {
-        return currentBalance;
-    }
-    public Inventory getInventory() {
-        return inventory;
+        return currentBalance.get();
     }
 
     // methods
@@ -47,48 +45,51 @@ public class CashRegister {
         if(payment < inventory.getPrice(uid)*unit)
             throw new IllegalArgumentException("The buyer does not have enough cash.");
 
-        inventory.addToLogList(new Transaction(
+        inventory.addToLogList(new SaleLog(
                 "Transaction Processed: Item Sold",
                 LocalDate.now().toString(),
                 "Item ("+inventory.getItemById(uid).getSpecificItemType()+") is sold with "+unit+" sold, by employee "+user.getName()+", for "+(inventory.getPrice(uid)*unit),
                 user.getName(),
-                "+S"+UUID.randomUUID().toString()
+                "+S"+UUID.randomUUID().toString(),
+                payment
         ));
 
         inventory.reduceItemAmount(uid,unit,user);
         cashIn(payment);
-        totalSales++;
+        totalSales.set(totalSales.get() + 1);
     }
 
     // TODO: again, unit is string
     // CHANGES: added exception handling, also inventory editing, unless sa services sya lalagay
     public void refundItem(String uid, double unit, User user) {
-        if (inventory.getItemHolderByUid(uid)==null)
+        var itemHolder = inventory.getItemHolderByUid(uid);
+        if (itemHolder==null)
             throw new NullPointerException("Item does not exist");
         if (unit<=0)
             throw new IllegalArgumentException("Refund quantity must be greater than 0");
-
-        inventory.addToLogList(new Transaction(
-                "Transaction Processed: Item Refund",
-                LocalDate.now().toString(),
-                "Item ("+inventory.getItemById(uid).getSpecificItemType()+") is refunded with employee "+user.getName()+"\'s discretion",
-                user.getName(),
-                "+R"+UUID.randomUUID().toString()
-        ));
-
-        cashOut(inventory.getPrice(uid)*unit);
+        if (itemHolder.getItem() instanceof Product product) {
+            inventory.addToLogList(new SaleLog(
+                    "Transaction Processed: Item Refund",
+                    LocalDate.now().toString(),
+                    "Item ("+itemHolder.getItem().getSpecificItemType()+") is refunded with employee "+user.getName()+"\'s discretion",
+                    user.getName(),
+                    "+R"+UUID.randomUUID().toString(),
+                    product.getPrice()*unit
+            ));
+            cashOut(product.getPrice()*unit);
+        }
     }
 
     private void cashIn(double amount) {
         if (amount <= 0)
             throw new IllegalArgumentException("Amount must be greater than zero");
-        this.currentBalance += amount;
+        this.currentBalance.set(this.currentBalance.get() + amount);
     }
 
     private void cashOut(double amount) {
-        if (amount > currentBalance)
+        if (amount > currentBalance.get())
             throw new IllegalArgumentException("Insufficient cash in drawer");
-        this.currentBalance -= amount;
+        this.currentBalance.set(this.currentBalance.get() - amount);
     }
 
     // help me here
@@ -97,20 +98,21 @@ public class CashRegister {
         if (amount <= 0)
             throw new IllegalArgumentException("Donation amount must be greater than zero.");
 
-        inventory.addToLogList(new Transaction(
+        inventory.addToLogList(new DonationLog(
                 "Transaction Processed: Donation",
                 LocalDate.now().toString(),
                 name + " donated "+amount,
                 name,
-                "+D"+UUID.randomUUID().toString()
+                "+D"+UUID.randomUUID().toString(),
+                amount
         ));
 
         cashIn(amount);
 // maybe add donor name tas log din
     }
 
-    void setCurrentBalance(double currentBalance) {currentBalance=currentBalance;}
-    void setTotalSales(double totalSales) {totalSales=totalSales;}
+    void setCurrentBalance(double currentBalance) {this.currentBalance.set(currentBalance);}
+    void setTotalSales(int totalSales) {this.totalSales.set(totalSales);}
 
 //    wtf is this
 //    public void addToLogList(Logable log){

@@ -1,12 +1,8 @@
 package application.controllers.views;
 
-import application.services.NavigationService;
+import application.services.NavigationStore;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ClerkController {
 
@@ -16,7 +12,7 @@ public class ClerkController {
 
     @FXML
     public void initialize() {
-        var navService = NavigationService.getInstance();
+        var navService = NavigationStore.getInstance();
         navService.updateView("/ui/views/LoginView.fxml");
         navService.getViewProperty().addListener((observable, oldValue, newValue) -> {
             var valueBin = newValue == null ? oldValue : newValue;
