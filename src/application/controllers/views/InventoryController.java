@@ -3,6 +3,7 @@ package application.controllers.views;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.controllers.components.InventoryEntryController;
 import application.services.*;
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
