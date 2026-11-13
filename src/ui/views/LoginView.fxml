@@ -15,9 +15,18 @@
             prefHeight="600" prefWidth="540" stylesheets="@/style.css" styleClass="login-container">
     <center>
         <VBox maxWidth="400" styleClass="login-form" alignment="CENTER" maxHeight="420">
-            <Text>
-                Login to Karnevour
-            </Text>
+            <Label>Login to Karnevour</Label>
+            <VBox>
+                <VBox>
+                    <Label labelFor="$usernameField">Username</Label>
+                    <TextField fx:id="usernameField"/>
+                </VBox>
+                <VBox>
+                    <Label labelFor="$passwordField">Password</Label>
+                    <PasswordField fx:id="passwordField"/>
+                </VBox>
+            </VBox>
+            <Button>Login</Button>
         </VBox>
     </center>
 </BorderPane>
