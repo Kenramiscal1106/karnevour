@@ -20,7 +20,8 @@ public class RefundLog extends Log implements Transaction {
     }
     @Override
     public String toCSVFormat() {
-        return name + "," +
+        return this.getClass().getSimpleName()+","+
+                name + "," +
                 date +"," +
                 "\""+description+"\"" + "," +
                 author + "," +

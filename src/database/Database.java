@@ -19,9 +19,8 @@ public class Database {
     private final static Database instance = new Database();
 
     private static final File ITEMHOLDER_LIST_DEFAULT_FILE = new File("database/data/itemholder.kar");
-    private static final File ACTIVTIY_LIST_DEFAULT_FILE = new File("database/data/activitylist.kar");
-    private static final File TRANSACTION_LIST_DEFAULT_FILE = new File("database/data/transactionlist.kar");
-    private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("database/data/stafflist.kar");
+    private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("database/data/user-list.kar");
+    private static final File LOG_LIST_DEFAULT_FILE = new File("database/data/log-list.kar");
     private static final File CASH_REGISTER_DEFAULT_FILE = new File("database/data/cash-register.kar");
 
     public static Database getInstance() {return instance;}
@@ -72,13 +71,13 @@ public class Database {
         if (activityList==null || activityList.isEmpty())
             throw new IllegalArgumentException("No logs found");
 
-        File defaultFile = activityList.getFirst().getClass().getSimpleName().equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
+        File defaultFile = LOG_LIST_DEFAULT_FILE;
         File parentFolder = defaultFile.getParentFile();
         if(parentFolder != null && !parentFolder.exists())
             parentFolder.mkdirs();
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, false))){
-            writer.write("Name,Date,Description,Author,Uid");
+            writer.write("LogType,Name,Date,Description,Author,Uid,{Amount}");
             writer.newLine();
             activityList.forEach(log->{
                 String saveLine = log.toCSVFormat();
@@ -222,7 +221,7 @@ public class Database {
 //                    TODO: Implement error for this one
                 }
                 Item rawItem = getRawItem(rawText, enumConst);
-                inventory.setItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]), this);
+                inventory.setItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
             }
         } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);
