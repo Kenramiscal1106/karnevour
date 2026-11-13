@@ -19,6 +19,12 @@ public class DonationLog extends Log{
     }
     @Override
     public String toCSVFormat() {
-        return "";
+        return this.getClass().getSimpleName()+","+
+                "\""+name+"\"" + "," +
+                date +"," +
+                "\""+description+"\"" + "," +
+                "\""+author+"\"" + "," +
+                uid + "," +
+                amount;
     }
 }

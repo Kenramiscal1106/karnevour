@@ -2,11 +2,8 @@ package database;
 
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
-import database.logs.InventoryLog;
-import database.logs.Loggable;
-import database.logs.SaleLog;
-import database.logs.Transaction;
-import database.products.*;
+import database.logs.*;
+import database.items.*;
 import database.user.Admin;
 import database.user.Clerk;
 import database.user.User;
@@ -18,11 +15,10 @@ public class Database {
 
     private final static Database instance = new Database();
 
-    private static final File ITEMHOLDER_LIST_DEFAULT_FILE = new File("database/data/itemholder.kar");
-    private static final File ACTIVTIY_LIST_DEFAULT_FILE = new File("database/data/activitylist.kar");
-    private static final File TRANSACTION_LIST_DEFAULT_FILE = new File("database/data/transactionlist.kar");
-    private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("database/data/stafflist.kar");
-    private static final File CASH_REGISTER_DEFAULT_FILE = new File("database/data/cash-register.kar");
+    private static final File ITEMHOLDER_LIST_DEFAULT_FILE = new File("src/database/data/itemholder.kar");
+    private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("src/database/data/user-list.kar");
+    private static final File LOG_LIST_DEFAULT_FILE = new File("src/database/data/log-list.kar");
+    private static final File CASH_REGISTER_DEFAULT_FILE = new File("src/database/data/cash-register.kar");
 
     public static Database getInstance() {return instance;}
 
@@ -72,13 +68,13 @@ public class Database {
         if (activityList==null || activityList.isEmpty())
             throw new IllegalArgumentException("No logs found");
 
-        File defaultFile = activityList.getFirst().getClass().getSimpleName().equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
+        File defaultFile = LOG_LIST_DEFAULT_FILE;
         File parentFolder = defaultFile.getParentFile();
         if(parentFolder != null && !parentFolder.exists())
             parentFolder.mkdirs();
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, false))){
-            writer.write("Name,Date,Description,Author,Uid");
+            writer.write("LogType,Name,Date,Description,Author,Uid,{Amount}");
             writer.newLine();
             activityList.forEach(log->{
                 String saveLine = log.toCSVFormat();
@@ -95,8 +91,6 @@ public class Database {
     }
 
     public void saveCashRegisterCredentials(CashRegister cashRegister){
-        if(CashRegister.getInstance()==null)
-            throw new NullPointerException("No instance of cash register");
 
         File parentFolder = CASH_REGISTER_DEFAULT_FILE.getParentFile();
         if(parentFolder != null && !parentFolder.exists())
@@ -163,18 +157,14 @@ public class Database {
         return null;
     }
 
-    public void loadAllFromDatabase(Inventory inventory, CashRegister cashRegister) throws FileNotFoundException {
+    public void loadAllFromDatabase(Inventory inventory, CashRegister cashRegister, Logger logger) throws FileNotFoundException {
         if(ITEMHOLDER_LIST_DEFAULT_FILE.exists())
             loadItemHolder(inventory);
 
-        String[] logs = {"Activity", "Transaction"};
-        for(String type: logs) {
-            File defaultFile = type.equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
-            if(defaultFile.exists())
-                loadLogs(inventory, type);
-        }
+        if(LOG_LIST_DEFAULT_FILE.exists())
+            loadLogs(logger);
 
-        if(CashRegister.getInstance()!=null)
+        if(CASH_REGISTER_DEFAULT_FILE.exists())
             loadCashRegisterCredentials(cashRegister);
 
     }
@@ -193,16 +183,43 @@ public class Database {
         }
     }
 
-    private void loadLogs(Inventory inventory, String logType) {
+    private void loadLogs(Logger logger) {
         String line;
-        File defaultFile = logType.equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
-        try(BufferedReader reader = new BufferedReader(new FileReader(defaultFile))){
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(LOG_LIST_DEFAULT_FILE))){
             reader.readLine();
             while((line=reader.readLine())!=null){
                 if(line.isBlank()) continue;
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                Loggable rawLog = logType.equals("Activity") ? new InventoryLog(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]): new SaleLog(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4], Double.parseDouble(rawText[5]));
-                inventory.addToLogList(rawLog);
+                switch (rawText[0]){
+                    case "DonationLog" -> logger.addLog(new DonationLog(removeQuotes(rawText[1]),
+                            rawText[2],
+                            removeQuotes(rawText[3]),
+                            removeQuotes(rawText[4]),
+                            rawText[5],
+                            Double.parseDouble(rawText[6])
+                            ));
+                    case "InventoryLog" -> logger.addLog(new InventoryLog(removeQuotes(rawText[1]),
+                            rawText[2],
+                            removeQuotes(rawText[3]),
+                            removeQuotes(rawText[4]),
+                            rawText[5]
+                    ));
+                    case "RefundLog" -> logger.addLog(new RefundLog(removeQuotes(rawText[1]),
+                            rawText[2],
+                            removeQuotes(rawText[3]),
+                            removeQuotes(rawText[4]),
+                            rawText[5],
+                            Double.parseDouble(rawText[6])
+                    ));
+                    case "SaleLog" -> logger.addLog(new SaleLog(removeQuotes(rawText[1]),
+                            rawText[2],
+                            removeQuotes(rawText[3]),
+                            removeQuotes(rawText[4]),
+                            rawText[5],
+                            Double.parseDouble(rawText[6])
+                    ));
+                }
             }
 
         } catch (IOException e) {

@@ -1,6 +1,6 @@
 package application.controllers.components;
 
-import database.products.Item;
+import database.items.Item;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;

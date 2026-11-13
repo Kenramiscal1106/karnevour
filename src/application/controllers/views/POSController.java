@@ -1,6 +1,6 @@
 package application.controllers.views;
 
-import database.products.Product;
+import database.items.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;

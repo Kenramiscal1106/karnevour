@@ -1,6 +1,5 @@
-package application.controllers.views;
+package application.controllers.components;
 
-import application.controllers.components.EntryControllerBase;
 import database.inventory.ItemHolder;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;

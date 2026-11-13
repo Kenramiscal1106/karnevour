@@ -1,7 +1,7 @@
 package application.controllers.views;
 
 import application.controllers.components.AdjustItemController;
-import database.products.Item;
+import database.items.Item;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 

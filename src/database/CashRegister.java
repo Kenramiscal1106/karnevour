@@ -2,7 +2,7 @@ package database;
 
 import database.logs.*;
 import database.inventory.Inventory;
-import database.products.Product;
+import database.items.Product;
 import database.user.User;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;

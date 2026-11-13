@@ -15,10 +15,11 @@ public class InventoryLog extends Log {
         this.uid = uid;
     }
     public String toCSVFormat() {
-        return  name+","+
-                date+","+
-                "\""+description+"\""+","+
-                author+","+
+        return  this.getClass().getSimpleName()+","+
+                "\""+name+"\"" + "," +
+                date +"," +
+                "\""+description+"\"" + "," +
+                "\""+author+"\"" + "," +
                 uid;
     }
 }

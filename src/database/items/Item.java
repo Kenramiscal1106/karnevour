@@ -1,4 +1,4 @@
-package database.products;
+package database.items;
 
 import java.io.File;
 
@@ -10,16 +10,31 @@ public abstract class Item {
 
     Item(SpecificItem specificItem, String description, String alternativeName) {
         this.specificItem = specificItem;
-        this.imagePath = new File("/pictures/" + alternativeName +".jpg").exists() ? new File("/pictures/" + alternativeName +".jpg") : new File("/pictures/" + specificItem +".jpg");
         this.description = description;
         this.alternativeName = alternativeName.trim();
+
+        File altImage = new File("src/pictures/" + alternativeName + ".jpg");
+        File specificImage = new File("/pictures/" + specificItem + ".jpg");
+
+        if(altImage.exists())
+            this.imagePath = altImage;
+        else if(specificImage.exists())
+            this.imagePath = specificImage;
+        else
+            this.imagePath = new File("src/pictures/DEFAULT_PICTURE.jpg");
     }
 
     Item(SpecificItem specificItem, String description) {
         this.specificItem = specificItem;
-        this.imagePath = new File("/pictures/" + specificItem +".jpg");
         this.description = description;
         this.alternativeName = "";
+
+        File specificImage = new File("/pictures/" + specificItem + ".jpg");
+
+        if (specificImage.exists())
+            this.imagePath = specificImage;
+        else
+            this.imagePath = new File("src/pictures/DEFAULT_PICTURE.jpg");
     }
 
     // getters

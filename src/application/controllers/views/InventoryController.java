@@ -3,10 +3,11 @@ package application.controllers.views;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.controllers.components.InventoryEntryController;
 import application.services.*;
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
-import database.products.Item;
+import database.items.Item;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

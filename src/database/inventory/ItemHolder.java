@@ -1,8 +1,8 @@
 package database.inventory;
 
-import database.products.GeneralItem;
-import database.products.Item;
-import database.products.SpecificItem;
+import database.items.GeneralItem;
+import database.items.Item;
+import database.items.SpecificItem;
 
 public class ItemHolder {
     private final Item item;

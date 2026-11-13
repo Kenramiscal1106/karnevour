@@ -3,6 +3,7 @@ package application.services;
 import database.Database;
 import database.inventory.Inventory;
 //import database.inventory.ItemHolder;
+import database.logs.Logger;
 import database.products.Item;
 //import javafx.collections.FXCollections;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -13,7 +14,7 @@ import javafx.concurrent.Task;
 
 public class InventoryOperations {
     private Inventory inventory = Inventory.getInstance();
-
+    private Logger logger = Logger.getInstance();
     public Service<Void> loadService = new Service<>() {
         private final Database database = new Database();
 
@@ -21,7 +22,7 @@ public class InventoryOperations {
         protected Task<Void> createTask() {
             return new Task<>() {
                 protected Void call() throws Exception {
-                    database.loadAllFromDatabase(inventory, SalesOperations.cashRegister);
+                    database.loadAllFromDatabase(inventory, SalesOperations.cashRegister, logger );
                     return null;
                 }
             };

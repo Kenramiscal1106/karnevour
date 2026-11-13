@@ -1,4 +1,4 @@
-package database.products;
+package database.items;
 
 public class FarmItem extends Item {
     public FarmItem(SpecificItem enumConst, String description, String altName) {
