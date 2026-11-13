@@ -2,16 +2,13 @@ package application.controllers.components;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import application.services.NavigationService;
+import javafx.scene.image.ImageView;
 
-public class ManagerNavigationRailController implements Initializable {
+public class ManagerNavigationRailController extends NavigationRailControllerBase {
 
     @FXML
     public Button homeButton;
@@ -19,43 +16,40 @@ public class ManagerNavigationRailController implements Initializable {
     public Button inventoryButton;
     public Button activityHistoryButton;
 
-    private static final String ACTIVE = "navigation-item--active";
-    private List<Button> buttons;
-
-    private void setActive(Button active) {
-    	buttons.forEach(b -> b.getStyleClass().remove(ACTIVE));
-    	active.getStyleClass().add(ACTIVE);
-    }
-
-    private final NavigationService navigationService = NavigationService.getInstance();
-
+    public ImageView homeIcon;
+    public ImageView saleIcon;
+    public ImageView inventoryIcon;
+    public ImageView historyIcon;
     @FXML
     public void homeClick(ActionEvent mouseEvent) {
-    	setActive(homeButton);
-        navigationService.updateView("/ui/views/TestView.fxml");
+    	setActive(homeButton, true);
+        navigationStore.updateView("/ui/views/TestView.fxml");
     }
 
     @FXML
     public void saleClick(ActionEvent mouseEvent) {
-    	setActive(saleButton);
+    	setActive(saleButton, true);
+        navigationStore.updateView("/ui/views/SalesView.fxml");
     }
 
     @FXML
     public void inventoryClick(ActionEvent mouseEvent) {
-    	setActive(inventoryButton);
-        navigationService.updateView("/ui/views/InventoryView.fxml");
+    	setActive(inventoryButton, true);
+        navigationStore.updateView("/ui/views/InventoryView.fxml");
     	// (TO BE ADDED) navigate to inventory view navigateTo() method
     }
 
     @FXML
     public void activityHistoryClick(ActionEvent mouseEvent) {
-    	setActive(activityHistoryButton);
+    	setActive(activityHistoryButton, false);
+        navigationStore.updateView("/ui/views/ActivityHistoryView.fxml");
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    public void initialize() {
     	buttons = List.of(homeButton, saleButton, inventoryButton, activityHistoryButton);
-    	setActive(homeButton);
+        iconList = List.of(homeIcon, saleIcon, inventoryIcon, historyIcon);
+    	setActive(homeButton, true);
     }
 
 

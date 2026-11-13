@@ -14,7 +14,10 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.ManagerNavigationRailController"
-      prefWidth="108" stylesheets="@/style.css">
+      prefWidth="108" stylesheets="@/style.css" alignment="CENTER" spacing="32" styleClass="navigation-rail">
+    <padding>
+        <Insets top="16" bottom="32"/>
+    </padding>
     <!--  Logo  -->
     <VBox VBox.vgrow="ALWAYS" spacing="12">
         <padding>
@@ -27,7 +30,7 @@
                     <padding>
                         <Insets left="12" right="12" top="2" bottom="2"/>
                     </padding>
-                    <ImageView fitWidth="32" fitHeight="32">
+                    <ImageView fitWidth="32" fitHeight="32" fx:id="homeIcon">
                         <Image url="@../../icons/home.png" preserveRatio="true"/>
                     </ImageView>
                 </VBox>
@@ -42,7 +45,7 @@
                     <padding>
                         <Insets left="12" right="12" top="2" bottom="2"/>
                     </padding>
-                    <ImageView fitWidth="32" fitHeight="32">
+                    <ImageView fitWidth="32" fitHeight="32" fx:id="saleIcon">
                         <Image url="@../../icons/tag.png" preserveRatio="true"/>
                     </ImageView>
                 </VBox>
@@ -56,7 +59,7 @@
                     <padding>
                         <Insets left="12" right="12" top="2" bottom="2"/>
                     </padding>
-                    <ImageView fitWidth="32" fitHeight="32">
+                    <ImageView fitWidth="32" fitHeight="32" fx:id="inventoryIcon">
                         <Image url="@../../icons/warehouse.png" preserveRatio="true"/>
                     </ImageView>
                 </VBox>
@@ -70,7 +73,7 @@
                     <padding>
                         <Insets left="12" right="12" top="2" bottom="2"/>
                     </padding>
-                    <ImageView fitWidth="32" fitHeight="32">
+                    <ImageView fitWidth="32" fitHeight="32" fx:id="historyIcon">
                         <Image url="@../../icons/history.png" preserveRatio="true"/>
                     </ImageView>
                 </VBox>
@@ -78,5 +81,6 @@
             Activity History
         </Button>
     </VBox>
+    <fx:include source="LogoutButton.fxml"/>
     <!--  Bottom Section  -->
 </VBox>

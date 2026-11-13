@@ -16,7 +16,7 @@ public class Inventory {
      */
 
     private ObservableList<ItemHolder> itemHolderList;
-    private ObservableList<Activity> activityList;
+    private ObservableList<InventoryLog> inventoryLogList;
     private ObservableList<Transaction> transactionList;
 
     private final static Inventory instance =  new Inventory();
@@ -27,13 +27,13 @@ public class Inventory {
 
     public Inventory(){
         this.itemHolderList = FXCollections.observableArrayList();
-        this.activityList = FXCollections.observableArrayList();
+        this.inventoryLogList = FXCollections.observableArrayList();
         this.transactionList = FXCollections.observableArrayList();
     }
 
     // getters
     public ObservableList<ItemHolder> getItemHolderList() {return this.itemHolderList;}
-    public ObservableList<Activity> getActivityList() {return this.activityList;}
+    public ObservableList<InventoryLog> getActivityList() {return this.inventoryLogList;}
     public ObservableList<Transaction> getTransactionList() {return this.transactionList;}
     public String getItemClass(String uid) {
         ItemHolder item = getItemHolderByUid(uid);
@@ -66,7 +66,7 @@ public class Inventory {
     public void addItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, User user){
         itemEnsureExists(uid);
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Add Item",
                 LocalDate.now().toString(),
                 user.getName()+" added item ("+item.getSpecificItemType()+") to the inventory",
@@ -82,7 +82,7 @@ public class Inventory {
         if (itemHolder==null)
             throw new NullPointerException("Item already not in inventory");
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Remove Item",
                 LocalDate.now().toString(),
                 user.getName()+" removed item ("+itemHolder.getItem().getSpecificItemType()+") to the inventory",
@@ -98,7 +98,7 @@ public class Inventory {
         if(hold==null)
             throw new NullPointerException("Item is not in inventory");
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Restock Item Amount",
                 LocalDate.now().toString(),
                 user.getName()+" restocked item ("+hold.getItem().getSpecificItemType()+") to the inventory (from: "+hold.getItemInStock()+" to: "+(hold.getItemInStock()+amount)+")",
@@ -116,7 +116,7 @@ public class Inventory {
         if(hold.getItemInStock()<amount)
             throw new IllegalArgumentException("Amount to be deducted is more than in stock");
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Reduce Item Amount",
                 LocalDate.now().toString(),
                 user.getName()+" restocked item ("+hold.getItem().getSpecificItemType()+") to the inventory (from: "+hold.getItemInStock()+" to: "+(hold.getItemInStock()-amount)+")",
@@ -137,7 +137,7 @@ public class Inventory {
 
         int i = this.itemHolderList.indexOf(itemHolder);
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Replace Item",
                 LocalDate.now().toString(),
                 user.getName()+" replaced item "+itemHolder.getItem()+", with item "+ newItem.getSpecificItemType(),
@@ -156,7 +156,7 @@ public class Inventory {
         if (inStock<0)
             throw new IllegalArgumentException("Item cannot have negative stock");
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Set Item Stock",
                 LocalDate.now().toString(),
                 user.getName()+" set the item ("+ itemHolder.getItem().getSpecificItemType()+") stock from: "+itemHolder.getItemInStock()+", to: "+inStock,
@@ -175,7 +175,7 @@ public class Inventory {
         if (inStock<0)
             throw new IllegalArgumentException("Limit cannot be in negative");
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Set Item Stock",
                 LocalDate.now().toString(),
                 user.getName()+" set the low stock limit of item ("+ itemHolder.getItem().getSpecificItemType()+") from: "+itemHolder.getLowStockLimit()+", to: "+inStock,
@@ -186,10 +186,10 @@ public class Inventory {
         itemHolder.setLowStockLimit(inStock);
     }
 
-    public void addToLogList(Logable log){
+    public void addToLogList(Loggable log){
         switch (log) {
             case null -> throw new NullPointerException("Log does not exist");
-            case Activity activity -> this.activityList.add(activity);
+            case InventoryLog inventoryLog -> this.inventoryLogList.add(inventoryLog);
             case Transaction transaction -> this.transactionList.add(transaction);
             default -> {
             }
@@ -228,7 +228,7 @@ public class Inventory {
             if (newPrice < 0)
                 throw new IllegalArgumentException("Price cannot be less than zero.");
 
-            addToLogList(new Activity(
+            addToLogList(new InventoryLog(
                     "Inventory edit: Set Item Price",
                     LocalDate.now().toString(),
                     user.getName()+" set the item ("+ itemHolder.getItem().getSpecificItemType()+") price from: "+((Product) item).getPrice()+", to: "+ newPrice,
@@ -248,7 +248,7 @@ public class Inventory {
         if(user==null)
             throw new IllegalArgumentException("No user passed");
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Set Item Description",
                 LocalDate.now().toString(),
                 user.getName()+" set the item ("+ itemHolder.getItem().getSpecificItemType()+") description from: "+itemHolder.getLowStockLimit()+", to: "+ desc,
@@ -267,7 +267,7 @@ public class Inventory {
         if(user==null)
             throw new IllegalArgumentException("No user passed");
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Set Item Description",
                 LocalDate.now().toString(),
                 user.getName()+" set the item ("+ itemHolder.getItem().getSpecificItemType()+") alternative name from: "+itemHolder.getLowStockLimit()+", to: "+ altName,
@@ -286,7 +286,7 @@ public class Inventory {
         if (Database.getInstance()==null)
             throw new IllegalArgumentException("Database not found");
 
-        addToLogList(new Activity(
+        addToLogList(new InventoryLog(
                 "Inventory edit: Load Item",
                 LocalDate.now().toString(),
                 "the database loaded item ("+item.getSpecificItemType()+") to the inventory",

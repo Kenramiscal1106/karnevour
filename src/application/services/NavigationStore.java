@@ -7,16 +7,16 @@ import javafx.scene.Node;
 
 import java.io.IOException;
 
-public class NavigationService {
+public class NavigationStore {
 
 
-    private static final NavigationService instance = new NavigationService();
-    public static synchronized NavigationService getInstance() {
+    private static final NavigationStore instance = new NavigationStore();
+    public static synchronized NavigationStore getInstance() {
         return instance;
     }
     private final SimpleObjectProperty<Node> viewProperty = new SimpleObjectProperty<>();
     public void updateView(String path) {
-        var loader = new FXMLLoader(NavigationService.class.getResource(path));
+        var loader = new FXMLLoader(NavigationStore.class.getResource(path));
         try {
             viewProperty.setValue(loader.load());
         } catch (IOException e) {

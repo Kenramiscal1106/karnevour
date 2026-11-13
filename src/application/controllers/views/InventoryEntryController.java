@@ -1,5 +1,6 @@
 package application.controllers.views;
 
+import application.controllers.components.EntryControllerBase;
 import database.inventory.ItemHolder;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -9,7 +10,7 @@ import javafx.scene.text.Text;
 import java.util.Objects;
 
 
-public class InventoryEntryController {
+public class InventoryEntryController implements EntryControllerBase<ItemHolder> {
 
     private String path;
     @FXML

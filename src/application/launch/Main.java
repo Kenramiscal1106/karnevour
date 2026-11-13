@@ -1,5 +1,7 @@
 package application.launch;
 
+import database.Database;
+import database.inventory.Inventory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Application.launch(args);
     }
 
@@ -19,6 +21,10 @@ public class Main extends Application {
         stage.setTitle("Karnevour - Farm Management System");
         stage.setScene(new Scene(sceneryLoader.load(), 500, 500));
         stage.show();
+        stage.setOnCloseRequest(_ -> {
+            Database.getInstance().saveInventoryToDatabase(Inventory.getInstance().getItemHolderList());
+//            Database.getInstance().saveLogsToDatabase(Logs);
+        });
         // test commit
     }
 

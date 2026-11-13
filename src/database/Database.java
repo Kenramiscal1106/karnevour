@@ -2,8 +2,8 @@ package database;
 
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
-import database.logs.Activity;
-import database.logs.Logable;
+import database.logs.InventoryLog;
+import database.logs.Loggable;
 import database.logs.Transaction;
 import database.products.*;
 import database.user.Admin;
@@ -67,7 +67,7 @@ public class Database {
 
     }
 
-    public void saveLogsToDatabase(ObservableList<Logable> activityList){
+    public void saveLogsToDatabase(ObservableList<Loggable> activityList){
         if (activityList==null || activityList.isEmpty())
             throw new IllegalArgumentException("No logs found");
 
@@ -200,7 +200,7 @@ public class Database {
             while((line=reader.readLine())!=null){
                 if(line.isBlank()) continue;
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                Logable rawLog = logType.equals("Activity")? new Activity(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]): new Transaction(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]);
+                Loggable rawLog = logType.equals("Activity") ? new InventoryLog(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]): new Transaction(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4], Double.parseDouble(rawText[5]));
                 inventory.addToLogList(rawLog);
             }
 
@@ -221,6 +221,7 @@ public class Database {
                 try{
                     enumConst = SpecificItem.valueOf(rawText[2]);
                 } catch (IllegalArgumentException e){
+//                    TODO: Implement error for this one
                 }
                 Item rawItem = getRawItem(rawText, enumConst);
                 inventory.setItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]), this);

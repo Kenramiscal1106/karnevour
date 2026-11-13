@@ -15,7 +15,7 @@ public class InventoryOperations {
     private Inventory inventory = Inventory.getInstance();
 
     public Service<Void> loadService = new Service<>() {
-        private final Database database = new Database();
+        private final Database database = Database.getInstance();
 
         @Override
         protected Task<Void> createTask() {

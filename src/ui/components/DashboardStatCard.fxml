@@ -6,9 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="application.controllers.components.DashboardStatCardController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.controllers.components.DashboardStatCardController"
+      prefHeight="400.0" prefWidth="600.0">
+    <VBox>
+        <Text fx:id="secondaryText"/>
+        <Text fx:id="primaryText"/>
+    </VBox>
+    <Region />
+    <ImageView fx:id="imageContainer"/>
+</HBox>
