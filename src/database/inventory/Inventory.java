@@ -270,7 +270,7 @@ public class Inventory {
     public void setItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, Database db) {
         if (item == null)
             throw new NullPointerException("No such item");
-        if (this.getItemHolderByUid(uid) != null)
+        if (this.doesItemExist(uid))
             throw new IllegalArgumentException("Item already in inventory");
         if (db == null)
             throw new IllegalArgumentException("Database not found");
