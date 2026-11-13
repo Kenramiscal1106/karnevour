@@ -1,8 +1,6 @@
 package application.services;
 
-import database.Database;
 import database.inventory.Inventory;
-import database.products.Item;
 import database.CashRegister;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,8 +9,9 @@ import javafx.concurrent.Task;
 
 // TODO: loadCashRegister();
 
-public class TransactionService extends InventoryOperations {
+public class TransactionOperations extends InventoryOperations {
     protected static CashRegister cashRegister = CashRegister.getInstance();
+    private Inventory inventory = Inventory.getInstance();
 
     public Service<Void> loadCashRegister = new Service<>() {
         @Override
@@ -36,7 +35,8 @@ public class TransactionService extends InventoryOperations {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    cashRegister.sellItem(uid.get(), amount.get(), payment.get());
+                    cashRegister.sellItem(uid.get(), amount.get(), payment.get(), SessionHandler.getInstance().getCurrentUser());
+                    inventory.reduceItemAmount(uid.get(), amount.get(), SessionHandler.getInstance().getCurrentUser());
                     return null;
                 }
             };
@@ -52,7 +52,8 @@ public class TransactionService extends InventoryOperations {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    cashRegister.refundItem(uid.get(), amount.get());
+                    cashRegister.refundItem(uid.get(), amount.get(), SessionHandler.getInstance().getCurrentUser());
+                    inventory.restockItem(uid.get(), amount.get(), SessionHandler.getInstance().getCurrentUser());
                     return null;
                 }
             };
@@ -68,7 +69,7 @@ public class TransactionService extends InventoryOperations {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    cashRegister.refundItem(uid.get(), amount.get());
+                    inventory.setItemPrice(uid.get(), amount.get(), SessionHandler.getInstance().getCurrentUser());
                     return null;
                 }
             };

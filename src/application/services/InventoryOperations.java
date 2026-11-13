@@ -13,6 +13,7 @@ import javafx.concurrent.Task;
 
 public class InventoryOperations {
     private Inventory inventory = Inventory.getInstance();
+
     public Service<Void> loadService = new Service<>() {
         private final Database database = new Database();
 
@@ -20,7 +21,7 @@ public class InventoryOperations {
         protected Task<Void> createTask() {
             return new Task<>() {
                 protected Void call() throws Exception {
-                    database.loadAllFromDatabase(inventory);
+                    database.loadAllFromDatabase(inventory, TransactionOperations.cashRegister);
                     return null;
                 }
             };
@@ -42,7 +43,7 @@ public class InventoryOperations {
             return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.addItem(uid.get(), item.get(), unit.get(), stock.get(), limit.get());
+                    inventory.addItem(uid.get(), item.get(), unit.get(), stock.get(), limit.get(), SessionHandler.getInstance().getCurrentUser());
                     return null;
                 }
             };
@@ -64,7 +65,7 @@ public class InventoryOperations {
             return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.removeItemInInventory(uid);
+                    inventory.removeItemInInventory(uid, SessionHandler.getInstance().getCurrentUser());
                     return null;
                 }
             };
@@ -91,15 +92,15 @@ public class InventoryOperations {
                 @Override
                 protected Void call() throws Exception {
                     if (actionType.equalsIgnoreCase("restock")) {
-                        inventory.restockItem(uid, amount);
+                        inventory.restockItem(uid, amount, SessionHandler.getInstance().getCurrentUser());
                         return null;
                     }
                     if (actionType.equalsIgnoreCase("sell")) {
-                        inventory.reduceItemAmount(uid, amount);
+                        inventory.reduceItemAmount(uid, amount, SessionHandler.getInstance().getCurrentUser());
                         return null;
                     }
                     if (actionType.equalsIgnoreCase("override")) {
-                        inventory.setItemHolderInStock(uid, amount);
+                        inventory.setItemHolderInStock(uid, amount, SessionHandler.getInstance().getCurrentUser());
                         return null;
                     }
                     throw new IllegalArgumentException("No stock type");
@@ -125,7 +126,7 @@ public class InventoryOperations {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.setItemHolderLowInStock(uid, inStock);
+                    inventory.setItemHolderLowInStock(uid, inStock, SessionHandler.getInstance().getCurrentUser());
                     return null;
                 }
             };
@@ -148,7 +149,7 @@ public class InventoryOperations {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.setItemHolderInStock(uid, inStock);
+                    inventory.setItemHolderInStock(uid, inStock, SessionHandler.getInstance().getCurrentUser());
                     return null;
                 }
             };
@@ -180,7 +181,7 @@ public class InventoryOperations {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    inventory.replaceItemInInventory(oldUid, newUid, newItem, newUnit, newItemInStock, newLowStockLimit);
+                    inventory.replaceItemInInventory(oldUid, newUid, newItem, newUnit, newItemInStock, newLowStockLimit, SessionHandler.getInstance().getCurrentUser());
                     return null;
                 }
             };
