@@ -37,6 +37,10 @@ public class Inventory {
 
     // shortcuts
 
+    public boolean doesItemExist(String uid){
+        return this.itemHolderList.stream().filter(itemHolder -> itemHolder.getUid().equals(uid)).findFirst().orElse(null) != null;
+    }
+
     public ItemHolder getItemHolderByUid(String uid) {
         ItemHolder holder = this.itemHolderList.stream().filter(itemHolder -> itemHolder.getUid().equals(uid)).findFirst().orElse(null);
 
@@ -54,10 +58,11 @@ public class Inventory {
 
     // ill add these for now
     public void addItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, User user) {
-        this.getItemHolderByUid(uid);
-
         if (user == null)
             throw new IllegalArgumentException("No user passed");
+
+        if (this.doesItemExist(uid))
+            throw new IllegalArgumentException("Item already exists");
 
         addToLogList(new InventoryLog(
                 "Inventory edit: Add Item",
