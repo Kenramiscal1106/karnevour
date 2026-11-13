@@ -4,6 +4,7 @@ import database.inventory.Inventory;
 import database.inventory.ItemHolder;
 import database.logs.InventoryLog;
 import database.logs.Loggable;
+import database.logs.SaleLog;
 import database.logs.Transaction;
 import database.products.*;
 import database.user.Admin;
@@ -15,7 +16,7 @@ import java.io.*;
 
 public class Database {
 
-    private static Database instance;
+    private final static Database instance = new Database();
 
     private static final File ITEMHOLDER_LIST_DEFAULT_FILE = new File("database/data/itemholder.kar");
     private static final File ACTIVTIY_LIST_DEFAULT_FILE = new File("database/data/activitylist.kar");
@@ -185,7 +186,7 @@ public class Database {
             if(rawLine!=null && !rawLine.isBlank()){
                 String[] line = rawLine.split(",");
                 cashRegister.setCurrentBalance(Double.parseDouble(line[0]));
-                cashRegister.setTotalSales(Double.parseDouble(line[1]));
+                cashRegister.setTotalSales(Integer.parseInt(line[1]));
             }
         } catch (IOException e){
             throw new RuntimeException();
@@ -200,7 +201,7 @@ public class Database {
             while((line=reader.readLine())!=null){
                 if(line.isBlank()) continue;
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                Loggable rawLog = logType.equals("Activity") ? new InventoryLog(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]): new Transaction(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4], Double.parseDouble(rawText[5]));
+                Loggable rawLog = logType.equals("Activity") ? new InventoryLog(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]): new SaleLog(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4], Double.parseDouble(rawText[5]));
                 inventory.addToLogList(rawLog);
             }
 

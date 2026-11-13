@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>{
+public class SalesHistoryEntryController implements EntryControllerBase<SaleLog> {
     @FXML
     public Text priceLabel;
     @FXML
@@ -20,7 +20,7 @@ public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>
     @Override
     public void initData(SaleLog saleLog) {
 
-        priceLabel.setText("₱" + String.valueOf(saleLog.value()));
+        priceLabel.setText("₱" + (saleLog.value));
 //        secondaryText.setText();
     }
 }

@@ -38,7 +38,7 @@ public class Logger{
     }
 
     public FilteredList<InventoryLog> getInventoryLogs() {
-        var filteredList = getFilteredLogs(log -> log instanceof Transaction);
+        var filteredList = getFilteredLogs(log -> log instanceof InventoryLog);
         return (FilteredList<InventoryLog>) filteredList;
     }
 }

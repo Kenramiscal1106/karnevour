@@ -104,3 +104,15 @@
 
 .button--adjust {
 }
+
+.login-container {
+    -fx-background-image: url("pictures/login-bg.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.login-form {
+    -fx-padding: 64px 32px;
+    -fx-background-color: #FFF;
+    -fx-background-radius: 8px;
+}
