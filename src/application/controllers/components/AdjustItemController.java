@@ -1,12 +1,15 @@
 package application.controllers.components;
 
-import database.items.Item;
+import database.inventory.ItemHolder;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-public class AdjustItemController implements EntryControllerBase<Item> {
+import java.util.Objects;
+
+public class AdjustItemController implements EntryControllerBase<ItemHolder> {
 
     @FXML
     public TextField quantityField;
@@ -20,7 +23,34 @@ public class AdjustItemController implements EntryControllerBase<Item> {
     public Text itemNameText;
 
     @Override
-    public void initData(Item item) {
+    public void initData(ItemHolder itemHolder) {
+        var item =  itemHolder.getItem();
+        quantityField.setText("0");
 
+        unitField.setText(itemHolder.getUnit());
+        itemQuantityText.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit());
+        itemImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(item.getImagePath()))));
+        itemNameText.setText(itemHolder.getItem().getAlternativeName());
+    }
+    @FXML
+    private void increment(){
+        setQuantity(Math.max(0, getQuantity() + 1));
+    }
+
+    @FXML
+    private void decrement(){
+        setQuantity(Math.max(0, getQuantity() - 1));
+    }
+
+    private void setQuantity(double q){
+        quantityField.setText(String.valueOf(q));
+    }
+
+    public double getQuantity(){
+        try{
+            return Double.parseDouble(quantityField.getText().trim());
+        } catch (NumberFormatException e){
+            return -1;
+        }
     }
 }

@@ -26,5 +26,4 @@ public class InventoryEntryController implements EntryControllerBase<ItemHolder>
         itemName.setText(itemHolder.getItem().getAlternativeName());
         itemQuantity.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit());
     }
-
 }

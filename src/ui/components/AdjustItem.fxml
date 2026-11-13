@@ -22,7 +22,7 @@
     </HBox>
     <Region HBox.hgrow="ALWAYS"/>
     <HBox>
-        <Button styleClass="button--adjust">
+        <Button styleClass="button--adjust" onAction="#decrement">
             <graphic>
                 <ImageView fitWidth="20" fitHeight="20">
                     <Image url="@../../icons/minus.png"/>
@@ -33,7 +33,7 @@
             <TextField fx:id="quantityField" />
             <Text fx:id="unitField"/>
         </HBox>
-        <Button styleClass="button--adjust">
+        <Button styleClass="button--adjust" onAction="#increment">
             <graphic>
                 <ImageView fitWidth="20" fitHeight="20">
                     <Image url="@../../icons/plus.png"/>
