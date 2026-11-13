@@ -7,13 +7,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-public class AuthService {
+public class AuthOperations {
 
-    private Database database = new Database();
+    private final Database database = Database.getInstance();
 
     public Service<Void> loginService = new Service<>() {
-        private SimpleStringProperty name = new SimpleStringProperty();
-        private SimpleStringProperty password = new SimpleStringProperty();
+        private final SimpleStringProperty name = new SimpleStringProperty();
+        private final SimpleStringProperty password = new SimpleStringProperty();
 
         @Override
         protected Task<Void> createTask() {
@@ -32,8 +32,8 @@ public class AuthService {
     };
 
     public Service<Void> logoutService = new Service<>() {
-        private SimpleObjectProperty<User> user = new SimpleObjectProperty<>();
-        private SimpleStringProperty operation = new SimpleStringProperty();
+        private final SimpleObjectProperty<User> user = new SimpleObjectProperty<>();
+        private final SimpleStringProperty operation = new SimpleStringProperty();
 
         @Override
         protected Task<Void> createTask() {

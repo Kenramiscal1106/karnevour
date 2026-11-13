@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.ComboBoxListCell?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.controllers.views.AddInventoryController"
+      prefHeight="200" prefWidth="512.0" stylesheets="@/style.css" styleClass="mini-prompt">
+    <ComboBox fx:id="itemSelector">
+    </ComboBox>
+    <HBox>
+        <Button styleClass="button--ghost,button--medium" fx:id="windowCloseButton">
+            Cancel
+        </Button>
+        <Button styleClass="button--primary, button--medium" fx:id="addInventoryButton">
+            Add Inventory
+        </Button>
+    </HBox>
+</VBox>

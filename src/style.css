@@ -84,3 +84,23 @@
     -fx-background-color: #F0004C;
     -fx-background-radius: 12;
 }
+
+.pos-window {
+    -fx-padding: 64px 48px;
+}
+
+.button--primary {
+}
+
+.button--medium {
+}
+
+.button--ghost {
+}
+
+.mini-prompt {
+    -fx-padding: 32px 24px;
+}
+
+.button--adjust {
+}
