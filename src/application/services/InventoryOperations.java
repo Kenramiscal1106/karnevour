@@ -4,7 +4,7 @@ import database.Database;
 import database.inventory.Inventory;
 //import database.inventory.ItemHolder;
 import database.logs.Logger;
-import database.products.Item;
+import database.items.Item;
 //import javafx.collections.FXCollections;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,7 +22,7 @@ public class InventoryOperations {
         protected Task<Void> createTask() {
             return new Task<>() {
                 protected Void call() throws Exception {
-                    database.loadAllFromDatabase(inventory, SalesOperations.cashRegister, logger );
+                    database.loadAllFromDatabase(inventory, SalesOperations.cashRegister, logger);
                     return null;
                 }
             };
