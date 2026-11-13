@@ -1,4 +1,4 @@
-package database.products;
+package database.items;
 
 public class Product extends Item {
     protected double price;

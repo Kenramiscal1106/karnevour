@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import application.services.*;
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
-import database.products.Item;
+import database.items.Item;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

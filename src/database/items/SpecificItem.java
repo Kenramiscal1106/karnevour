@@ -1,4 +1,4 @@
-package database.products;
+package database.items;
 
 public enum SpecificItem {
     //CHIKININI

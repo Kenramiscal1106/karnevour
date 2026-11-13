@@ -3,7 +3,7 @@ package database;
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
 import database.logs.*;
-import database.products.*;
+import database.items.*;
 import database.user.Admin;
 import database.user.Clerk;
 import database.user.User;
@@ -73,7 +73,7 @@ public class Database {
         if(parentFolder != null && !parentFolder.exists())
             parentFolder.mkdirs();
 
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, true))){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, false))){
             writer.write("LogType,Name,Date,Description,Author,Uid,{Amount}");
             writer.newLine();
             activityList.forEach(log->{

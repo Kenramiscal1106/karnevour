@@ -5,7 +5,7 @@ import database.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import database.logs.*;
-import database.products.*;
+import database.items.*;
 
 import java.time.LocalDate;
 import java.util.UUID;

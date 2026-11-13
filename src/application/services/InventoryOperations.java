@@ -3,7 +3,7 @@ package application.services;
 import database.Database;
 import database.inventory.Inventory;
 //import database.inventory.ItemHolder;
-import database.products.Item;
+import database.items.Item;
 //import javafx.collections.FXCollections;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
