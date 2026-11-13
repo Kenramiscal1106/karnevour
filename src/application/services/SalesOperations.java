@@ -9,7 +9,7 @@ import javafx.concurrent.Task;
 
 // TODO: loadCashRegister();
 
-public class TransactionOperations extends InventoryOperations {
+public class SalesOperations extends InventoryOperations {
     protected static CashRegister cashRegister = CashRegister.getInstance();
     private Inventory inventory = Inventory.getInstance();
 

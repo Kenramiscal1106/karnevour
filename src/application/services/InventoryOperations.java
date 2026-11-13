@@ -21,7 +21,7 @@ public class InventoryOperations {
         protected Task<Void> createTask() {
             return new Task<>() {
                 protected Void call() throws Exception {
-                    database.loadAllFromDatabase(inventory, TransactionOperations.cashRegister);
+                    database.loadAllFromDatabase(inventory, SalesOperations.cashRegister);
                     return null;
                 }
             };
