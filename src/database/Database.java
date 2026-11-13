@@ -15,10 +15,10 @@ public class Database {
 
     private final static Database instance = new Database();
 
-    private static final File ITEMHOLDER_LIST_DEFAULT_FILE = new File("database/data/itemholder.kar");
-    private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("database/data/user-list.kar");
-    private static final File LOG_LIST_DEFAULT_FILE = new File("database/data/log-list.kar");
-    private static final File CASH_REGISTER_DEFAULT_FILE = new File("database/data/cash-register.kar");
+    private static final File ITEMHOLDER_LIST_DEFAULT_FILE = new File("src/database/data/itemholder.kar");
+    private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("src/database/data/user-list.kar");
+    private static final File LOG_LIST_DEFAULT_FILE = new File("src/database/data/log-list.kar");
+    private static final File CASH_REGISTER_DEFAULT_FILE = new File("src/database/data/cash-register.kar");
 
     public static Database getInstance() {return instance;}
 
@@ -73,7 +73,7 @@ public class Database {
         if(parentFolder != null && !parentFolder.exists())
             parentFolder.mkdirs();
 
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, false))){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, true))){
             writer.write("LogType,Name,Date,Description,Author,Uid,{Amount}");
             writer.newLine();
             activityList.forEach(log->{

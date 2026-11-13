@@ -1,0 +1,30 @@
+Class,Uid,SpecificItemType,Unit,Description,{Price},AlternativeName,ItemInStock,LowerLimitStock
+Product,2788e9fe-a286-4123-83bb-05adfc0b5a4a,CHICKEN_BREAST,kg,"Chicken breast",0.0,"",0.0,0.0
+Product,58fa7133-38a4-4623-b923-e1551c1c273e,CHICKEN_THIGHS,kg,"Chicken thighs",0.0,"",0.0,0.0
+Product,fa6347e2-4faf-46b0-8c56-ac7110b01cb7,CHICKEN_LEG_QUARTER,kg,"Chicken leg quarter",0.0,"",0.0,0.0
+Product,ae0a99fd-5fbb-45ed-b43e-ac4cf5599af0,CHICKEN_WINGS,kg,"Chicken wings",0.0,"",0.0,0.0
+Product,89d02ffb-d219-4cd8-ad8f-80ab8dc94225,CHICKEN_SKIN,kg,"Chicken skin",0.0,"",0.0,0.0
+Product,1922ab8c-bcfe-4b4b-856c-549c0bd6ac69,CHICKEN_FEET,kg,"Chicken feet",0.0,"",0.0,0.0
+Product,a80b8c19-5099-4ba3-9836-fc7b0a5ef7e3,WHOLE_CHICKEN,pcs,"Whole chicken",0.0,"",0.0,0.0
+Product,81c0031b-2a79-48ec-b44d-7ef21c16c92e,PORK_SHOULDER,kg,"Pork shoulder",0.0,"",0.0,0.0
+Product,4650e5a4-2aae-4477-8a77-d32250b58302,PORK_BELLY,kg,"Pork belly",0.0,"",0.0,0.0
+Product,7871f5bd-054b-4108-b9ab-b05d94222cb7,PORK_MASCARA,kg,"Pork mascara",0.0,"",0.0,0.0
+Product,29c4126a-1a47-4a30-8bcf-bcb94f95311f,PORK_LEG,kg,"Pork leg",0.0,"",0.0,0.0
+Product,47214d5d-5d1f-4836-be8c-2238c8c23729,PORK_CHOP,kg,"Pork chop",0.0,"",0.0,0.0
+Product,8f44a2b1-cbb6-4287-91b7-4ab59cfd7b20,PORK_RIBS,kg,"Pork ribs",0.0,"",0.0,0.0
+Product,7a3becee-02f5-44b5-a546-246ea4a4b9cd,BEEF_CHUCK,kg,"Beef chuck",0.0,"",0.0,0.0
+Product,39f64ea1-35ec-4d48-b1c2-6cf368ce83a7,BEEF_BRISKET,kg,"Beef brisket",0.0,"",0.0,0.0
+Product,8b155b10-1de9-4555-88f7-ee6cc33e770c,BEEF_RIBEYE,kg,"Beef ribeye",0.0,"",0.0,0.0
+Product,4a29325e-bb3d-449e-8f21-279e78777395,BEEF_LOIN,kg,"Beef loin",0.0,"",0.0,0.0
+Product,e9fc91a8-eb9a-4f38-911a-45dfc64b5ea0,BEEF_PLATE,kg,"Beef plate",0.0,"",0.0,0.0
+Product,4ac21552-b8b7-4c59-95ae-a3a982c7dd5d,BEEF_FLANK,kg,"Beef flank",0.0,"",0.0,0.0
+Product,99f4f878-d7af-42c3-93de-eefdde785893,BEEF_SHORT_RIBS,kg,"Beef short ribs",0.0,"",0.0,0.0
+Product,7d02508d-306a-47f1-a605-40e9adcb89b4,BEEF_SIRLOIN,kg,"Beef sirloin",0.0,"",0.0,0.0
+Product,6f04941c-7e51-4c89-9249-0a3b0d991dfb,BEEF_TENDERLOIN,kg,"Beef tenderloin",0.0,"",0.0,0.0
+Product,a8bab836-0877-400d-bee0-d2ef38b51d7b,EGG_SMALL,tray,"Small egg",0.0,"",0.0,0.0
+Product,7fa8d15e-f5d8-4be6-bd08-f9f602fb34cf,EGG_MEDIUM,tray,"Medium egg",0.0,"",0.0,0.0
+Product,9352ef78-2b78-48e2-840c-15af29b6f51f,EGG_LARGE,tray,"Large egg",0.0,"",0.0,0.0
+Product,ca41c44c-6183-4d57-98fd-15d16a519654,MILK_COW,liters,"Cow milk",0.0,"",0.0,0.0
+FarmItem,1b6702c7-7222-424d-aa00-268b2d230143,CHICKEN_FEED,sacks,"Chicken feed",-1,"",0.0,0.0
+FarmItem,358155ec-ee84-4ed2-8fe2-f9e66aaf1cd1,COW_FEED,sacks,"Cow feed",-1,"",0.0,0.0
+FarmItem,fa457493-f4c6-4c3c-80b4-201bdeec5ac4,PIG_FEED,sacks,"Pig feed",-1,"",0.0,0.0
