@@ -15,8 +15,8 @@
         <Insets topRightBottomLeft="32"/>
     </padding>
     <HBox>
-        <Button fx:id="InventoryButton">Add to Inventory</Button>
-        <Button fx:id="subtractInventoryButton">Subtract from Inventory</Button>
+        <Button fx:id="InventoryButton" onAction="#addInventoryClick">Add to Inventory</Button>
+        <Button fx:id="subtractInventoryButton" onAction="#subtractInventoryClick">Subtract from Inventory</Button>
     </HBox>
     <VBox fx:id="container" VBox.vgrow="ALWAYS" spacing="4" styleClass="inventory-entries">
     </VBox>
