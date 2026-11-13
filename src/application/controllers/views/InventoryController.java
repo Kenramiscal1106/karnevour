@@ -11,12 +11,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 public class InventoryController implements Initializable {
+
+
     private final InventoryOperations service = new InventoryOperations();
+
+    @FXML
+    public Button InventoryButton;
+    @FXML
+    public Button subtractInventoryButton;
 
     @FXML
     private VBox container;
