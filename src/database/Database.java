@@ -95,8 +95,6 @@ public class Database {
     }
 
     public void saveCashRegisterCredentials(CashRegister cashRegister){
-        if(CashRegister.getInstance()==null)
-            throw new NullPointerException("No instance of cash register");
 
         File parentFolder = CASH_REGISTER_DEFAULT_FILE.getParentFile();
         if(parentFolder != null && !parentFolder.exists())
@@ -174,8 +172,7 @@ public class Database {
                 loadLogs(inventory, type);
         }
 
-        if(CashRegister.getInstance()!=null)
-            loadCashRegisterCredentials(cashRegister);
+        loadCashRegisterCredentials(cashRegister);
 
     }
 

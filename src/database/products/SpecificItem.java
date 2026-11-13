@@ -36,7 +36,12 @@ public enum SpecificItem {
     MILK_COW(GeneralItem.OTHER),
 
     //DEFAULTNINI
-    NOT_FOUND(GeneralItem.OTHER);
+    NOT_FOUND(GeneralItem.OTHER),
+
+    //FEEDININI
+    CHICKEN_FEED(GeneralItem.FARM_ITEM),
+    COW_FEED(GeneralItem.FARM_ITEM),
+    PIG_FEED(GeneralItem.FARM_ITEM);
 
     private final GeneralItem generalItem;
 
