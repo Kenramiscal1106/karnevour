@@ -16,10 +16,10 @@ public class InventoryLog extends Log {
     }
     public String toCSVFormat() {
         return  this.getClass().getSimpleName()+","+
-                name+","+
-                date+","+
-                "\""+description+"\""+","+
-                author+","+
+                "\""+name+"\"" + "," +
+                date +"," +
+                "\""+description+"\"" + "," +
+                "\""+author+"\"" + "," +
                 uid;
     }
 }

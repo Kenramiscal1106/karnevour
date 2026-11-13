@@ -2,10 +2,7 @@ package database;
 
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
-import database.logs.InventoryLog;
-import database.logs.Loggable;
-import database.logs.SaleLog;
-import database.logs.Transaction;
+import database.logs.*;
 import database.products.*;
 import database.user.Admin;
 import database.user.Clerk;
@@ -160,18 +157,15 @@ public class Database {
         return null;
     }
 
-    public void loadAllFromDatabase(Inventory inventory, CashRegister cashRegister) throws FileNotFoundException {
+    public void loadAllFromDatabase(Inventory inventory, CashRegister cashRegister, Logger logger) throws FileNotFoundException {
         if(ITEMHOLDER_LIST_DEFAULT_FILE.exists())
             loadItemHolder(inventory);
 
-        String[] logs = {"Activity", "Transaction"};
-        for(String type: logs) {
-            File defaultFile = type.equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
-            if(defaultFile.exists())
-                loadLogs(inventory, type);
-        }
+        if(LOG_LIST_DEFAULT_FILE.exists())
+            loadLogs(logger);
 
-        loadCashRegisterCredentials(cashRegister);
+        if(CASH_REGISTER_DEFAULT_FILE.exists())
+            loadCashRegisterCredentials(cashRegister);
 
     }
 
@@ -189,16 +183,43 @@ public class Database {
         }
     }
 
-    private void loadLogs(Inventory inventory, String logType) {
+    private void loadLogs(Logger logger) {
         String line;
-        File defaultFile = logType.equals("Activity")? ACTIVTIY_LIST_DEFAULT_FILE:TRANSACTION_LIST_DEFAULT_FILE;
-        try(BufferedReader reader = new BufferedReader(new FileReader(defaultFile))){
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(LOG_LIST_DEFAULT_FILE))){
             reader.readLine();
             while((line=reader.readLine())!=null){
                 if(line.isBlank()) continue;
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                Loggable rawLog = logType.equals("Activity") ? new InventoryLog(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4]): new SaleLog(rawText[0],rawText[1],rawText[2],rawText[3],rawText[4], Double.parseDouble(rawText[5]));
-                inventory.addToLogList(rawLog);
+                switch (rawText[0]){
+                    case "DonationLog" -> logger.addLog(new DonationLog(removeQuotes(rawText[1]),
+                            rawText[2],
+                            removeQuotes(rawText[3]),
+                            removeQuotes(rawText[4]),
+                            rawText[5],
+                            Double.parseDouble(rawText[6])
+                            ));
+                    case "InventoryLog" -> logger.addLog(new InventoryLog(removeQuotes(rawText[1]),
+                            rawText[2],
+                            removeQuotes(rawText[3]),
+                            removeQuotes(rawText[4]),
+                            rawText[5]
+                    ));
+                    case "RefundLog" -> logger.addLog(new RefundLog(removeQuotes(rawText[1]),
+                            rawText[2],
+                            removeQuotes(rawText[3]),
+                            removeQuotes(rawText[4]),
+                            rawText[5],
+                            Double.parseDouble(rawText[6])
+                    ));
+                    case "SaleLog" -> logger.addLog(new SaleLog(removeQuotes(rawText[1]),
+                            rawText[2],
+                            removeQuotes(rawText[3]),
+                            removeQuotes(rawText[4]),
+                            rawText[5],
+                            Double.parseDouble(rawText[6])
+                    ));
+                }
             }
 
         } catch (IOException e) {
@@ -221,7 +242,7 @@ public class Database {
 //                    TODO: Implement error for this one
                 }
                 Item rawItem = getRawItem(rawText, enumConst);
-                inventory.setItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]));
+                inventory.setItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]), this);
             }
         } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);

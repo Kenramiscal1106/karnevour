@@ -20,6 +20,12 @@ public class SaleLog extends Log implements Transaction{
     }
     @Override
     public String toCSVFormat() {
-        return name + "," + description + "," + author + "," + uid + "," + value;
+        return this.getClass().getSimpleName()+","+
+                "\""+name+"\"" + "," +
+                date +"," +
+                "\""+description+"\"" + "," +
+                "\""+author+"\"" + "," +
+                uid + "," +
+                value;
     }
 }

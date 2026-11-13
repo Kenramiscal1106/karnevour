@@ -56,6 +56,9 @@ public class Inventory {
     public void addItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, User user) {
         this.getItemHolderByUid(uid);
 
+        if (user == null)
+            throw new IllegalArgumentException("No user passed");
+
         addToLogList(new InventoryLog(
                 "Inventory edit: Add Item",
                 LocalDate.now().toString(),
@@ -70,8 +73,8 @@ public class Inventory {
     public void removeItemInInventory(String uid, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
-        if (itemHolder == null)
-            throw new NullPointerException("Item already not in inventory");
+        if (user == null)
+            throw new IllegalArgumentException("No user passed");
 
         addToLogList(new InventoryLog(
                 "Inventory edit: Remove Item",
@@ -87,8 +90,8 @@ public class Inventory {
     public void restockItem(String uid, double amount, User user) {
         ItemHolder hold = this.getItemHolderByUid(uid);
 
-        if (hold == null)
-            throw new NullPointerException("Item is not in inventory");
+        if (user == null)
+            throw new IllegalArgumentException("No user passed");
 
         addToLogList(new InventoryLog(
                 "Inventory edit: Restock Item Amount",
@@ -104,8 +107,9 @@ public class Inventory {
     public void reduceItemAmount(String uid, double amount, User user) {
         ItemHolder hold = this.getItemHolderByUid(uid);
 
-        if (hold == null)
-            throw new NullPointerException("Item is not in inventory");
+        if (user == null)
+            throw new IllegalArgumentException("No user passed");
+
         if (hold.getItemInStock() < amount)
             throw new IllegalArgumentException("Amount to be deducted is more than in stock");
 
@@ -122,6 +126,9 @@ public class Inventory {
 
     public void replaceItemInInventory(String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(oldUid);
+
+        if (user == null)
+            throw new IllegalArgumentException("No user passed");
 
         if (newItem == null)
             throw new NullPointerException("No such item passed");
@@ -142,6 +149,9 @@ public class Inventory {
     public void setItemHolderInStock(String uid, double inStock, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
+        if (user == null)
+            throw new IllegalArgumentException("No user passed");
+
         if (inStock < 0)
             throw new IllegalArgumentException("Item cannot have negative stock");
 
@@ -158,6 +168,9 @@ public class Inventory {
 
     public void setItemHolderLowInStock(String uid, double inStock, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if (user == null)
+            throw new IllegalArgumentException("No user passed");
 
         if (inStock < 0)
             throw new IllegalArgumentException("Limit cannot be in negative");
@@ -249,12 +262,12 @@ public class Inventory {
         itemHolder.getItem().setAlternativeName(altName);
     }
 
-    public void setItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit) {
+    public void setItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, Database db) {
         if (item == null)
             throw new NullPointerException("No such item");
         if (this.getItemHolderByUid(uid) != null)
             throw new IllegalArgumentException("Item already in inventory");
-        if (Database.getInstance() == null)
+        if (db == null)
             throw new IllegalArgumentException("Database not found");
 
         addToLogList(new InventoryLog(
