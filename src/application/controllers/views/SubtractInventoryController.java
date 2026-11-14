@@ -1,14 +1,18 @@
 package application.controllers.views;
 
-import application.controllers.components.AdjustItemController;
-import database.items.Item;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import database.inventory.ItemHolder;
 
-public class SubtractInventoryController {
-    public ComboBox<Item> itemSelector;
-    public Button windowCloseButton;
-    public Button addInventoryButton;
+public class SubtractInventoryController extends OperationInventoryController{
+    @Override
+    protected String getActionType(){
+        return "sell";
+    }
 
-    public AdjustItemController adjustItemController;
+    @Override
+    protected String validate(ItemHolder itemHolder, double amount){
+        if (amount > itemHolder.getItemInStock()){
+            return "Only " + itemHolder.getItemInStock() + " " + itemHolder.getUnit() + " in stock.";
+        }
+        return null;
+    }
 }

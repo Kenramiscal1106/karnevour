@@ -98,6 +98,9 @@ public class Inventory {
         if (user == null)
             throw new IllegalArgumentException("No user passed");
 
+        if (amount <= 0)
+            throw new IllegalArgumentException("Negative amount passed");
+
         addToLogList(new InventoryLog(
                 "Inventory edit: Restock Item Amount",
                 LocalDate.now().toString(),
