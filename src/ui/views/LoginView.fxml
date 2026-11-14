@@ -26,7 +26,7 @@
                     <PasswordField fx:id="passwordField"/>
                 </VBox>
             </VBox>
-            <Button>Login</Button>
+            <Button onAction="#loginClick">Login</Button>
         </VBox>
     </center>
 </BorderPane>
