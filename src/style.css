@@ -124,3 +124,12 @@
 .text-field.error{
     -fx-text-box-border: #CC003D;
 }
+
+.error-box{
+    -fx-padding: 4px 0 0 0;
+}
+
+.error-text{
+    -fx-text-fill: #CC003D;
+    -fx-font-size: 12px;
+}

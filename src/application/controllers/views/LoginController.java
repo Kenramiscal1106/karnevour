@@ -1,14 +1,44 @@
 package application.controllers.views;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 public class LoginController {
 
-
+    @FXML
     public TextField usernameField;
+
+    @FXML
     public PasswordField passwordField;
+
+    @FXML
+    public VBox errorBox;
+
+    @FXML
+    public Label errorLabel;
+
+    @FXML
+    public void initialize(){
+        usernameField.textProperty().addListener((obs, oldText, textInput) -> {
+           if (textInput != null) {
+               usernameField.getStyleClass().remove("error");
+
+               hideError();
+           }
+        });
+
+        passwordField.textProperty().addListener((obs, oldText, textInput) -> {
+            if (textInput != null) {
+                passwordField.getStyleClass().remove("error");
+
+                hideError();
+            }
+        });
+    }
+
 
     @FXML
     private void loginClick(){
@@ -34,35 +64,63 @@ public class LoginController {
 
     }
 
-    private void showError(String error){
+    private void hideError(){
+        errorBox.setVisible(false);
+        errorBox.setManaged(false);
+    }
 
-        if (error.equals("Empty fields")){
-            usernameField.getStyleClass().add("error");
-            passwordField.getStyleClass().add("error");
-            System.out.println("Empty fields");
+
+    private void showError(String error){
+        if (error.equals("Empty fields")) {
+
+            if (passwordField.getText().isEmpty() && usernameField.getText().isEmpty()){
+                markError(usernameField);
+                markError(passwordField);
+                errorLabel.setText("Empty fields");
+                return;
+            }
+
+            if (usernameField.getText().isEmpty()){
+                markError(usernameField);
+                errorLabel.setText("Empty username");
+            }
+
+            else if (passwordField.getText().isEmpty()){
+                markError(passwordField);
+                errorLabel.setText("Empty password");
+            }
         }
 
-        if (error.equals("Username")){
-            usernameField.getStyleClass().add("error");
 
+        if (error.equals("Username")) {
             usernameField.clear();
             passwordField.clear();
 
-            // print statement placeholder
-            System.out.println("User not found.");
+            markError(usernameField);
+            markError(passwordField);
+            errorLabel.setText("User not found");
         }
 
-        if (error.equals("Password")){
-            passwordField.getStyleClass().add("error");
-
+        if (error.equals("Password")) {
             passwordField.clear();
 
-            // print statement placeholder
-            System.out.println("Incorrect password.");
+
+            markError(passwordField);
+            errorLabel.setText("Incorrect password");
+
+
         }
+
+        errorBox.setVisible(true);
+        errorBox.setManaged(true);
+
     }
 
-    // add a function that listens to the fields when error was shown. updated when fields
+    private void markError(TextField field){
+        if (!field.getStyleClass().contains("error")){
+            field.getStyleClass().add("error");
+        }
+    }
 
     private void clearFields(){
         usernameField.clear();

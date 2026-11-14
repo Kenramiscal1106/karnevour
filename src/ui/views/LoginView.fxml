@@ -25,8 +25,8 @@
                     <Label labelFor="$passwordField">Password</Label>
                     <PasswordField fx:id="passwordField" styleClass="textField"/>
                 </VBox>
-                <VBox>
-                    <Label fx:id="errorLabel" visible="false" managed="false"></Label>
+                <VBox fx:id="errorBox" styleClass="error-box" visible="false" managed="false">
+                    <Label fx:id="errorLabel" styleClass="error-text"></Label>
                 </VBox>
             </VBox>
             <Button onAction="#loginClick">Login</Button>
