@@ -19,11 +19,14 @@
             <VBox>
                 <VBox>
                     <Label labelFor="$usernameField">Username</Label>
-                    <TextField fx:id="usernameField"/>
+                    <TextField fx:id="usernameField" styleClass="textField"/>
                 </VBox>
                 <VBox>
                     <Label labelFor="$passwordField">Password</Label>
-                    <PasswordField fx:id="passwordField"/>
+                    <PasswordField fx:id="passwordField" styleClass="textField"/>
+                </VBox>
+                <VBox>
+                    <Label fx:id="errorLabel" visible="false" managed="false"></Label>
                 </VBox>
             </VBox>
             <Button onAction="#loginClick">Login</Button>

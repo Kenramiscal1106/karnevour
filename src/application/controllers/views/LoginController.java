@@ -17,6 +17,7 @@ public class LoginController {
 
         if (username.isEmpty() || password.isEmpty()){
             showError("Empty fields");
+            return;
         }
 
         // search for username and password match in the db
@@ -34,8 +35,34 @@ public class LoginController {
     }
 
     private void showError(String error){
-        System.out.println(error);
+
+        if (error.equals("Empty fields")){
+            usernameField.getStyleClass().add("error");
+            passwordField.getStyleClass().add("error");
+            System.out.println("Empty fields");
+        }
+
+        if (error.equals("Username")){
+            usernameField.getStyleClass().add("error");
+
+            usernameField.clear();
+            passwordField.clear();
+
+            // print statement placeholder
+            System.out.println("User not found.");
+        }
+
+        if (error.equals("Password")){
+            passwordField.getStyleClass().add("error");
+
+            passwordField.clear();
+
+            // print statement placeholder
+            System.out.println("Incorrect password.");
+        }
     }
+
+    // add a function that listens to the fields when error was shown. updated when fields
 
     private void clearFields(){
         usernameField.clear();

@@ -116,3 +116,11 @@
     -fx-background-color: #FFF;
     -fx-background-radius: 8px;
 }
+
+.text-field{
+    -fx-focus-color: #646464;
+}
+
+.text-field.error{
+    -fx-text-box-border: #CC003D;
+}
