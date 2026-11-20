@@ -30,7 +30,6 @@ public class SalesControl {
         refreshTotalInventoryValue();
         var sales = new FilteredList<>(Logger.getInstance().getTransactionLogs(), t -> t instanceof SaleLog);
         salesList.setItems(sales);
-        Logger.getInstance().addLog(new SaleLog("test", "2026-11-20", "test sale", "me", "+Stest", 150));
 
         salesList.setCellFactory(listView -> new ListCell<>(){
             private final Node row;
