@@ -211,6 +211,16 @@ public class Inventory {
         return ((Product) item).getPrice();
     }
 
+    public double getTotalInventoryValue(){
+        double total = 0;
+        for (ItemHolder itemHolder: itemHolderList){
+            if(itemHolder.getItem() instanceof Product product){
+                total += product.getPrice() * itemHolder.getItemInStock();
+            }
+        }
+        return total;
+    }
+
     public void setItemPrice(String uid, double newPrice, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
