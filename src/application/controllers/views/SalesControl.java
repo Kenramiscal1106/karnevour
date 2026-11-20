@@ -15,9 +15,9 @@ public class SalesControl {
 
     @FXML
     void initialize() {
-            double value = Inventory.getInstance().getTotalInventoryValue();
+            double totalInventoryValue = Inventory.getInstance().getTotalInventoryValue();
             inventoryValueStatCardController.setData(
-                    String.format("₱%,.0f", value),
+                    String.format("₱%,.0f", totalInventoryValue),
                     "Total inventory value",
                     "icons/database.png"
             );

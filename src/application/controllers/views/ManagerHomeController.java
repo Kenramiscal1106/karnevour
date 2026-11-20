@@ -17,12 +17,14 @@ public class ManagerHomeController {
 //       connect stats to service (via binding)
         var inventory = Inventory.getInstance();
 
-        double value = inventory.getTotalInventoryValue();
+        double totalInventoryValue = inventory.getTotalInventoryValue();
         inventoryValueStatCardController.setData(
-                String.format("₱%,.0f", value),
+                String.format("₱%,.0f", totalInventoryValue),
                 "Total inventory value",
                 "icons/database.png"
         );
+
+
 
     }
 }
