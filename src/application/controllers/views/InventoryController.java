@@ -16,12 +16,12 @@ import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class InventoryController implements Initializable {
+public class InventoryController {
     @FXML
     private VBox container;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         refresh();
     }
 

@@ -1,6 +1,7 @@
 package application.controllers.views;
 
 import application.controllers.components.DashboardStatCardController;
+import application.controllers.components.SalesHistoryEntryController;
 import database.inventory.Inventory;
 import database.logs.Logger;
 import database.logs.SaleLog;
@@ -8,7 +9,9 @@ import database.logs.Transaction;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -27,7 +30,33 @@ public class SalesControl {
         refreshTotalInventoryValue();
         var sales = new FilteredList<>(Logger.getInstance().getTransactionLogs(), t -> t instanceof SaleLog);
         salesList.setItems(sales);
-//        TODO: add listCell to tell listview how to display it
+        Logger.getInstance().addLog(new SaleLog("test", "2026-11-20", "test sale", "me", "+Stest", 150));
+
+        salesList.setCellFactory(listView -> new ListCell<>(){
+            private final Node row;
+            private final SalesHistoryEntryController controller;
+
+            {
+                try{
+                    var loader = new FXMLLoader(getClass().getResource("/ui/components/SaleHistoryEntry.fxml"));
+                    row = loader.load();
+                    controller = loader.getController();
+                } catch (IOException e){
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            protected void updateItem(Transaction transaction, boolean empty){
+                super.updateItem(transaction, empty);
+                if (empty || transaction == null){
+                    setGraphic(null);
+                } else {
+                    controller.initData((SaleLog) transaction);
+                    setGraphic(row);
+                }
+            }
+        });
     }
 
     @FXML
