@@ -13,6 +13,6 @@ public class DashboardStatCardController {
     public void setData(String primaryTextContent, String secondaryTextContent, String imagePath) {
         primaryText.setText(primaryTextContent);
         secondaryText.setText(secondaryTextContent);
-        imageContainer.setImage(new Image(imagePath));
+        imageContainer.setImage(new Image(getClass().getResource(imagePath).toExternalForm()));
     }
 }

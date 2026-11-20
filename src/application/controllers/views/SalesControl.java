@@ -22,6 +22,7 @@ public class SalesControl {
                     "icons/database.png"
             );
 
+
 //        TODO: bind salesList items to transactionlist, but filter only products
 //        TODO: add listCell to tell listview how to display it
     }
