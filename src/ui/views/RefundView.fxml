@@ -12,7 +12,7 @@
       prefHeight="200" prefWidth="512.0" stylesheets="@/style.css" styleClass="mini-prompt">
     <ComboBox fx:id="itemSelector">
     </ComboBox>
-    <fx:include source="../components/AdjustItem.fxml" fx:id="adjustItemController"/>
+    <fx:include source="../components/AdjustItem.fxml" fx:id="adjustItem"/>
     <HBox>
         <Button styleClass="button--ghost,button--medium" fx:id="windowCloseButton">
             Cancel

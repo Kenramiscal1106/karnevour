@@ -6,11 +6,11 @@ import javafx.fxml.FXML;
 
 public class ManagerHomeController {
     @FXML
-    private DashboardStatCardController revenueStatCard;
+    private DashboardStatCardController revenueStatCardController;
 
 
     @FXML
-    private DashboardStatCardController inventoryValueStatCard;
+    private DashboardStatCardController inventoryValueStatCardController;
 
     @FXML
     public void initialize() {

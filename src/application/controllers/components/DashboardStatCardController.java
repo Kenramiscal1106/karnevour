@@ -1,5 +1,6 @@
 package application.controllers.components;
 
+import database.inventory.Inventory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
