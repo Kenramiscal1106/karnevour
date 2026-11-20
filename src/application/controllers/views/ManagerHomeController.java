@@ -20,8 +20,8 @@ public class ManagerHomeController {
         double totalInventoryValue = inventory.getTotalInventoryValue();
         inventoryValueStatCardController.setData(
                 String.format("₱%,.0f", totalInventoryValue),
-                "Total inventory value",
-                "icons/database.png"
+                "Total Inventory Value",
+                "/icons/warehouse.png" // placeholder icon
         );
 
 
