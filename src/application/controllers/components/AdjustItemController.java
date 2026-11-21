@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.util.Objects;
 
 public class AdjustItemController implements EntryControllerBase<ItemHolder> {
@@ -25,10 +26,11 @@ public class AdjustItemController implements EntryControllerBase<ItemHolder> {
     @Override
     public void initData(ItemHolder itemHolder) {
         var item =  itemHolder.getItem();
+        File file = new File(item.getImagePath());
+        itemImage.setImage(new Image(file.toURI().toString()));
         quantityField.setText("0");
         unitField.setText(itemHolder.getUnit());
         itemQuantityText.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit());
-        itemImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(item.getImagePath()))));
         itemNameText.setText(itemHolder.getItem().getAlternativeName());
     }
     @FXML

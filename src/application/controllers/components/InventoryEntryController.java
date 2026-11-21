@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.util.Objects;
 
 
@@ -22,7 +23,8 @@ public class InventoryEntryController implements EntryControllerBase<ItemHolder>
 
     public void initData(ItemHolder itemHolder) {
         var item =  itemHolder.getItem();
-        imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(item.getImagePath()))));
+        File file = new File(item.getImagePath());
+        imageView.setImage(new Image(file.toURI().toString()));
         itemName.setText(itemHolder.getItem().getAlternativeName());
         itemQuantity.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit());
     }
