@@ -7,10 +7,24 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
+import java.util.function.Consumer;
+
 public class AuthOperations {
 
     private final Database database = Database.getInstance();
 
+    public void login(String name, String password, Consumer<User> onSuccess, Consumer<String> onFail){
+        var service = new LoginService(name, password);
+        service.setOnSucceeded(e -> onSuccess.accept(service.getValue()));
+        service.setOnFailed(e -> onFail.accept(service.getException().getMessage()));
+        service.start();
+    }
+
+    public void logout(Runnable onDone){
+        var service = new LogoutService(SessionHandler.getInstance().getCurrentUser());
+        service.setOnSucceeded(e -> onDone.run());
+        service.start();
+    }
 
     public class LoginService extends Service<User> {
 

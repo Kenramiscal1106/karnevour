@@ -1,13 +1,19 @@
 package application.controllers.views;
 
+import application.services.AuthOperations;
 import application.services.SessionHandler;
 import database.Database;
+import database.user.Admin;
 import database.user.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -42,7 +48,6 @@ public class LoginController {
         });
     }
 
-
     @FXML
     private void loginClick(){
         String username = usernameField.getText();
@@ -53,18 +58,20 @@ public class LoginController {
             return;
         }
 
-        // search for username and password match in the db
-        User user = Database.getInstance().loadUserFromDatabase(username, password);
-        if (user == null){
-            showError("Username");
-            return;
+        new AuthOperations().login(username, password,
+                user -> {
+                    openView(user instanceof Admin ? "/ui/views/ManagerView.fxml" : "/ui/views/ClerkView.fxml");
+                },
+                message -> showError("Username"));
+    }
+
+    private void openView(String fxmlPath){
+        try{
+            Parent root = new FXMLLoader(getClass().getResource(fxmlPath)).load();
+            usernameField.getScene().setRoot(root);
+        } catch (IOException e){
+            throw new RuntimeException(e);
         }
-
-        // check what type of user
-        SessionHandler.getOrCreateInstance(user);
-        // load the appropriate user view
-
-        // close login
 
     }
 
