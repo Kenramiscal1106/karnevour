@@ -11,40 +11,49 @@ public class AuthOperations {
 
     private final Database database = Database.getInstance();
 
-    public Service<Void> loginService = new Service<>() {
-        private final SimpleStringProperty name = new SimpleStringProperty();
-        private final SimpleStringProperty password = new SimpleStringProperty();
+
+    public class LoginService extends Service<User> {
+
+        private final String name;
+        private final String password;
+
+        public LoginService(String name, String password) {
+            this.name = name;
+            this.password = password;
+        }
 
         @Override
-        protected Task<Void> createTask() {
-            return new Task<Void>() {
+        protected Task<User> createTask() {
+            return new Task<>() {
                 @Override
-                protected Void call() throws Exception {
-                    User currentUser = database.loadUserFromDatabase(name.get(), password.get());
+                protected User call() throws Exception {
+                    User user = database.loadUserFromDatabase(name, password);
+                    if (user == null) throw new Exception("Invalid username or password.");
 
-                    if(currentUser == null) throw new Exception("Invalid username or credentials.");
-
-                    SessionHandler.getOrCreateInstance(currentUser);
-                    throw null;
+                    SessionHandler.getOrCreateInstance(user);
+                    return user;
                 }
             };
         }
-    };
+    }
 
-    public Service<Void> logoutService = new Service<>() {
-        private final SimpleObjectProperty<User> user = new SimpleObjectProperty<>();
-        private final SimpleStringProperty operation = new SimpleStringProperty();
+    public class LogoutService extends Service<Void> {
+        private final User user;
+
+        public LogoutService(User user) {
+            this.user = user;
+        }
 
         @Override
         protected Task<Void> createTask() {
-            return new Task<Void>() {
+            return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-                    database.saveUsersToDatabase(user.get());
+                    database.saveUsersToDatabase(user);
                     SessionHandler.clearSession();
                     return null;
                 }
             };
         }
-    };
+    }
 }

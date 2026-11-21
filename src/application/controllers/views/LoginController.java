@@ -1,5 +1,8 @@
 package application.controllers.views;
 
+import application.services.SessionHandler;
+import database.Database;
+import database.user.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -51,13 +54,14 @@ public class LoginController {
         }
 
         // search for username and password match in the db
-
-            // if username not found, clear fields, show error
-
-            // if username found but password incorrect, show error
+        User user = Database.getInstance().loadUserFromDatabase(username, password);
+        if (user == null){
+            showError("Username");
+            return;
+        }
 
         // check what type of user
-
+        SessionHandler.getOrCreateInstance(user);
         // load the appropriate user view
 
         // close login
