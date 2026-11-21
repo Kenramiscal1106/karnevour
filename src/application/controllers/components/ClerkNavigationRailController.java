@@ -17,7 +17,7 @@ public class ClerkNavigationRailController extends NavigationRailControllerBase 
     @FXML
     public void saleClick(ActionEvent mouseEvent) {
     	setActive(saleButton, true);
-        navigationStore.updateView("/ui/views/SaleView.fxml");
+        navigationStore.updateView("/ui/views/SalesView.fxml");
     }
 
     @FXML
