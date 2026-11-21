@@ -4,8 +4,11 @@ import database.inventory.Inventory;
 import database.logs.SaleLog;
 import database.logs.Transaction;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+
+import java.io.File;
 
 public class SalesHistoryEntryController implements EntryControllerBase<SaleLog> {
     @FXML
@@ -24,6 +27,8 @@ public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>
         var holder = Inventory.getInstance().getItemHolderByUid(saleLog.productUid);
         primaryText.setText(holder.getItemDescription());
         secondaryText.setText(formatQty(saleLog.qty) + " " + holder.getUnit());
+        File file = new File(holder.getItem().getImagePath());
+        imageDisplay.setImage(new Image(file.toURI().toString()));
     }
 
     private String formatQty(double qty){
