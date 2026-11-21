@@ -1,6 +1,7 @@
 package application.controllers.views;
 
 import application.services.AuthOperations;
+import application.services.DataLoader;
 import application.services.SessionHandler;
 import database.Database;
 import database.user.Admin;
@@ -60,6 +61,7 @@ public class LoginController {
 
         new AuthOperations().login(username, password,
                 user -> {
+                    DataLoader.loadOnce();
                     openView(user instanceof Admin ? "/ui/views/ManagerView.fxml" : "/ui/views/ClerkView.fxml");
                 },
                 message -> showError("Username"));

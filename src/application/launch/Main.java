@@ -1,5 +1,6 @@
 package application.launch;
 
+import application.services.DataLoader;
 import database.Database;
 import database.inventory.Inventory;
 import javafx.application.Application;
@@ -22,7 +23,9 @@ public class Main extends Application {
         stage.setScene(new Scene(sceneryLoader.load(), 500, 500));
         stage.show();
         stage.setOnCloseRequest(_ -> {
-            Database.getInstance().saveInventoryToDatabase(Inventory.getInstance().getItemHolderList());
+            if (DataLoader.isLoaded()){
+                Database.getInstance().saveInventoryToDatabase(Inventory.getInstance().getItemHolderList());
+            }
 //            Database.getInstance().saveLogsToDatabase(Logs);
         });
         // test commit
