@@ -11,6 +11,7 @@ public class SaleLog extends Log implements Transaction{
     public final double qty;
 
 
+
     public SaleLog(String name, String date, String description, String author, String uid,
                    String productUid, double value, double qty) {
         this.name = name;

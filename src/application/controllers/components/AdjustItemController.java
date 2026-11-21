@@ -26,7 +26,6 @@ public class AdjustItemController implements EntryControllerBase<ItemHolder> {
     public void initData(ItemHolder itemHolder) {
         var item =  itemHolder.getItem();
         quantityField.setText("0");
-
         unitField.setText(itemHolder.getUnit());
         itemQuantityText.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit());
         itemImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(item.getImagePath()))));
