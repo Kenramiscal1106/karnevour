@@ -74,7 +74,7 @@ public class Database {
             parentFolder.mkdirs();
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, false))){
-            writer.write("LogType,Name,Date,Description,Author,Uid,{Amount}");
+            writer.write("LogType,Name,Date,Description,Author,Uid,ItemUid,{Total},{Qty}");
             writer.newLine();
             activityList.forEach(log->{
                 String saveLine = log.toCSVFormat();
@@ -192,32 +192,41 @@ public class Database {
                 if(line.isBlank()) continue;
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 switch (rawText[0]){
-                    case "DonationLog" -> logger.addLog(new DonationLog(removeQuotes(rawText[1]),
+                    case "DonationLog" -> logger.addLog(new DonationLog(
+                            removeQuotes(rawText[1]),
                             rawText[2],
                             removeQuotes(rawText[3]),
                             removeQuotes(rawText[4]),
                             rawText[5],
                             Double.parseDouble(rawText[6])
                             ));
-                    case "InventoryLog" -> logger.addLog(new InventoryLog(removeQuotes(rawText[1]),
-                            rawText[2],
-                            removeQuotes(rawText[3]),
-                            removeQuotes(rawText[4]),
-                            rawText[5]
-                    ));
-                    case "RefundLog" -> logger.addLog(new RefundLog(removeQuotes(rawText[1]),
+                    case "InventoryLog" -> logger.addLog(new InventoryLog(
+                            removeQuotes(rawText[1]),
                             rawText[2],
                             removeQuotes(rawText[3]),
                             removeQuotes(rawText[4]),
                             rawText[5],
-                            Double.parseDouble(rawText[6])
+                            rawText[6]
                     ));
-                    case "SaleLog" -> logger.addLog(new SaleLog(removeQuotes(rawText[1]),
+                    case "RefundLog" -> logger.addLog(new RefundLog(
+                            removeQuotes(rawText[1]),
                             rawText[2],
                             removeQuotes(rawText[3]),
                             removeQuotes(rawText[4]),
                             rawText[5],
-                            Double.parseDouble(rawText[6])
+                            rawText[6],
+                            Double.parseDouble(rawText[7]),
+                            Double.parseDouble(rawText[8])
+                    ));
+                    case "SaleLog" -> logger.addLog(new SaleLog(
+                            removeQuotes(rawText[1]),
+                            rawText[2],
+                            removeQuotes(rawText[3]),
+                            removeQuotes(rawText[4]),
+                            rawText[5],
+                            rawText[6],
+                            Double.parseDouble(rawText[7]),
+                            Double.parseDouble(rawText[8])
                     ));
                 }
             }

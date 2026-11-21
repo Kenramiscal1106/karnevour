@@ -6,16 +6,21 @@ public class RefundLog extends Log implements Transaction {
     public final String description;
     public final String author;
     public final String uid;
+    public final String productUid;
     public final double value;
+    public final double qty;
+
 
     public RefundLog(String name, String date, String description, String author, String uid,
-                     double value) {
+                     String productUid, double value, double qty) {
         this.name = name;
         this.date = date;
         this.description = description;
         this.author = author;
         this.uid = uid;
+        this.productUid = productUid;
         this.value = value;
+        this.qty = qty;
 
     }
     @Override
@@ -26,7 +31,9 @@ public class RefundLog extends Log implements Transaction {
                 "\""+description+"\"" + "," +
                 "\""+author+"\"" + "," +
                 uid + "," +
-                value;
+                productUid + ","+
+                value + "," +
+                qty;
     }
 
 }

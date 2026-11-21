@@ -69,7 +69,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " added item (" + item.getSpecificItemType() + ") to the inventory",
                 user.getName(),
-                "++" + UUID.randomUUID().toString()
+                "++" + UUID.randomUUID().toString(),
+                uid
         ));
 
         this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));
@@ -86,7 +87,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " removed item (" + itemHolder.getItem().getSpecificItemType() + ") to the inventory",
                 user.getName(),
-                "--" + UUID.randomUUID().toString()
+                "--" + UUID.randomUUID().toString(),
+                uid
         ));
 
         this.itemHolderList.remove(itemHolder);
@@ -106,7 +108,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " restocked item (" + hold.getItem().getSpecificItemType() + ") to the inventory (from: " + hold.getItemInStock() + " to: " + (hold.getItemInStock() + amount) + ")",
                 user.getName(),
-                "+=" + UUID.randomUUID().toString()
+                "+=" + UUID.randomUUID().toString(),
+                uid
         ));
 
         hold.updateItemInStock(amount, "add");
@@ -126,7 +129,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " reduced item (" + hold.getItem().getSpecificItemType() + ") to the inventory (from: " + hold.getItemInStock() + " to: " + (hold.getItemInStock() - amount) + ")",
                 user.getName(),
-                "-=" + UUID.randomUUID().toString()
+                "-=" + UUID.randomUUID().toString(),
+                uid
         ));
 
         hold.updateItemInStock(amount, "subtract");
@@ -148,7 +152,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " replaced item " + itemHolder.getItem() + ", with item " + newItem.getSpecificItemType(),
                 user.getName(),
-                "+-" + UUID.randomUUID().toString()
+                "+-" + UUID.randomUUID().toString(),
+                newUid
         ));
 
         this.itemHolderList.set(i, new ItemHolder(newUid, newItem, newUnit, newItemInStock, newLowStockLimit));
@@ -168,7 +173,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " set the item (" + itemHolder.getItem().getSpecificItemType() + ") stock from: " + itemHolder.getItemInStock() + ", to: " + inStock,
                 user.getName(),
-                "+-" + UUID.randomUUID().toString()
+                "+~" + UUID.randomUUID().toString(),
+                uid
         ));
 
         itemHolder.updateItemInStock(inStock, "override");
@@ -188,7 +194,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " set the low stock limit of item (" + itemHolder.getItem().getSpecificItemType() + ") from: " + itemHolder.getLowStockLimit() + ", to: " + inStock,
                 user.getName(),
-                "+-" + UUID.randomUUID().toString()
+                "+#" + UUID.randomUUID().toString(),
+                uid
         ));
 
         itemHolder.setLowStockLimit(inStock);
@@ -240,7 +247,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " set the item (" + itemHolder.getItem().getSpecificItemType() + ") price from: " + ((Product) item).getPrice() + ", to: " + newPrice,
                 user.getName(),
-                "I$" + UUID.randomUUID().toString()
+                "I$" + UUID.randomUUID().toString(),
+                uid
         ));
 
         ((Product) item).setPrice(newPrice);
@@ -257,7 +265,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " set the item (" + itemHolder.getItem().getSpecificItemType() + ") description from: " + itemHolder.getItemDescription() + ", to: " + desc,
                 user.getName(),
-                "ID" + UUID.randomUUID().toString()
+                "ID" + UUID.randomUUID().toString(),
+                uid
         ));
 
         itemHolder.getItem().setDescription(desc);
@@ -274,7 +283,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " set the item (" + itemHolder.getItem().getSpecificItemType() + ") alternative name from: " + itemHolder.getLowStockLimit() + ", to: " + altName,
                 user.getName(),
-                "IA" + UUID.randomUUID().toString()
+                "IA" + UUID.randomUUID().toString(),
+                uid
         ));
 
         itemHolder.getItem().setAlternativeName(altName);
@@ -293,7 +303,8 @@ public class Inventory {
                 LocalDate.now().toString(),
                 "the database loaded item (" + item.getSpecificItemType() + ") to the inventory",
                 "database",
-                "+?" + UUID.randomUUID().toString()
+                "+?" + UUID.randomUUID().toString(),
+                uid
         ));
 
         this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));

@@ -7,12 +7,15 @@ public class InventoryLog extends Log {
     public final String description;
     public final String author;
     public final String uid;
-    public InventoryLog(String name, String date, String description, String author, String uid) {
+    public final String itemUid;
+
+    public InventoryLog(String name, String date, String description, String author, String uid, String itemUid) {
         this.name = name;
         this.date = date;
         this.description = description;
         this.author = author;
         this.uid = uid;
+        this.itemUid = itemUid;
     }
     public String toCSVFormat() {
         return  this.getClass().getSimpleName()+","+
@@ -20,6 +23,7 @@ public class InventoryLog extends Log {
                 date +"," +
                 "\""+description+"\"" + "," +
                 "\""+author+"\"" + "," +
-                uid;
+                uid + "," +
+                itemUid;
     }
 }

@@ -51,7 +51,9 @@ public class CashRegister {
                 "Item ("+inventory.getItemById(uid).getSpecificItemType()+") is sold with "+unit+" sold, by employee "+user.getName()+", for "+(inventory.getPrice(uid)*unit),
                 user.getName(),
                 "+S"+UUID.randomUUID().toString(),
-                payment
+                uid,
+                payment,
+                unit
         ));
 
         inventory.reduceItemAmount(uid,unit,user);
@@ -74,7 +76,9 @@ public class CashRegister {
                     "Item ("+itemHolder.getItem().getSpecificItemType()+") is refunded with employee "+user.getName()+"\'s discretion",
                     user.getName(),
                     "+R"+UUID.randomUUID().toString(),
-                    product.getPrice()*unit
+                    itemHolder.getUid(),
+                    product.getPrice()*unit,
+                    unit
             ));
             cashOut(product.getPrice()*unit);
         }
