@@ -52,7 +52,7 @@ public class CashRegister {
                 user.getName(),
                 "+S"+UUID.randomUUID().toString(),
                 uid,
-                payment,
+                inventory.getPrice(uid)*unit,
                 unit
         ));
 
