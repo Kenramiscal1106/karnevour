@@ -64,7 +64,7 @@ public class LoginController {
                     DataLoader.loadOnce();
                     openView(user instanceof Admin ? "/ui/views/ManagerView.fxml" : "/ui/views/ClerkView.fxml");
                 },
-                message -> showError("Username"));
+                message -> showError("Incorrect"));
     }
 
     private void openView(String fxmlPath){
@@ -106,18 +106,12 @@ public class LoginController {
             }
         }
 
-        if (error.equals("Username")) {
+        if (error.equals("Incorrect")) {
             clearFields();
             markError(usernameField);
             markError(passwordField);
-            errorLabel.setText("User not found");
-        }
+            errorLabel.setText("Incorrect username or password");
 
-        if (error.equals("Password")) {
-            passwordField.clear();
-
-            markError(passwordField);
-            errorLabel.setText("Incorrect password");
         }
 
         errorBox.setVisible(true);
