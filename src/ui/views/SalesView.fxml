@@ -19,7 +19,7 @@
             <Button fx:id="NewOrderButton" onAction="#NewOrderClick">
                 <graphic>
                     <ImageView fitHeight="20" fitWidth="20">
-                        <Image url="@/icons/cart.png" />
+                        <Image url="@../../icons/cart.png" />
                     </ImageView>
                 </graphic>
                 New Order
@@ -27,7 +27,7 @@
             <Button fx:id="ItemRefundButton" onAction="#ItemRefundClick">
                 <graphic>
                     <ImageView fitHeight="20" fitWidth="20">
-                        <Image url="@/icons/hand-package.png" />
+                        <Image url="@../../icons/hand-package.png" />
                     </ImageView>
                 </graphic>
                 Item Refund
