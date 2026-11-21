@@ -139,7 +139,6 @@ public class Database {
 
         try(BufferedReader reader = new BufferedReader(new FileReader(USER_STAFF_LIST_DEFAULT_FILE))){
             String line;
-            reader.readLine();
             while((line=reader.readLine())!=null){
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 if(removeQuotes(rawText[1]).equals(name) && removeQuotes(rawText[3]).equals(password))
