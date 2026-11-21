@@ -70,7 +70,7 @@ public class CashRegister {
         if (unit<=0)
             throw new IllegalArgumentException("Refund quantity must be greater than 0");
         if (itemHolder.getItem() instanceof Product product) {
-            inventory.addToLogList(new SaleLog(
+            inventory.addToLogList(new RefundLog(
                     "Transaction Processed: Item Refund",
                     LocalDate.now().toString(),
                     "Item ("+itemHolder.getItem().getSpecificItemType()+") is refunded with employee "+user.getName()+"\'s discretion",
