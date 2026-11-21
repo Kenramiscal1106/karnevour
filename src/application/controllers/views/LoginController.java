@@ -94,21 +94,20 @@ public class LoginController {
             }
 
             if (usernameField.getText().isEmpty()){
+                clearFields();
                 markError(usernameField);
                 errorLabel.setText("Empty username");
             }
 
             else if (passwordField.getText().isEmpty()){
+                clearFields();
                 markError(passwordField);
                 errorLabel.setText("Empty password");
             }
         }
 
-
         if (error.equals("Username")) {
-            usernameField.clear();
-            passwordField.clear();
-
+            clearFields();
             markError(usernameField);
             markError(passwordField);
             errorLabel.setText("User not found");
@@ -117,11 +116,8 @@ public class LoginController {
         if (error.equals("Password")) {
             passwordField.clear();
 
-
             markError(passwordField);
             errorLabel.setText("Incorrect password");
-
-
         }
 
         errorBox.setVisible(true);

@@ -14,7 +14,7 @@ public abstract class Item {
         this.alternativeName = alternativeName.trim();
 
         File altImage = new File("src/pictures/" + alternativeName + ".jpg");
-        File specificImage = new File("/pictures/" + specificItem + ".jpg");
+        File specificImage = new File("src/pictures/" + specificItem + ".jpg");
 
         if(altImage.exists())
             this.imagePath = altImage;
@@ -29,7 +29,7 @@ public abstract class Item {
         this.description = description;
         this.alternativeName = "";
 
-        File specificImage = new File("/pictures/" + specificItem + ".jpg");
+        File specificImage = new File("src/pictures/" + specificItem + ".jpg");
 
         if (specificImage.exists())
             this.imagePath = specificImage;
