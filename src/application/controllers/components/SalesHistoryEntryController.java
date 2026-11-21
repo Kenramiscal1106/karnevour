@@ -20,7 +20,7 @@ public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>
 
     @Override
     public void initData(SaleLog saleLog) {
-        priceLabel.setText("₱%,.0f" + (saleLog.value));
+        priceLabel.setText(String.format("₱%,.0f", saleLog.value));
         var holder = Inventory.getInstance().getItemHolderByUid(saleLog.productUid);
         primaryText.setText(holder.getItemDescription());
         secondaryText.setText(formatQty(saleLog.qty) + " " + holder.getUnit());
