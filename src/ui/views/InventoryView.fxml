@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.InventoryController"
@@ -18,6 +19,10 @@
         <Button fx:id="InventoryButton" onAction="#addInventoryClick">Add to Inventory</Button>
         <Button fx:id="subtractInventoryButton" onAction="#subtractInventoryClick">Subtract from Inventory</Button>
     </HBox>
-    <VBox fx:id="container" VBox.vgrow="ALWAYS" spacing="4" styleClass="inventory-entries">
+    <VBox>
+        <Text>Recent Sales</Text>
+        <ScrollPane>
+            <ListView fx:id="inventoryList"/>
+        </ScrollPane>
     </VBox>
 </VBox>

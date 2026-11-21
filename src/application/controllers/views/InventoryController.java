@@ -30,9 +30,6 @@ public class InventoryController {
     public ListView<ItemHolder> inventoryList;
 
     @FXML
-    private VBox container;
-
-    @FXML
     void initialize() {
         inventoryList.setItems(Inventory.getInstance().getItemHolderList());
         inventoryList.setCellFactory(listView -> new ListCell<>(){
@@ -42,8 +39,9 @@ public class InventoryController {
             {
                 try{
                     var loader = new FXMLLoader(getClass().getResource("/ui/components/InventoryEntry.fxml"));
+                    controller = new InventoryEntryController();
+                    loader.setController(controller);
                     row = loader.load();
-                    controller = loader.getController();
                 } catch (IOException e){
                     throw new RuntimeException(e);
                 }
@@ -79,7 +77,7 @@ public class InventoryController {
             stage.setTitle(title);
             stage.setScene(new Scene(loader.load()));
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initOwner(container.getScene().getWindow());
+            stage.initOwner(inventoryList.getScene().getWindow());
             stage.showAndWait();
             inventoryList.refresh();
         } catch (IOException e) {
