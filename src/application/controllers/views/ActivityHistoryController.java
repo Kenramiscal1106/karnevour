@@ -6,6 +6,7 @@ import database.logs.Log;
 import database.logs.Loggable;
 import database.logs.Logger;
 import database.logs.SaleLog;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,6 +14,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
+import java.util.Comparator;
 
 public class ActivityHistoryController {
 
@@ -23,7 +25,7 @@ public class ActivityHistoryController {
     public void initialize() {
         var logger = Logger.getInstance();
         var logs = logger.getLogs();
-        activityHistoryList.setItems(logs);
+        activityHistoryList.setItems(new SortedList<>(logs, Comparator.comparingInt(logs::indexOf).reversed()));
         activityHistoryList.setCellFactory(listView -> new ListCell<Log>(){
             private final Node row;
             private final ActivityHistoryEntryController controller;

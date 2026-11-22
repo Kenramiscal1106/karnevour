@@ -7,6 +7,7 @@ import database.logs.Logger;
 import database.logs.SaleLog;
 import database.logs.Transaction;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Comparator;
 
 public class SalesControl {
     @FXML
@@ -30,7 +32,7 @@ public class SalesControl {
         refreshTotalInventoryValue();
         var logger = Logger.getInstance();
         var sales = logger.getSalesLogs();
-        salesList.setItems(sales);
+        new SortedList<>(sales, Comparator.comparingInt(sales::indexOf).reversed());
 
         salesList.setCellFactory(listView -> new ListCell<>(){
             private final Node row;
