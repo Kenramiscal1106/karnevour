@@ -89,7 +89,7 @@ public class SalesControl {
         inventoryValueStatCardController.setData(
                 String.format("₱%,.0f", totalInventoryValue),
                 "Total Inventory Value",
-                "/icons/warehouse.png" // placeholder icon
+                "/icons/value.png" // placeholder icon
         );
     }
 }

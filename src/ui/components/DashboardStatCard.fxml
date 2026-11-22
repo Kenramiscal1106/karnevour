@@ -17,5 +17,5 @@
         <Text fx:id="primaryText"/>
     </VBox>
     <Region />
-    <ImageView fx:id="imageContainer"/>
+    <ImageView fx:id="imageContainer" fitWidth="40" fitHeight="40"/>
 </HBox>

@@ -23,7 +23,7 @@ public class ManagerNavigationRailController extends NavigationRailControllerBas
     @FXML
     public void homeClick(ActionEvent mouseEvent) {
     	setActive(homeButton, true);
-        navigationStore.updateView("/ui/views/TestView.fxml");
+        navigationStore.updateView("/ui/views/ManagerHomeView.fxml");
     }
 
     @FXML
