@@ -20,7 +20,7 @@
     </left>
     <center>
 <!--        <ScrollPane fx:id="content" styleClass="main-content" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER" fitToWidth="true">-->
-            <fx:include source="TestView.fxml"/>
+            <fx:include source="ManagerHomeView.fxml"/>
 <!--        </ScrollPane>-->
     </center>
 </BorderPane>

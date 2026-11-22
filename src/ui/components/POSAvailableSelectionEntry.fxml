@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.controllers.components.POSAvailableSelectionEntry">
+    <HBox>
+        <ImageView fx:id="availableImage"/>
+        <VBox>
+            <Text fx:id="productName"/>
+            <Text fx:id="productRemaining"/>
+        </VBox>
+    </HBox>
+    <Region HBox.hgrow="ALWAYS"/>
+    <Button styleClass="button--primary, button--medium">Add</Button>
+</HBox>

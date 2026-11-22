@@ -1,0 +1,21 @@
+* {
+    -neutral-100: #fff;
+    -neutral-200: #f1f1f1;
+    -neutral-300: #e3e3e3;
+    -neutral-400: #9f9f9f;
+    -neutral-500: #787878;
+    -neutral-600: #646464;
+    -neutral-700: #424242;
+    -neutral-800: #232323;
+    -neutral-900: #1c1c1c;
+
+    -primary-100: #ffeef1;
+    -primary-200: #ffe4e4;
+    -primary-300: #ffcfd1;
+    -primary-400: #ff6180;
+    -primary-500: #f0004c;
+    -primary-600: #cc003d;
+    -primary-700: #970429;
+    -primary-800: #5c0012;
+    -primary-900: #43020f;
+}
