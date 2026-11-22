@@ -20,7 +20,7 @@
     </stylesheets>
     <center>
         <VBox maxWidth="400" styleClass="login-form" alignment="CENTER" maxHeight="420">
-            <Label>Login to Karnevour</Label>
+            <Label styleClass="h2">Login to Karnevour</Label>
             <VBox>
                 <VBox>
                     <Label labelFor="$usernameField">Username</Label>
@@ -30,7 +30,7 @@
                     <Label labelFor="$passwordField">Password</Label>
                     <PasswordField fx:id="passwordField"/>
                 </VBox>
-                <VBox fx:id="errorBox" styleClass="error-box" visible="false" managed="false">
+                <VBox fx:id="errorBox" styleClass="error-box" visible="false">
                     <Label fx:id="errorLabel" styleClass="error-text"/>
                 </VBox>
             </VBox>

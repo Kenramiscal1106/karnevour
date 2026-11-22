@@ -79,9 +79,7 @@ public class LoginController {
 
     private void hideError(){
         errorBox.setVisible(false);
-        errorBox.setManaged(false);
     }
-
 
     private void showError(String error){
         if (error.equals("Empty fields")) {
@@ -90,17 +88,16 @@ public class LoginController {
                 markError(usernameField);
                 markError(passwordField);
                 errorLabel.setText("Empty fields");
-                return;
             }
 
-            if (usernameField.getText().isEmpty()){
+            else if (usernameField.getText().isEmpty()){
                 clearFields();
                 markError(usernameField);
                 errorLabel.setText("Empty username");
             }
 
             else if (passwordField.getText().isEmpty()){
-                clearFields();
+                passwordField.clear();
                 markError(passwordField);
                 errorLabel.setText("Empty password");
             }
@@ -115,7 +112,6 @@ public class LoginController {
         }
 
         errorBox.setVisible(true);
-        errorBox.setManaged(true);
 
     }
 
