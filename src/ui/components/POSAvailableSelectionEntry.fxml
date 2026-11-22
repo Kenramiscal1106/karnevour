@@ -12,7 +12,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.POSAvailableSelectionEntry">
     <HBox>
-        <ImageView fx:id="availableImage"/>
+        <ImageView fx:id="availableImage" fitHeight="56" fitWidth="56"/>
         <VBox>
             <Text fx:id="productName"/>
             <Text fx:id="productRemaining"/>
