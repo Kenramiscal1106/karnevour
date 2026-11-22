@@ -15,7 +15,7 @@
     <stylesheets>
         <URL value="@../base.css" />
         <URL value="@../components.css" />
-    </stylesheets>'
+    </stylesheets>
     <VBox>
         <ListView fx:id="selectedList"/>
         <Region VBox.vgrow="ALWAYS"/>
