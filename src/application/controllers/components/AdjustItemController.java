@@ -23,6 +23,8 @@ public class AdjustItemController implements EntryControllerBase<ItemHolder> {
     @FXML
     public Text itemNameText;
 
+     public String textContent;
+
     @Override
     public void initData(ItemHolder itemHolder) {
         var item =  itemHolder.getItem();
@@ -31,7 +33,8 @@ public class AdjustItemController implements EntryControllerBase<ItemHolder> {
         quantityField.setText("0");
         unitField.setText(itemHolder.getUnit());
         itemQuantityText.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit());
-        itemNameText.setText(itemHolder.getItem().getAlternativeName());
+        textContent = itemHolder == null ? "" : itemHolder.getItemAlternativeName().isEmpty() ? itemHolder.getItemDescription() : itemHolder.getItemAlternativeName();
+        itemNameText.setText(textContent);
     }
     @FXML
     private void increment(){

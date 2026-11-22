@@ -19,12 +19,15 @@ public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>
     @FXML
     public ImageView imageDisplay;
 
+    public String textContent;
+
 
     @Override
     public void initData(SaleLog saleLog) {
         priceLabel.setText(String.format("₱%,.0f", saleLog.value));
         var holder = Inventory.getInstance().getItemHolderByUid(saleLog.productUid);
-        entryName.setText(holder.getItemDescription());
+        textContent = holder == null ? "" : holder.getItemAlternativeName().isEmpty() ? holder.getItemDescription() : holder.getItemAlternativeName();
+        entryName.setText(textContent);
         entryQuantity.setText(formatQty(saleLog.qty) + " " + holder.getUnit());
         File file = new File(holder.getItem().getImagePath());
         imageDisplay.setImage(new Image(file.toURI().toString()));
