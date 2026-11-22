@@ -69,6 +69,30 @@
     -fx-background-color: transparent;
 }
 
+.button--outline:hover {
+    -fx-border-color: -neutral-400;
+    -fx-border-width: 1px;
+    -fx-background-color: -neutral-200;
+}
+
+.button--large{
+    -fx-padding: 10px 12px;
+    -fx-graphic-text-gap: 8px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.button--login{
+    -fx-background-color: -primary-500;
+    -fx-text-fill: -neutral-100;
+    -fx-background-radius: 18px;
+    -fx-max-width: infinity;
+}
+
+.button--login:hover{
+    -fx-background-color: -primary-600;
+}
+
 .mini-prompt {
     -fx-padding: 32px 24px;
     -fx-spacing: 16px;

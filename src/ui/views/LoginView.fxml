@@ -20,7 +20,7 @@
     </stylesheets>
     <center>
         <VBox maxWidth="400" styleClass="login-form" alignment="CENTER" maxHeight="420">
-            <Label styleClass="h2">Login to Karnevour</Label>
+            <Label styleClass="h2">Log in to Karnevour</Label>
             <VBox>
                 <VBox>
                     <Label labelFor="$usernameField">Username</Label>
@@ -34,7 +34,7 @@
                     <Label fx:id="errorLabel" styleClass="error-text"/>
                 </VBox>
             </VBox>
-            <Button onAction="#loginClick">Login</Button>
+            <Button onAction="#loginClick" styleClass = "button--login, button--large">Log in</Button>
         </VBox>
     </center>
 </BorderPane>

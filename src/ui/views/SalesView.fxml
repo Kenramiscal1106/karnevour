@@ -29,7 +29,7 @@
                 </graphic>
                 New Order
             </Button>
-            <Button onAction="#ItemRefundClick">
+            <Button onAction="#ItemRefundClick" styleClass="button--outline, button--medium">
                 <graphic>
                     <ImageView fitHeight="20" fitWidth="20">
                         <Image url="@../../icons/hand-package.png" />

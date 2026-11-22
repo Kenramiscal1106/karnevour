@@ -115,7 +115,7 @@
 }
 
 .error-box {
-    -fx-padding: 4px 0 0 0;
+    -fx-padding: 4px 0 12px 0;
 }
 
 .error-text {
