@@ -21,7 +21,7 @@
             <Button onAction="#NewOrderClick" styleClass="button--primary, button--medium">
                 <graphic>
                     <ImageView fitHeight="20" fitWidth="20">
-                        <Image url="@../../icons/add-box.png" />
+                        <Image url="@../../icons/cart.png" />
                     </ImageView>
                 </graphic>
                 New Order

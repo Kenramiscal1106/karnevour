@@ -43,7 +43,6 @@ public class AuthOperations {
                 protected User call() throws Exception {
                     User user = database.loadUserFromDatabase(name, password);
                     if (user == null) throw new Exception("Invalid username or password.");
-
                     SessionHandler.getOrCreateInstance(user);
                     return user;
                 }

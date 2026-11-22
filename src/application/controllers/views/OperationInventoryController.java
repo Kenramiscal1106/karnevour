@@ -67,7 +67,6 @@ public abstract class OperationInventoryController
                 return;
             }
 
-
         var service = operations.new updateStockService(Inventory.getInstance(), selected.getUid(), amount, getActionType());
         service.setOnSucceeded(e -> close());
         service.setOnFailed(e -> showError(service.getException().getMessage())); // placeholder lambda

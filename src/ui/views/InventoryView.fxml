@@ -9,6 +9,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Text?>
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.InventoryController"
@@ -34,8 +35,10 @@
             Subtract from Inventory
         </Button>
     </HBox>
-    <ScrollPane fitToWidth="true" styleClass="inventory-entries-root">
-        <VBox fx:id="container" spacing="4" styleClass="inventory-entries">
-        </VBox>
-    </ScrollPane>
+    <VBox>
+        <Text>Recent Sales</Text>
+        <ScrollPane fitToWidth="true" styleClass="inventory-entries-root">
+            <ListView fx:id="inventoryList" styleClass="inventory-entries"/>
+        </ScrollPane>
+    </VBox>
 </VBox>
