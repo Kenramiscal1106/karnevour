@@ -1,0 +1,84 @@
+@import "colors.css";
+/* Change the overall scroll pane background */
+.scroll-pane {
+    -fx-background-color: transparent; /* or your preferred color, e.g., #ffffff */
+}
+
+/* Change the viewport (the visible area holding your content) */
+.scroll-pane > .viewport {
+    -fx-background-color: transparent; /* or your preferred color */
+}
+
+/* Base styling */
+.scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-font-family: "Instrument Sans", sans-serif;
+    -fx-border-radius: 999px;
+    -fx-background-radius: 999px;
+}
+
+.text-field {
+    -fx-focus-color: #646464;
+    -fx-padding: 12px;
+    -fx-background-color: -neutral-200;
+    -fx-background-radius: 4px;
+    -fx-font-family: 'Instrument Sans', sans-serif;
+    -fx-border-color: transparent;
+}
+
+.text-field:focused {
+    -fx-border-color: -neutral-400;
+    -fx-border-radius: 4px;
+}
+
+.combo-box {
+    -fx-background-color: -neutral-200;
+    -fx-background-radius: 999px;
+    -fx-padding: 10px 16px;
+    -fx-font-family: 'Instrument Sans', sans-serif;
+}
+
+.combo-box:hover {
+    -fx-background-color: -neutral-300;
+}
+
+/* Button variants */
+
+.button--medium {
+    -fx-padding: 10px 16px;
+    -fx-graphic-text-gap: 8px;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+}
+
+.button--primary {
+    -fx-background-color: -primary-500;
+    -fx-text-fill: -neutral-100;
+}
+
+.button--primary:hover {
+    -fx-background-color: -primary-600;
+}
+
+.button--outline {
+    -fx-border-color: -neutral-400;
+    -fx-border-width: 1px;
+    -fx-background-color: transparent;
+}
+
+.mini-prompt {
+    -fx-padding: 32px 24px;
+    -fx-spacing: 16px;
+    -fx-background-color: -neutral-100;
+}
+
+.button--adjust {
+}
+
+.h2 {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}

@@ -10,10 +10,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.text.Text?>
+<?import java.net.URL?>
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.views.InventoryController"
-      stylesheets="@/style.css" VBox.vgrow="ALWAYS" styleClass="view">
+      fx:controller="application.controllers.views.InventoryController" VBox.vgrow="ALWAYS" styleClass="view">
+    <stylesheets>
+        <URL value="@../base.css" />
+        <URL value="@../components.css" />
+    </stylesheets>
     <padding>
         <Insets topRightBottomLeft="32"/>
     </padding>
@@ -35,9 +39,9 @@
             Subtract from Inventory
         </Button>
     </HBox>
-    <VBox>
-        <Text>Recent Sales</Text>
-        <ScrollPane fitToWidth="true" styleClass="inventory-entries-root">
+    <VBox VBox.vgrow="ALWAYS" spacing="8">
+        <Text styleClass="h2">Recent Sales</Text>
+        <ScrollPane fitToWidth="true" styleClass="inventory-entries-root" VBox.vgrow="ALWAYS" fitToHeight="true">
             <ListView fx:id="inventoryList" styleClass="inventory-entries"/>
         </ScrollPane>
     </VBox>

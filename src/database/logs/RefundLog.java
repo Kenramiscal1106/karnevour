@@ -36,4 +36,9 @@ public class RefundLog extends Log implements Transaction {
                 qty;
     }
 
+    @Override
+    public String logMessage() {
+        return name + " processed a refunded product worth " + value + " pesos" ;
+    }
+
 }

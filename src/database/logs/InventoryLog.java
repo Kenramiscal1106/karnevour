@@ -1,5 +1,8 @@
 package database.logs;
 
+import database.inventory.Inventory;
+import database.inventory.ItemHolder;
+
 public class InventoryLog extends Log {
 
     public final String name;
@@ -25,5 +28,9 @@ public class InventoryLog extends Log {
                 "\""+author+"\"" + "," +
                 uid + "," +
                 itemUid;
+    }
+    @Override
+    public String logMessage() {
+        return description;
     }
 }

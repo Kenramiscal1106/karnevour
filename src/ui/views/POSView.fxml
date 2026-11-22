@@ -7,10 +7,15 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
+<?import java.net.URL?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.POSController"
-      prefHeight="840" prefWidth="1000" stylesheets="@/style.css" styleClass="pos-window">
+      prefHeight="840" prefWidth="1000" styleClass="pos-window">
+    <stylesheets>
+        <URL value="@../base.css" />
+        <URL value="@../components.css" />
+    </stylesheets>'
     <VBox>
         <ListView fx:id="selectedList"/>
         <Region VBox.vgrow="ALWAYS"/>
@@ -23,7 +28,7 @@
         </VBox>
         <HBox>
             <Button styleClass="button--primary, button--medium">Cancel Order</Button>
-            <Button styleClass="button--ghost, button--medium">Checkout</Button>
+            <Button styleClass="button--outline, button--medium">Checkout</Button>
         </HBox>
     </VBox>
     <ScrollPane>

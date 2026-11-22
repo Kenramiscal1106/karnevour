@@ -9,24 +9,29 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="application.controllers.views.LoginController"
-            prefHeight="600" prefWidth="540" stylesheets="@/style.css" styleClass="login-container">
+            prefHeight="600" prefWidth="540" styleClass="login-container">
+    <stylesheets>
+        <URL value="@../base.css" />
+        <URL value="@../components.css" />
+    </stylesheets>
     <center>
         <VBox maxWidth="400" styleClass="login-form" alignment="CENTER" maxHeight="420">
             <Label>Login to Karnevour</Label>
             <VBox>
                 <VBox>
                     <Label labelFor="$usernameField">Username</Label>
-                    <TextField fx:id="usernameField" styleClass="textField"/>
+                    <TextField fx:id="usernameField"/>
                 </VBox>
                 <VBox>
                     <Label labelFor="$passwordField">Password</Label>
-                    <PasswordField fx:id="passwordField" styleClass="textField"/>
+                    <PasswordField fx:id="passwordField"/>
                 </VBox>
                 <VBox fx:id="errorBox" styleClass="error-box" visible="false" managed="false">
-                    <Label fx:id="errorLabel" styleClass="error-text"></Label>
+                    <Label fx:id="errorLabel" styleClass="error-text"/>
                 </VBox>
             </VBox>
             <Button onAction="#loginClick">Login</Button>

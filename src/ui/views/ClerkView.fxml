@@ -10,7 +10,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="application.controllers.views.ClerkController"
-            stylesheets="@/style.css"
+            stylesheets="@../base.css"
             prefHeight="400.0" prefWidth="600.0" style="-fx-background-color:#FFCFD1" fx:id="root" >
     <left>
         <fx:include source="../components/ClerkNavigationRail.fxml" BorderPane.alignment="CENTER"/>

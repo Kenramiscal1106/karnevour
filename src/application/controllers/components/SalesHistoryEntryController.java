@@ -2,7 +2,6 @@ package application.controllers.components;
 
 import database.inventory.Inventory;
 import database.logs.SaleLog;
-import database.logs.Transaction;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,9 +13,9 @@ public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>
     @FXML
     public Text priceLabel;
     @FXML
-    public Text secondaryText;
+    public Text entryQuantity;
     @FXML
-    public Text primaryText;
+    public Text entryName;
     @FXML
     public ImageView imageDisplay;
 
@@ -25,8 +24,8 @@ public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>
     public void initData(SaleLog saleLog) {
         priceLabel.setText(String.format("₱%,.0f", saleLog.value));
         var holder = Inventory.getInstance().getItemHolderByUid(saleLog.productUid);
-        primaryText.setText(holder.getItemDescription());
-        secondaryText.setText(formatQty(saleLog.qty) + " " + holder.getUnit());
+        entryName.setText(holder.getItemDescription());
+        entryQuantity.setText(formatQty(saleLog.qty) + " " + holder.getUnit());
         File file = new File(holder.getItem().getImagePath());
         imageDisplay.setImage(new Image(file.toURI().toString()));
     }

@@ -7,10 +7,15 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.control.cell.ComboBoxListCell?>
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.AddInventoryController"
-      prefHeight="200" prefWidth="512.0" stylesheets="@/style.css" styleClass="mini-prompt">
+      prefHeight="200" prefWidth="512.0" styleClass="mini-prompt">
+    <stylesheets>
+        <URL value="@../base.css" />
+        <URL value="@../components.css" />
+    </stylesheets>
     <ComboBox fx:id="itemSelector" promptText="Select Item">
     </ComboBox>
     <fx:include source="../components/AdjustItem.fxml" fx:id="adjustItem"/>

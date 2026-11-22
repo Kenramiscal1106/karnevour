@@ -6,9 +6,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.ManagerHomeController" styleClass="view">
+    <stylesheets>
+        <URL value="@../base.css" />
+        <URL value="@../components.css" />
+    </stylesheets>
     <HBox>
         <fx:include source="../components/DashboardStatCard.fxml" fx:id="revenueStatCard"/>
         <fx:include source="../components/DashboardStatCard.fxml" fx:id="inventoryValueStatCard"/>

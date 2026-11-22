@@ -1,6 +1,6 @@
 package database.logs;
 
-public class Log implements Loggable{
+public abstract class Log implements Loggable{
     protected boolean isVoid = false;
     @Override
     public String toCSVFormat() {
@@ -16,4 +16,5 @@ public class Log implements Loggable{
     public boolean isLogVoid() {
         return isVoid;
     }
+
 }

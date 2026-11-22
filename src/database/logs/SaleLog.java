@@ -36,4 +36,9 @@ public class SaleLog extends Log implements Transaction{
                 value + "," +
                 qty;
     }
+
+    @Override
+    public String logMessage() {
+        return "";
+    }
 }

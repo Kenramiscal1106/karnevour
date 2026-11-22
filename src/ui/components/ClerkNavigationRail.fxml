@@ -14,7 +14,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.ClerkNavigationRailController"
-      prefWidth="108" stylesheets="@/style.css" spacing="32">
+      prefWidth="108" stylesheets="@../base.css" spacing="32">
     <!--  Logo  -->
     <VBox VBox.vgrow="ALWAYS" spacing="12">
         <padding>

@@ -11,7 +11,7 @@
 <?import javafx.geometry.Insets?>
 <Button xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
-        stylesheets="@/style.css"
+        stylesheets="@../base.css"
         fx:controller="application.controllers.components.LogoutButtonController" styleClass="logout-button">
     <padding>
         <Insets topRightBottomLeft="12"/>

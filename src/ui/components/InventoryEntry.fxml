@@ -11,7 +11,7 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       styleClass="inventory-entry"
-      stylesheets="@/style.css"
+      stylesheets="@../base.css"
 
 >
     <HBox styleClass="inventory-entry__leading-detail" spacing="16" alignment="CENTER_LEFT">
@@ -21,8 +21,5 @@
             <Text fx:id="itemQuantity" styleClass="inventory-entry-quantity"/>
         </VBox>
     </HBox>
-    <!--    <HBox styleClass="transaction-entry__trailing-detail">-->
-    <!--        <Text>Lorem ipsum dolor</Text>-->
-    <!--    </HBox>-->
 
 </HBox>

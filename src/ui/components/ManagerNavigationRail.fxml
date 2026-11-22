@@ -14,7 +14,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.ManagerNavigationRailController"
-      prefWidth="108" stylesheets="@/style.css" alignment="CENTER" spacing="32" styleClass="navigation-rail">
+      prefWidth="108" stylesheets="@../components.css" alignment="CENTER" spacing="32" styleClass="navigation-rail">
     <padding>
         <Insets top="16" bottom="32"/>
     </padding>

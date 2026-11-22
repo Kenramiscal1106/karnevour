@@ -201,7 +201,7 @@ public class Inventory {
         itemHolder.setLowStockLimit(inStock);
     }
 
-    public void addToLogList(Loggable log) {
+    public void addToLogList(Log log) {
         if (log == null) {
             throw new NullPointerException("Log does not exist");
         }

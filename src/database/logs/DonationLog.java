@@ -27,4 +27,9 @@ public class DonationLog extends Log{
                 uid + "," +
                 amount;
     }
+
+    @Override
+    public String logMessage() {
+        return name + " processed a " + amount + "-peso donation" ;
+    }
 }

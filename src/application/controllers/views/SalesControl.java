@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class SalesControl {
     @FXML
-    public ListView<Transaction> salesList;
+    public ListView<SaleLog> salesList;
 
     @FXML
     public DashboardStatCardController inventoryValueStatCardController;
@@ -28,7 +28,8 @@ public class SalesControl {
     @FXML
     void initialize() {
         refreshTotalInventoryValue();
-        var sales = new FilteredList<>(Logger.getInstance().getTransactionLogs(), t -> t instanceof SaleLog);
+        var logger = Logger.getInstance();
+        var sales = logger.getSalesLogs();
         salesList.setItems(sales);
 
         salesList.setCellFactory(listView -> new ListCell<>(){
@@ -37,7 +38,7 @@ public class SalesControl {
 
             {
                 try{
-                    var loader = new FXMLLoader(getClass().getResource("/ui/components/SaleHistoryEntry.fxml"));
+                    var loader = new FXMLLoader(getClass().getResource("/ui/components/SalesHistoryEntry.fxml"));
                     row = loader.load();
                     controller = loader.getController();
                 } catch (IOException e){
@@ -46,12 +47,12 @@ public class SalesControl {
             }
 
             @Override
-            protected void updateItem(Transaction transaction, boolean empty){
-                super.updateItem(transaction, empty);
-                if (empty || transaction == null){
+            protected void updateItem(SaleLog saleLog, boolean empty){
+                super.updateItem(saleLog, empty);
+                if (empty || saleLog == null){
                     setGraphic(null);
                 } else {
-                    controller.initData((SaleLog) transaction);
+                    controller.initData((SaleLog) saleLog);
                     setGraphic(row);
                 }
             }

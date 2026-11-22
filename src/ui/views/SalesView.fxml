@@ -9,13 +9,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.text.Text?>
+<?import java.net.URL?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.SalesControl"
-      stylesheets="@/style.css"
       styleClass="view, sales-view"
       >
-    <VBox spacing="24">
+    <stylesheets>
+        <URL value="@../base.css" />
+        <URL value="@../components.css" />
+    </stylesheets>    <VBox spacing="24">
         <HBox HBox.hgrow="ALWAYS">
 <!--            Buttons -->
             <Button onAction="#NewOrderClick" styleClass="button--primary, button--medium">
