@@ -89,7 +89,7 @@
 
 /* Login */
 .login-container {
-    -fx-background-image: url("pictures/login-bg.png");
+    -fx-background-image: url("../pictures/login-bg.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
