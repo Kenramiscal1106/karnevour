@@ -12,22 +12,24 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.SalesControl"
+      stylesheets="@/style.css"
+      styleClass="view, sales-view"
       >
     <VBox spacing="24">
         <HBox HBox.hgrow="ALWAYS">
 <!--            Buttons -->
-            <Button fx:id="NewOrderButton" onAction="#NewOrderClick">
+            <Button onAction="#NewOrderClick" styleClass="button--primary, button--medium">
                 <graphic>
                     <ImageView fitHeight="20" fitWidth="20">
-                        <Image url="@/icons/cart.png" />
+                        <Image url="@../../icons/add-box.png" />
                     </ImageView>
                 </graphic>
                 New Order
             </Button>
-            <Button fx:id="ItemRefundButton" onAction="#ItemRefundClick">
+            <Button onAction="#ItemRefundClick">
                 <graphic>
                     <ImageView fitHeight="20" fitWidth="20">
-                        <Image url="@/icons/hand-package.png" />
+                        <Image url="@../../icons/hand-package.png" />
                     </ImageView>
                 </graphic>
                 Item Refund

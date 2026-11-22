@@ -3,11 +3,12 @@ package application.controllers.views;
 import application.services.NavigationStore;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 
 public class ManagerController {
 
         @FXML
-        public ScrollPane content;
+        public BorderPane root;
 
 
         @FXML
@@ -17,7 +18,7 @@ public class ManagerController {
             navService.getViewProperty().addListener((observable, oldValue, newValue) -> {
                 var valueBin = newValue == null ? oldValue : newValue;
                 if (valueBin == null) return;
-                content.setContent(newValue);
+                root.setCenter(newValue);
             });
         }
 }

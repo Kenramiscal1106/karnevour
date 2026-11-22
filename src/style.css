@@ -1,3 +1,30 @@
+* {
+    -neutral-100:#fff;
+    -neutral-200:#f1f1f1;
+    -neutral-300:#e3e3e3;
+    -neutral-400:#9f9f9f;
+    -neutral-500:#787878;
+    -neutral-600:#646464;
+    -neutral-700:#424242;
+    -neutral-800:#232323;
+    -neutral-900:#1c1c1c;
+
+    -primary-100:#ffeef1;
+    -primary-200:#ffe4e4;
+    -primary-300:#ffcfd1;
+    -primary-400:#ff6180;
+    -primary-500:#f0004c;
+    -primary-600:#cc003d;
+    -primary-700:#970429;
+    -primary-800:#5c0012;
+    -primary-900:#43020f;
+}
+
+
+
+
+
+
 .navigation-item {
     -fx-font-family: 'Instrument Sans', sans-serif;
     -fx-background-color: none;
@@ -12,7 +39,7 @@
 
 /* Change the viewport (the visible area holding your content) */
 .scroll-pane > .viewport {
-    -fx-background-color: #000; /* or your preferred color */
+    -fx-background-color: transparent; /* or your preferred color */
 }
 
 /* Optional: Make the content inside transparent as well */
@@ -30,11 +57,21 @@
 }
 
 .navigation-item.navigation-item--active .icon-container {
-    -fx-background-color: #FFA3B5;
+    -fx-background-color: -primary-300;
 }
 
 .navigation-item.navigation-item--active {
     -fx-font-weight: bold;
+}
+
+.view {
+    -fx-background-color: -neutral-100;
+    -fx-padding: 32;
+    -fx-spacing:24;
+}
+
+.sales-view {
+    -fx-pref-width: 840;
 }
 
 .icon-container {
@@ -43,7 +80,7 @@
 
 .inventory-entry {
     -fx-padding: 8 12;
-    -fx-background-color: #FFEEF1;
+    -fx-background-color: -neutral-200;
     -fx-background-radius: 4;
     -fx-font-family: 'Instrument Sans', sans-serif;
 }
@@ -60,13 +97,13 @@
     -fx-spacing: 4;
 }
 
-.inventory-entry__primary-text {
+.inventory-entry-name {
     -fx-font-size: 16px;
     -fx-text-fill: #000;
     -fx-font-family: 'Instrument Sans Bold', sans-serif;
 }
 
-.inventory-entry__secondary-text {
+.inventory-entry-quantity {
     -fx-font-size: 14px;
     -fx-text-fill: #646464;
     -fx-font-family: 'Instrument Sans', sans-serif;
@@ -89,17 +126,37 @@
     -fx-padding: 64px 48px;
 }
 
-.button--primary {
+.button {
+    -fx-font-family: "Instrument Sans", sans-serif;
+    -fx-border-radius:999px;
+    -fx-background-radius:999px;
 }
 
 .button--medium {
+    -fx-padding: 10px 16px;
+    -fx-graphic-text-gap: 8px;
+    -fx-font-size:14px;
+    -fx-font-weight: 500;
 }
 
-.button--ghost {
+.button--primary {
+    -fx-background-color: -primary-500;
+    -fx-text-fill: -neutral-100;
+}
+.button--primary:hover {
+    -fx-background-color: -primary-600;
+}
+
+.button--outline {
+    -fx-border-color: -neutral-400;
+    -fx-border-width: 1px;
+    -fx-background-color: transparent;
 }
 
 .mini-prompt {
     -fx-padding: 32px 24px;
+    -fx-spacing: 16px;
+    -fx-background-color: -neutral-100;
 }
 
 .button--adjust {
@@ -113,7 +170,7 @@
 
 .login-form {
     -fx-padding: 64px 32px;
-    -fx-background-color: #FFF;
+    -fx-background-color: -neutral-100;
     -fx-background-radius: 8px;
 }
 
@@ -122,7 +179,7 @@
 }
 
 .text-field.error{
-    -fx-text-box-border: #CC003D;
+    -fx-text-box-border: -primary-600;
 }
 
 .error-box{
@@ -130,6 +187,58 @@
 }
 
 .error-text{
-    -fx-text-fill: #CC003D;
+    -fx-text-fill: -primary-600;
     -fx-font-size: 12px;
+}
+
+.inventory-entries-root {
+    -fx-pref-width:420px;
+}
+
+.inventory-actions {
+    -fx-spacing:8px;
+}
+
+.adjust-item-name {
+    -fx-font-weight:600;
+    -fx-font-size: 16px;
+    -fx-text-fill: -neutral-900;
+}
+
+.adjust-item-quantity {
+    -fx-font-weight: 600;
+    -fx-font-size:14px;
+    -fx-text-fill: -neutral-600;
+}
+
+.adjust-item-info {
+    -fx-spacing:16px;
+}
+
+.adjust-item-root {
+    -fx-alignment: center;
+    -fx-padding: 8px 16px;
+    -fx-background-color: -neutral-200;
+    -fx-background-radius: 4px;
+}
+
+.adjust-item-input {
+    -fx-pref-width:40px;
+    -fx-font-family: "Instrument Sans", sans-serif;
+    -fx-background-color: transparent;
+    -fx-border-color: -neutral-400;
+}
+
+.adjust-item-controls {
+    -fx-spacing:8px;
+}
+
+.combo-box {
+    -fx-background-color: -neutral-200;
+    -fx-background-radius: 999px;
+    -fx-padding: 10px 16px;
+    -fx-font-family: 'Instrument Sans', sans-serif  ;
+}
+.combo-box:hover {
+    -fx-background-color: -neutral-300;
 }

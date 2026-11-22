@@ -105,7 +105,7 @@ public class Database {
         }
     }
 
-    public boolean saveUsersToDatabase(User user){
+    public void saveUsersToDatabase(User user){
         if (user==null)
             throw new IllegalArgumentException("No users found");
 
@@ -122,12 +122,11 @@ public class Database {
             }
 
             if(userExists(user.getUid())) {
-                return false;
+                return;
             }
 
             writer.write(user.toCSVFormat());
             writer.newLine();
-            return true;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

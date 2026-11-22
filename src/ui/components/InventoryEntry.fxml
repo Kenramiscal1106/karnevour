@@ -17,8 +17,8 @@
     <HBox styleClass="inventory-entry__leading-detail" spacing="16" alignment="CENTER_LEFT">
         <ImageView fx:id="imageView" fitHeight="56" fitWidth="56"/>
         <VBox alignment="CENTER_LEFT">
-            <Text fx:id="itemName" styleClass="inventory-entry__primary-text"/>
-            <Text fx:id="itemQuantity" styleClass="inventory-entry__secondary-text"/>
+            <Text fx:id="itemName" styleClass="inventory-entry-name"/>
+            <Text fx:id="itemQuantity" styleClass="inventory-entry-quantity"/>
         </VBox>
     </HBox>
     <!--    <HBox styleClass="transaction-entry__trailing-detail">-->

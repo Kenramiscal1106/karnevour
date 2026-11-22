@@ -12,16 +12,16 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.AdjustItemController"
-      prefHeight="400.0" prefWidth="600.0">
-    <HBox>
-        <ImageView fx:id="itemImage"/>
+      prefHeight="400.0" prefWidth="600.0" styleClass="adjust-item-root">
+    <HBox styleClass="adjust-item-info">
+        <ImageView fx:id="itemImage" fitWidth="56" fitHeight="56"/>
         <VBox>
-            <Text fx:id="itemNameText"/>
-            <Text fx:id="itemQuantityText"/>
+            <Text fx:id="itemNameText" styleClass="adjust-item-name"/>
+            <Text fx:id="itemQuantityText" styleClass="adjust-item-quantity"/>
         </VBox>
     </HBox>
     <Region HBox.hgrow="ALWAYS"/>
-    <HBox>
+    <HBox alignment="CENTER" styleClass="adjust-item-controls">
         <Button styleClass="button--adjust" onAction="#decrement">
             <graphic>
                 <ImageView fitWidth="20" fitHeight="20">
@@ -29,8 +29,8 @@
                 </ImageView>
             </graphic>
         </Button>
-        <HBox>
-            <TextField fx:id="quantityField" />
+        <HBox alignment="CENTER">
+            <TextField fx:id="quantityField" styleClass="adjust-item-input" />
             <Text fx:id="unitField"/>
         </HBox>
         <Button styleClass="button--adjust" onAction="#increment">

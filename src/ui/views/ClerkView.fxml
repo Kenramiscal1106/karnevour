@@ -11,14 +11,14 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="application.controllers.views.ClerkController"
             stylesheets="@/style.css"
-            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color:#FFCFD1">
+            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color:#FFCFD1" fx:id="root" >
     <left>
         <fx:include source="../components/ClerkNavigationRail.fxml" BorderPane.alignment="CENTER"/>
     </left>
     <center>
-        <ScrollPane fx:id="content" styleClass="main-content" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER"
-                    fitToWidth="true">
+<!--        <AnchorPane fx:id="content" styleClass="main-content" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER"-->
+<!--                    fitToWidth="true">-->
             <fx:include source="SalesView.fxml"/>
-        </ScrollPane>
+<!--        </AnchorPane>-->
     </center>
 </BorderPane>

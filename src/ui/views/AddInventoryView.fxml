@@ -11,11 +11,11 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.AddInventoryController"
       prefHeight="200" prefWidth="512.0" stylesheets="@/style.css" styleClass="mini-prompt">
-    <ComboBox fx:id="itemSelector">
+    <ComboBox fx:id="itemSelector" promptText="Select Item">
     </ComboBox>
     <fx:include source="../components/AdjustItem.fxml" fx:id="adjustItem"/>
-    <HBox>
-        <Button styleClass="button--ghost,button--medium" fx:id="windowCloseButton">
+    <HBox spacing="8">
+        <Button styleClass="button--outline, button--medium" fx:id="windowCloseButton">
             Cancel
         </Button>
         <Button styleClass="button--primary, button--medium" fx:id="addInventoryButton">
