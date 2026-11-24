@@ -21,4 +21,5 @@
         </VBox>
     </HBox>
     <Region HBox.hgrow="ALWAYS"/>
+    <Text fx:id="itemPriceText" styleClass="sales-entry-value"/>
 </HBox>

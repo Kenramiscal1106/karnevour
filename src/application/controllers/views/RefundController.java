@@ -47,6 +47,7 @@ public class RefundController {
                     var holder = Inventory.getInstance().getItemHolderByUid(selected.productUid);
                     refundEntryController.initData(holder);
                     refundEntryController.itemQuantityText.setText("Sold: " + selected.qty + " " + holder.getUnit());
+                    refundEntryController.itemPriceText.setText(String.format("₱%,.2f", Inventory.getInstance().getPrice(selected.productUid) * selected.qty));
                 }
         });
         addInventoryButton.disableProperty().bind(itemSelector.valueProperty().isNull());

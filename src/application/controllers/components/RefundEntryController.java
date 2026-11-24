@@ -18,6 +18,8 @@ public class RefundEntryController implements EntryControllerBase<ItemHolder> {
     public ImageView itemImage;
     @FXML
     public Text itemNameText;
+    @FXML
+    public Text itemPriceText;
 
     public String textContent;
 
