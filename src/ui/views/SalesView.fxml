@@ -18,7 +18,7 @@
     <stylesheets>
         <URL value="@../base.css" />
         <URL value="@../components.css" />
-    </stylesheets>    <VBox spacing="24">
+    </stylesheets>    <VBox spacing="24" minWidth="360" prefWidth="420">
         <HBox HBox.hgrow="ALWAYS">
 <!--            Buttons -->
             <Button onAction="#NewOrderClick" styleClass="button--primary, button--medium">
@@ -39,11 +39,9 @@
             </Button>
         </HBox>
         <VBox VBox.vgrow="ALWAYS" spacing="16">
-            <Text>Recent Sales</Text>
-            <ScrollPane>
-                <ListView fx:id="salesList"/>
-            </ScrollPane>
+            <Text styleClass="h2">Recent Sales</Text>
+            <ListView fx:id="salesList" styleClass="list" VBox.vgrow="ALWAYS"></ListView>
         </VBox>
     </VBox>
-    <fx:include source="../components/DashboardStatCard.fxml" fx:id="inventoryValueStatCard"/>
+    <fx:include source="../components/DashboardStatCard.fxml" fx:id="inventoryValueStatCard" HBox.hgrow="ALWAYS"/>
 </HBox>

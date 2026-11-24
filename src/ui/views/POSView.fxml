@@ -17,7 +17,7 @@
         <URL value="@../components.css" />
     </stylesheets>
     <VBox>
-        <ListView fx:id="selectedList"/>
+        <ListView fx:id="selectedList" prefWidth="560"/>
         <Region VBox.vgrow="ALWAYS"/>
         <VBox>
             <HBox>
@@ -27,11 +27,10 @@
             </HBox>
         </VBox>
         <HBox>
-            <Button styleClass="button--primary, button--medium">Cancel Order</Button>
-            <Button styleClass="button--outline, button--medium">Checkout</Button>
+            <Button fx:id="cancelButton" styleClass="button--primary, button--medium">Cancel Order</Button>
+            <Button fx:id="checkoutButton" styleClass="button--outline, button--medium">Checkout</Button>
         </HBox>
     </VBox>
-    <ScrollPane>
-        <ListView fx:id="choicesList"/>
-    </ScrollPane>
+    <ListView fx:id="choicesList" prefWidth="360"/>
+
 </HBox>

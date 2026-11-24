@@ -1,11 +1,17 @@
 package application.services;
 
+import application.models.CartLine;
 import database.inventory.Inventory;
 import database.CashRegister;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 // TODO: loadCashRegister();
 
@@ -91,4 +97,36 @@ public class SalesOperations {
             };
         }
     };
+
+    public class checkoutService extends Service<Void>{
+        private final List<CartLine> lines;
+
+        public checkoutService(List<CartLine> lines){
+            this.lines = List.copyOf(lines);
+        }
+
+        @Override
+        protected Task<Void> createTask(){
+            return new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    var user = SessionHandler.getInstance().getCurrentUser();
+                    var sell = new FutureTask<Void>(() -> {
+                        for (CartLine line: lines){
+                            cashRegister.sellItem(line.getItemHolder().getUid(), line.getQty(), line.getTotal(), user);
+                        }
+                        return null;
+                    });
+                    Platform.runLater(sell);
+
+                    try{
+                        sell.get();
+                    } catch (ExecutionException e){
+                        throw (Exception) e.getCause();
+                    }
+                    return null;
+                }
+            };
+        }
+    }
 }

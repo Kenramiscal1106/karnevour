@@ -76,7 +76,7 @@ public abstract class OperationInventoryController
     private void close(){
         windowCloseButton.getScene().getWindow().hide();
     }
-        private void showError(String error){
+    private void showError(String error){
             System.out.println(error);
         }
 

@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Region;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -32,7 +33,7 @@ public class SalesControl {
         refreshTotalInventoryValue();
         var logger = Logger.getInstance();
         var sales = logger.getSalesLogs();
-        new SortedList<>(sales, Comparator.comparingInt(sales::indexOf).reversed());
+        salesList.setItems(new SortedList<>(sales, Comparator.comparingInt(sales::indexOf).reversed()));
 
         salesList.setCellFactory(listView -> new ListCell<>(){
             private final Node row;
@@ -43,6 +44,7 @@ public class SalesControl {
                     var loader = new FXMLLoader(getClass().getResource("/ui/components/SalesHistoryEntry.fxml"));
                     row = loader.load();
                     controller = loader.getController();
+                    ((Region) row).prefWidthProperty().bind(widthProperty());
                 } catch (IOException e){
                     throw new RuntimeException(e);
                 }

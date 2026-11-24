@@ -30,7 +30,7 @@
             </graphic>
             Add to Inventory
         </Button>
-        <Button onAction="#subtractInventoryClick" styleClass="button--outline, button--medium">
+        <Button fx:id="subtractInventory" onAction="#subtractInventoryClick" styleClass="button--outline, button--medium">
             <graphic>
                 <ImageView fitWidth="20" fitHeight="20">
                     <Image url="@../../icons/edit-box.png"/>
@@ -40,9 +40,7 @@
         </Button>
     </HBox>
     <VBox VBox.vgrow="ALWAYS" spacing="8">
-        <Text styleClass="h2">Recent Sales</Text>
-        <ScrollPane fitToWidth="true" styleClass="inventory-entries-root" VBox.vgrow="ALWAYS" fitToHeight="true">
-            <ListView fx:id="inventoryList" styleClass="inventory-entries"/>
-        </ScrollPane>
+        <Text styleClass="h2">Inventory</Text>
+        <ListView fx:id="inventoryList" styleClass="list-view" VBox.vgrow="ALWAYS"></ListView>
     </VBox>
 </VBox>

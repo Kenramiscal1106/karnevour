@@ -8,10 +8,10 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.image.Image?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.components.POSSelectionEntryController"
-      prefHeight="400.0" prefWidth="600.0">
+      fx:controller="application.controllers.components.POSSelectionEntryController">
     <HBox>
         <ImageView fx:id="checkoutImage" fitHeight="56" fitWidth="56"/>
         <VBox>
@@ -22,13 +22,25 @@
     <Region HBox.hgrow="ALWAYS"/>
     <HBox>
         <HBox>
-            <Button fx:id="minusButton"></Button>
+            <Button fx:id="minusButton" onAction="#decrement">
+                <graphic>
+                    <ImageView fitWidth="20" fitHeight="20">
+                        <Image url="@../../icons/minus.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
             <HBox>
-                <TextField/>
+                <TextField fx:id="quantityField" styleClass="adjust-item-input"/>
                 <Text fx:id="unitText"/>
             </HBox>
-            <Button fx:id="plusButton"></Button>
+            <Button fx:id="plusButton" onAction="#increment">
+                <graphic>
+                    <ImageView fitWidth="20" fitHeight="20">
+                        <Image url="@../../icons/plus.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
-        <Button fx:id="removeButton">Remove</Button>
+        <Button fx:id="removeButton" onAction ="#removeClick">Remove</Button>
     </HBox>
 </HBox>

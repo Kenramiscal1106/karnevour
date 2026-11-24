@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
@@ -28,6 +29,9 @@ public class InventoryController {
 
     @FXML
     public ListView<ItemHolder> inventoryList;
+
+    @FXML
+    public Button subtractInventory;
 
     @FXML
     void initialize() {
@@ -58,11 +62,23 @@ public class InventoryController {
                 }
             }
         });
+        updateSubtractButton();
     }
 
     @FXML
     private void addInventoryClick(){
         openPopup("/ui/views/AddInventoryView.fxml", "Add to inventory");
+    }
+
+    private void updateSubtractButton(){
+        boolean anyInStock = false;
+        for (ItemHolder itemholder: Inventory.getInstance().getItemHolderList()){
+            if (itemholder.getItemInStock() > 0){
+                anyInStock = true;
+                break;
+            }
+        }
+        subtractInventory.setDisable(!anyInStock);
     }
 
     @FXML
@@ -80,6 +96,7 @@ public class InventoryController {
             stage.initOwner(inventoryList.getScene().getWindow());
             stage.showAndWait();
             inventoryList.refresh();
+            updateSubtractButton();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

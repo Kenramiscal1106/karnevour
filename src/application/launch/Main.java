@@ -1,9 +1,13 @@
 package application.launch;
 
 import application.services.DataLoader;
+import database.CashRegister;
 import database.Database;
 import database.inventory.Inventory;
+import database.logs.Loggable;
+import database.logs.Logger;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
@@ -24,7 +28,14 @@ public class Main extends Application {
         stage.show();
         stage.setOnCloseRequest(_ -> {
             if (DataLoader.isLoaded()){
-                Database.getInstance().saveInventoryToDatabase(Inventory.getInstance().getItemHolderList());
+                var db = Database.getInstance();
+                db.saveInventoryToDatabase(Inventory.getInstance().getItemHolderList());
+
+                var logs = Logger.getInstance().getLogs();
+                if (!logs.isEmpty()){
+                    db.saveLogsToDatabase(FXCollections.<Loggable>observableArrayList(logs));
+                }
+                db.saveCashRegisterCredentials(CashRegister.getInstance());
             }
 //            Database.getInstance().saveLogsToDatabase(Logs);
         });

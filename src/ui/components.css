@@ -170,6 +170,8 @@
 .sales-entry {
     -fx-padding: 10px 16px;
     -fx-alignment: center;
+    -fx-background-color: -neutral-200;
+    -fx-background-radius: 4px;
 }
 
 .sales-entry-info {
@@ -191,3 +193,26 @@
     -fx-font-size: 18px;
     -fx-text-fill: -primary-900;
 }
+
+
+.list-view{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.list-view .list.cell{
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 4 0;
+}
+
+.list-view .scroll-bar:vertical{
+    -fx-background-color: -neutral-100;
+    -fx-background-radius: 5;
+}
+
+.list-view .scroll-bar:vertical .thumb{
+    -fx-background-color: -primary-500;
+    -fx-background-radius: 5;
+}
+

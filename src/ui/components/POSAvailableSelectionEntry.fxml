@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.components.POSAvailableSelectionEntry">
+      fx:controller="application.controllers.components.POSAvailableSelectionEntryController">
     <HBox>
         <ImageView fx:id="availableImage" fitHeight="56" fitWidth="56"/>
         <VBox>
@@ -19,5 +19,5 @@
         </VBox>
     </HBox>
     <Region HBox.hgrow="ALWAYS"/>
-    <Button styleClass="button--primary, button--medium">Add</Button>
+    <Button fx:id="addButton" onAction="#addClick" styleClass="button--primary, button--medium">Add</Button>
 </HBox>
