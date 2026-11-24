@@ -201,10 +201,6 @@
     -fx-padding: 0;
 }
 
-.list-view .list.cell{
-    -fx-background-color: transparent;
-    -fx-padding: 0 0 4 0;
-}
 
 .list-view .scroll-bar:vertical{
     -fx-background-color: -neutral-100;
