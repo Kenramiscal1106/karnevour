@@ -1,3 +1,0 @@
-LogType,Name,Date,Description,Author,Uid,ItemUid,{Total},{Qty}
-InventoryLog,"Inventory edit: Restock Item Amount",2026-11-22,"Ken restocked item (CHICKEN_WINGS) to the inventory (from: 0.0 to: 1000.0)","Ken",+=e8c7c69f-a23a-477e-994a-78441bbee401,ae0a99fd-5fbb-45ed-b43e-ac4cf5599af0
-InventoryLog,"Inventory edit: Reduce Item Amount",2026-11-22,"Ken reduced item (CHICKEN_WINGS) to the inventory (from: 1000.0 to: 980.0)","Ken",-=c7049128-ab19-453e-b47f-f62d01cf11a4,ae0a99fd-5fbb-45ed-b43e-ac4cf5599af0
