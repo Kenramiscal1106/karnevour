@@ -52,7 +52,8 @@
             </graphic>
             Sale
         </Button>
-        <Button contentDisplay="TOP" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000" onAction="#inventoryClick"
+        <Button contentDisplay="TOP" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000"
+                onAction="#inventoryClick"
                 fx:id="inventoryButton">
             <graphic>
                 <VBox styleClass="icon-container" alignment="CENTER" fillWidth="false">
@@ -66,7 +67,8 @@
             </graphic>
             Inventory
         </Button>
-        <Button contentDisplay="TOP" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000" onAction="#activityHistoryClick"
+        <Button contentDisplay="TOP" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000"
+                onAction="#activityHistoryClick"
                 fx:id="activityHistoryButton" wrapText="true" textAlignment="CENTER">
             <graphic>
                 <VBox styleClass="icon-container" alignment="CENTER" fillWidth="false">

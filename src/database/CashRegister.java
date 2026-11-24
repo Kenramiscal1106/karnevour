@@ -27,7 +27,7 @@ public class CashRegister {
     }
 
     // getters
-    public double getTotalSales() {
+    public int getTotalSales() {
         return totalSales.get();
     }
     public double getCurrentBalance() {
