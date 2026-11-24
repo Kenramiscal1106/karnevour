@@ -12,7 +12,7 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.AdjustItemController"
-      prefHeight="400.0" prefWidth="600.0" styleClass="adjust-item-root">
+      styleClass="adjust-item-root">
     <HBox styleClass="adjust-item-info">
         <ImageView fx:id="itemImage" fitWidth="56" fitHeight="56"/>
         <VBox>

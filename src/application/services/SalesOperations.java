@@ -3,8 +3,11 @@ package application.services;
 import application.models.CartLine;
 import database.inventory.Inventory;
 import database.CashRegister;
+import database.logs.Logger;
+import database.logs.SaleLog;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -18,6 +21,11 @@ import java.util.concurrent.FutureTask;
 public class SalesOperations {
     protected static CashRegister cashRegister = CashRegister.getInstance();
     private Inventory inventory = Inventory.getInstance();
+    public final SimpleStringProperty refundUID = new SimpleStringProperty();
+    public final SimpleDoubleProperty refundAmount = new SimpleDoubleProperty();
+    public final SimpleDoubleProperty refundSoldQty = new SimpleDoubleProperty();
+    public final SimpleObjectProperty<SaleLog> refundSale = new SimpleObjectProperty<>();
+
 
     public Service<Void> loadCashRegister = new Service<>() {
         @Override
@@ -50,18 +58,34 @@ public class SalesOperations {
     };
 
     public Service<Void> refundProductService = new Service<>() {
-        private final SimpleStringProperty uid = new SimpleStringProperty();
-        private final SimpleDoubleProperty amount = new SimpleDoubleProperty();
-
         @Override
-        protected Task<Void> createTask() {
-            return new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    cashRegister.refundItem(uid.get(), amount.get(), SessionHandler.getInstance().getCurrentUser());
-                    inventory.restockItem(uid.get(), amount.get(), SessionHandler.getInstance().getCurrentUser());
-                    return null;
-                }
+        protected Task<Void> createTask(){
+            return new Task<Void>(){
+               @Override
+                protected Void call() throws Exception{
+                   String uid = refundUID.get();
+                   double amount = refundAmount.get();
+
+                   if (amount <= 0 || amount > refundSoldQty.get())
+                       throw new IllegalArgumentException("Refund quantity must be more than 0 and at most " + refundSoldQty.get() + ".");
+
+                   SaleLog sale = refundSale.get();
+                   var user = SessionHandler.getInstance().getCurrentUser();
+                   var refund = new FutureTask<Void>(() -> {
+                       cashRegister.refundItem(uid, amount, user);
+                       inventory.restockItem(uid, amount, user);
+                       Logger.getInstance().removeLog(sale);
+                       return null;
+                   });
+                   Platform.runLater(refund);
+
+                   try{
+                       refund.get();
+                   } catch (ExecutionException e){
+                       throw (Exception) e.getCause();
+                   }
+                   return null;
+               }
             };
         }
     };
