@@ -157,10 +157,11 @@
 }
 
 .adjust-item-input {
-    -fx-pref-width: 40px;
+    -fx-pref-width: 50px;
     -fx-font-family: "Instrument Sans", sans-serif;
     -fx-background-color: transparent;
     -fx-border-color: -neutral-400;
+    -fx-border-radius: 4px;
 }
 
 .adjust-item-controls {
