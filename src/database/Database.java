@@ -174,7 +174,7 @@ public class Database {
             if(rawLine!=null && !rawLine.isBlank()){
                 String[] line = rawLine.split(",");
                 cashRegister.setCurrentBalance(Double.parseDouble(line[0]));
-                cashRegister.setTotalSales(Integer.parseInt(line[1]));
+                cashRegister.setTotalSales((int) Double.parseDouble(line[1]));
             }
         } catch (IOException e){
             throw new RuntimeException();

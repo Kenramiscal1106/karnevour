@@ -30,8 +30,8 @@
             </graphic>
         </Button>
         <HBox alignment="CENTER">
-            <TextField fx:id="quantityField" styleClass="adjust-item-input" />
-            <Text fx:id="unitField"/>
+            <TextField fx:id="quantityField" alignment="CENTER" styleClass="adjust-item-input" promptText="Qty"/>
+            <Text fx:id="unitField" textAlignment="CENTER"/>
         </HBox>
         <Button styleClass="button--adjust" onAction="#increment">
             <graphic>

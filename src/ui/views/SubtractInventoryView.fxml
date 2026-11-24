@@ -15,7 +15,7 @@
         <URL value="@../base.css"/>
         <URL value="@../components.css"/>
     </stylesheets>
-    <ComboBox fx:id="itemSelector">
+    <ComboBox fx:id="itemSelector" promptText="Select Item">
     </ComboBox>
     <fx:include source="../components/AdjustItem.fxml" fx:id="adjustItem"/>
     <HBox>

@@ -33,7 +33,15 @@ public abstract class OperationInventoryController
 
     @FXML
     public void initialize(){
-        itemSelector.setItems(Inventory.getInstance().getItemHolderList());
+
+        if (getActionType().equals("sell")){
+            itemSelector.setItems(Inventory.getInstance().getItemHolderList().filtered(holder -> holder.getItemInStock() > 0));
+        }
+
+        if (getActionType().equals("restock")){
+            itemSelector.setItems(Inventory.getInstance().getItemHolderList());
+        }
+
         itemSelector.setConverter(new StringConverter<ItemHolder>() {
             @Override
             public String toString(ItemHolder itemHolder) {
