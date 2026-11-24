@@ -4,6 +4,7 @@ import application.services.DataLoader;
 import database.CashRegister;
 import database.Database;
 import database.inventory.Inventory;
+import database.logs.Log;
 import database.logs.Loggable;
 import database.logs.Logger;
 import javafx.application.Application;
@@ -33,11 +34,10 @@ public class Main extends Application {
 
                 var logs = Logger.getInstance().getLogs();
                 if (!logs.isEmpty()){
-                    db.saveLogsToDatabase(FXCollections.<Loggable>observableArrayList(logs));
+                    db.saveLogsToDatabase(FXCollections.observableArrayList(logs));
                 }
                 db.saveCashRegisterCredentials(CashRegister.getInstance());
             }
-//            Database.getInstance().saveLogsToDatabase(Logs);
         });
         // test commit
     }

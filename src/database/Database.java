@@ -64,7 +64,7 @@ public class Database {
 
     }
 
-    public void saveLogsToDatabase(ObservableList<Loggable> activityList){
+    public void saveLogsToDatabase(ObservableList<Log> activityList){
         if (activityList==null || activityList.isEmpty())
             throw new IllegalArgumentException("No logs found");
 
