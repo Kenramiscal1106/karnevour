@@ -28,7 +28,7 @@
                     <Image url="@../../icons/add-box.png"/>
                 </ImageView>
             </graphic>
-            Add to Inventory
+            Restock Inventory
         </Button>
         <Button fx:id="subtractInventory" onAction="#subtractInventoryClick" styleClass="button--outline, button--medium">
             <graphic>
