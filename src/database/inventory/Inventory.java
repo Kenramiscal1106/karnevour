@@ -298,15 +298,6 @@ public class Inventory {
         if (db == null)
             throw new IllegalArgumentException("Database not found");
 
-        addToLogList(new InventoryLog(
-                "Inventory edit: Load Item",
-                LocalDate.now().toString(),
-                "the database loaded item (" + item.getSpecificItemType() + ") to the inventory",
-                "database",
-                "+?" + UUID.randomUUID().toString(),
-                uid
-        ));
-
         this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));
     }
 }

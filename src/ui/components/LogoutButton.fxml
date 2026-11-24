@@ -12,7 +12,8 @@
 <Button xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
         stylesheets="@../base.css"
-        fx:controller="application.controllers.components.LogoutButtonController" styleClass="logout-button">
+        fx:controller="application.controllers.components.LogoutButtonController" styleClass="logout-button"
+        fx:id="logoutButton" onAction="#logoutButtonClick">
     <padding>
         <Insets topRightBottomLeft="12"/>
     </padding>

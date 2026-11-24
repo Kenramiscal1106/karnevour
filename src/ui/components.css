@@ -213,3 +213,56 @@
     -fx-background-radius: 5;
 }
 
+.alert-dialog{
+    -fx-padding: 24px;
+    -fx-background-color: -primary-600;
+    -fx-font-family: "Instrument Sans"
+}
+
+.alert-dialog >. header-panel{
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 8px 0;
+}
+
+.alert-dialog  > .header-panel > .label{
+    -fx-font-family: "Instrument Sans Bold";
+    -fx-font-size: 20px;
+    -fx-text-fill: -neutral-100;
+    -fx-padding: 0 0 0 0
+}
+
+.alert-dialog > .content.label{
+    -fx-font-family: "Instrument Sans Medium";
+    -fx-text-fill: -neutral-100;
+    -fx-padding: 0 0 24px 0;
+}
+
+.alert-dialog > .button-bar .container{
+    -fx-padding: 0 0 4px 0;
+}
+
+.alert-dialog > .button-bar .button {
+    -fx-font-family: "Instrument Sans Medium";
+    -fx-font-size: 14px;
+    -fx-padding: 10px 16px;
+}
+
+.alert-dialog > .button-bar .button:default{
+    -fx-background-color: -primary-800;
+    -fx-text-fill: -neutral-100;
+}
+
+.alert-dialog > .button-bar .button:default:hover{
+    -fx-background-color: -primary-700;
+    -fx-text-fill: -neutral-200;
+}
+
+.alert-dialog > .button-bar .button:cancel{
+    -fx-background-color: -neutral-100;
+    -fx-text-fill: -neutral-900;
+}
+
+.alert-dialog > .button-bar .button:cancel:hover{
+    -fx-background-color: -neutral-200;
+    -fx-text-fill: -neutral-500;
+}
