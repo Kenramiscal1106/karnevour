@@ -1,13 +1,13 @@
 Class,Uid,SpecificItemType,Unit,Description,{Price},AlternativeName,ItemInStock,LowerLimitStock
 Product,2788e9fe-a286-4123-83bb-05adfc0b5a4a,CHICKEN_BREAST,kg,"Chicken breast",220.0,"",0.0,0.0
-Product,58fa7133-38a4-4623-b923-e1551c1c273e,CHICKEN_THIGHS,kg,"Chicken thighs",230.0,"",1.0,0.0
+Product,58fa7133-38a4-4623-b923-e1551c1c273e,CHICKEN_THIGHS,kg,"Chicken thighs",230.0,"",0.0,0.0
 Product,fa6347e2-4faf-46b0-8c56-ac7110b01cb7,CHICKEN_LEG_QUARTER,kg,"Chicken leg quarter",230.0,"",0.0,0.0
 Product,ae0a99fd-5fbb-45ed-b43e-ac4cf5599af0,CHICKEN_WINGS,kg,"Chicken wings",230.0,"",0.0,0.0
 Product,89d02ffb-d219-4cd8-ad8f-80ab8dc94225,CHICKEN_SKIN,kg,"Chicken skin",420.0,"",0.0,0.0
 Product,1922ab8c-bcfe-4b4b-856c-549c0bd6ac69,CHICKEN_FEET,kg,"Chicken feet",160.0,"",0.0,0.0
 Product,a80b8c19-5099-4ba3-9836-fc7b0a5ef7e3,WHOLE_CHICKEN,pcs,"Whole chicken",175.0,"",0.0,0.0
 Product,81c0031b-2a79-48ec-b44d-7ef21c16c92e,PORK_SHOULDER,kg,"Pork shoulder",360.0,"",0.0,0.0
-Product,4650e5a4-2aae-4477-8a77-d32250b58302,PORK_BELLY,kg,"Pork belly",420.0,"",0.0,0.0
+Product,4650e5a4-2aae-4477-8a77-d32250b58302,PORK_BELLY,kg,"Pork belly",420.0,"",13.0,0.0
 Product,7871f5bd-054b-4108-b9ab-b05d94222cb7,PORK_MASCARA,kg,"Pork mascara",125.0,"",0.0,0.0
 Product,29c4126a-1a47-4a30-8bcf-bcb94f95311f,PORK_LEG,kg,"Pork leg",370.0,"",0.0,0.0
 Product,47214d5d-5d1f-4836-be8c-2238c8c23729,PORK_CHOP,kg,"Pork chop",310.0,"",0.0,0.0

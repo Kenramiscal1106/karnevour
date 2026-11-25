@@ -14,17 +14,19 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.SalesControl"
       styleClass="view, sales-view"
-      >
+>
     <stylesheets>
-        <URL value="@../base.css" />
-        <URL value="@../components.css" />
-    </stylesheets>    <VBox spacing="24" minWidth="360" prefWidth="420">
+        <URL value="@../base.css"/>
+        <URL value="@../components.css"/>
+    </stylesheets>
+    <VBox spacing="24" minWidth="360" prefWidth="420">
+        <Text styleClass="h2">Recent Sales</Text>
         <HBox HBox.hgrow="ALWAYS">
-<!--            Buttons -->
+            <!--            Buttons -->
             <Button onAction="#NewOrderClick" styleClass="button--primary, button--medium">
                 <graphic>
                     <ImageView fitHeight="20" fitWidth="20">
-                        <Image url="@../../icons/cart.png" />
+                        <Image url="@../../icons/cart.png"/>
                     </ImageView>
                 </graphic>
                 New Order
@@ -32,16 +34,13 @@
             <Button onAction="#ItemRefundClick" styleClass="button--outline, button--medium">
                 <graphic>
                     <ImageView fitHeight="20" fitWidth="20">
-                        <Image url="@../../icons/hand-package.png" />
+                        <Image url="@../../icons/hand-package.png"/>
                     </ImageView>
                 </graphic>
                 Item Refund
             </Button>
         </HBox>
-        <VBox VBox.vgrow="ALWAYS" spacing="16">
-            <Text styleClass="h2">Recent Sales</Text>
-            <ListView fx:id="salesList" styleClass="list" VBox.vgrow="ALWAYS"></ListView>
-        </VBox>
+        <ListView fx:id="salesList" styleClass="list" VBox.vgrow="ALWAYS"/>
     </VBox>
     <fx:include source="../components/DashboardStatCard.fxml" fx:id="inventoryValueStatCard" HBox.hgrow="ALWAYS"/>
 </HBox>

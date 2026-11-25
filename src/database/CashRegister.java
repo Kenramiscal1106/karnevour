@@ -58,7 +58,7 @@ public class CashRegister {
 
         inventory.reduceItemAmount(uid,unit,user);
         cashIn(payment);
-        totalSales.set(totalSales.get() + 1);
+        totalSales.add(1);
     }
 
     // TODO: again, unit is string

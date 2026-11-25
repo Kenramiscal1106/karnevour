@@ -9,11 +9,11 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.views.ProductsController">
+      fx:controller="application.controllers.views.ProductsController" styleClass="view">
     <stylesheets>
         <URL value="@../base.css"/>
         <URL value="@../components.css"/>
     </stylesheets>
-    <Button>Add Product</Button>
+    <Button onAction="#openAddProductDialog">Add Product</Button>
     <ListView fx:id="productsList"/>
 </VBox>

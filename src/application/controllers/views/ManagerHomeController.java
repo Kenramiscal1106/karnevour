@@ -47,6 +47,7 @@ public class ManagerHomeController {
         );
 
         stockAlertList.setItems(inventory.filterList(ItemHolder::isLowInStock));
+
         stockAlertList.setCellFactory(_ -> new ListCell<>() {
             final Node row;
             final StockAlertEntryController controller;

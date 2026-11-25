@@ -1,10 +1,10 @@
 package application.controllers.components;
 
 import database.inventory.ItemHolder;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 
 import java.io.File;
 
@@ -19,5 +19,9 @@ public class StockAlertEntryController implements EntryControllerBase<ItemHolder
         itemRemaining.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit() + "remaining" );
         File imageFile = new File(itemHolder.getItem().getImagePath());
         itemImage.setImage(new Image(imageFile.toURI().toString()));
+    }
+
+    public void openRestockItemDialog(ActionEvent actionEvent) {
+
     }
 }

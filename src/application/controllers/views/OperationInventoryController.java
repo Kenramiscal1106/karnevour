@@ -82,7 +82,7 @@ public abstract class OperationInventoryController
     }
 
     private void close(){
-        windowCloseButton.getScene().getWindow().hide();
+        windowCloseButton.getScene().getWindow().getOnCloseRequest();
     }
     private void showError(String error){
             System.out.println(error);

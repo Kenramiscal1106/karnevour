@@ -15,7 +15,7 @@
         <URL value="@../base.css" />
         <URL value="@../components.css" />
     </stylesheets>
-    <HBox style="-fx-background-color:#000">
+    <HBox>
         <fx:include source="../components/DashboardStatCard.fxml" fx:id="revenueStatCard"/>
         <fx:include source="../components/DashboardStatCard.fxml" fx:id="inventoryValueStatCard"/>
     </HBox>

@@ -25,7 +25,7 @@
     </HBox>
     <Region HBox.hgrow="ALWAYS" />
     <HBox styleClass="product-entry-actions">
-        <Button>Edit Details</Button>
-        <Button>Update Price</Button>
+        <Button onAction="#handleEditDialog">Edit Details</Button>
+        <Button onAction="#handleUpdatePrice">Update Price</Button>
     </HBox>
 </HBox>
