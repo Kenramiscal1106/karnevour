@@ -10,6 +10,7 @@ import database.user.User;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 
 public class Database {
 
@@ -19,6 +20,7 @@ public class Database {
     private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("src/database/data/user-list.kar");
     private static final File LOG_LIST_DEFAULT_FILE = new File("src/database/data/log-list.kar");
     private static final File CASH_REGISTER_DEFAULT_FILE = new File("src/database/data/cash-register.kar");
+    private static final File PICTURE_URL_DEFAULT_FILE = new File("src/database/data/pictureurl.kar");
 
     public static Database getInstance() {return instance;}
 
@@ -34,7 +36,7 @@ public class Database {
         big line of code yup, cant believe this will be the same for users and logs
          */
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(ITEMHOLDER_LIST_DEFAULT_FILE, false))){
-            writer.write("Class,Uid,SpecificItemType,Unit,Description,{Price},AlternativeName,ItemInStock,LowerLimitStock");
+            writer.write("Class,Uid,ItemName,Unit,Description,{Price},AlternativeName,ItemInStock,LowerLimitStock");
             writer.newLine();
             itemHolderList.forEach(( itemHolder)->{
                 Item rawItem = itemHolder.getItem();
@@ -44,7 +46,7 @@ public class Database {
                 }
                 String saveLine = rawItem.getClass().getSimpleName()+","+
                         itemHolder.getUid()+","+
-                        rawItem.getSpecificItemType()+","+
+                        rawItem.getItemName()+","+
                         itemHolder.getUnit()+","+
                         "\""+rawItem.getDescription()+"\""+","+
                         isProduct+","+
@@ -74,7 +76,7 @@ public class Database {
             parentFolder.mkdirs();
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, false))){
-            writer.write("LogType,Name,Date,Description,Author,Uid,ItemUid,{Total},{Qty}");
+            writer.write("LogType,Name,Date,Description,Author,Uid,ItemUid,{Total},{Qty},{Payment},{Change}");
             writer.newLine();
             activityList.forEach(log->{
                 String saveLine = log.toCSVFormat();
@@ -127,7 +129,7 @@ public class Database {
 
             writer.write(user.toCSVFormat());
             writer.newLine();
-        } catch (IOException e) {
+        } catch (IOException | NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
@@ -141,7 +143,7 @@ public class Database {
             reader.readLine();
             while((line=reader.readLine())!=null){
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                if(removeQuotes(rawText[1]).equals(name) && removeQuotes(rawText[3]).equals(password))
+                if(removeQuotes(rawText[1]).equals(name) && SimpleHash.verifyInput(password, rawText[3]))
                     switch(rawText[0]){
                         case "Admin":
                             return new Admin(removeQuotes(rawText[1]), Integer.parseInt(rawText[2]), removeQuotes(rawText[3]));
@@ -150,7 +152,7 @@ public class Database {
                             return new Clerk(removeQuotes(rawText[1]), Integer.parseInt(rawText[2]), removeQuotes(rawText[3]));
                 }
             }
-        }catch (IOException e){
+        }catch (IOException | NoSuchAlgorithmException e){
             throw new RuntimeException(e);
         }
         return null;
@@ -225,7 +227,9 @@ public class Database {
                             rawText[5],
                             rawText[6],
                             Double.parseDouble(rawText[7]),
-                            Double.parseDouble(rawText[8])
+                            Double.parseDouble(rawText[8]),
+                            Double.parseDouble(rawText[9]),
+                            Double.parseDouble(rawText[10])
                     ));
                 }
             }
@@ -242,14 +246,10 @@ public class Database {
             while((line=reader.readLine())!=null){
                 if(line.isBlank())
                     continue;
-                SpecificItem enumConst = SpecificItem.NOT_FOUND;
+
                 String[] rawText = line.split((",(?=([^\"]*\"[^\"]*\")*[^\"]*$)"));
-                try{
-                    enumConst = SpecificItem.valueOf(rawText[2]);
-                } catch (IllegalArgumentException e){
-//                    TODO: Implement error for this one
-                }
-                Item rawItem = getRawItem(rawText, enumConst);
+
+                Item rawItem = getRawItem(rawText);
                 inventory.setItem(rawText[1], rawItem, rawText[3], Double.parseDouble(rawText[7]), Double.parseDouble(rawText[8]), this);
             }
         } catch (RuntimeException | IOException e) {
@@ -257,20 +257,20 @@ public class Database {
         }
     }
 
-    private static Item getRawItem(String[] rawText, SpecificItem enumConst) {
+    private static Item getRawItem(String[] rawText) {
         Item rawItem = null;
         if (rawText[0].equals("Product")){
             rawItem = new Product(
-                    enumConst,
-                    rawText[4].substring(1, rawText[4].length()-1),
+                    removeQuotes(rawText[2]),
+                    removeQuotes(rawText[4]),
                     Double.parseDouble(rawText[5]),
-                    rawText[6].substring(1, rawText[6].length()-1)
+                    removeQuotes(rawText[6])
             );
         } else {
             rawItem = new FarmItem(
-                    enumConst,
-                    rawText[4].substring(1, rawText[4].length()-1),
-                    rawText[6].substring(1, rawText[6].length()-1)
+                    removeQuotes(rawText[2]),
+                    removeQuotes(rawText[4]),
+                    removeQuotes(rawText[6])
             );
         }
         return rawItem;
@@ -298,5 +298,34 @@ public class Database {
 
     private static String removeQuotes(String rawText){
         return rawText.substring(1,rawText.length()-1);
+    }
+
+    public String loadImageURLPath(String itemName) throws FileNotFoundException {
+        if(!PICTURE_URL_DEFAULT_FILE.exists())
+            throw new FileNotFoundException("File not found");
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(PICTURE_URL_DEFAULT_FILE))){
+            String line;
+            reader.readLine();
+            while((line = reader.readLine())!=null){
+                if(line.isBlank())
+                    continue;
+
+                String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                if(rawText.length < 2)
+                    continue;
+
+                String rawName = removeQuotes(rawText[0]);
+
+                // strict implementation for now
+                if(rawName.equals(itemName) || rawName.equals("Default"))
+                    return rawText[1];
+            }
+        } catch (Exception e){
+            throw new RuntimeException("Error on loading image");
+        }
+
+        throw new RuntimeException("Something went wrong: Default file not initialize or in the file, or is missing completely");
     }
 }

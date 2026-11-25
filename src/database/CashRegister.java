@@ -45,19 +45,27 @@ public class CashRegister {
         if(payment < inventory.getPrice(uid)*unit)
             throw new IllegalArgumentException("The buyer does not have enough cash.");
 
+        double change = payment-(inventory.getPrice(uid)*unit);
+        inventory.reduceItemAmount(uid,unit,user);
+        cashIn(payment);
+
+        if (change!=0)
+            cashOut(change);
+
         inventory.addToLogList(new SaleLog(
                 "Transaction Processed: Item Sold",
                 LocalDate.now().toString(),
-                "Item ("+inventory.getItemById(uid).getSpecificItemType()+") is sold with "+unit+" sold, by employee "+user.getName()+", for "+(inventory.getPrice(uid)*unit),
+                "Item ("+inventory.getItemById(uid).getItemName()+") is sold with "+unit+" sold, by employee "+user.getName()+", for "+(inventory.getPrice(uid)*unit)+"[Payment: "+payment+", Change: "+change+"]",
                 user.getName(),
-                "+S"+UUID.randomUUID().toString(),
+                "+S"+ UUID.randomUUID(),
                 uid,
                 inventory.getPrice(uid)*unit,
-                unit
+                unit,
+                payment,
+                change
         ));
 
-        inventory.reduceItemAmount(uid,unit,user);
-        cashIn(payment);
+
         totalSales.add(1);
     }
 
@@ -73,9 +81,9 @@ public class CashRegister {
             inventory.addToLogList(new RefundLog(
                     "Transaction Processed: Item Refund",
                     LocalDate.now().toString(),
-                    "Item ("+itemHolder.getItem().getSpecificItemType()+") is refunded with employee "+user.getName()+"\'s discretion",
+                    "Item ("+itemHolder.getItem().getItemName()+") is refunded with employee "+user.getName()+"'s discretion",
                     user.getName(),
-                    "+R"+UUID.randomUUID().toString(),
+                    "+R"+ UUID.randomUUID(),
                     itemHolder.getUid(),
                     product.getPrice()*unit,
                     unit
@@ -107,7 +115,7 @@ public class CashRegister {
                 LocalDate.now().toString(),
                 name + " donated "+amount,
                 name,
-                "+D"+UUID.randomUUID().toString(),
+                "+D"+ UUID.randomUUID(),
                 amount
         ));
 

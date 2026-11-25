@@ -1,5 +1,9 @@
 package database.user;
 
+import database.SimpleHash;
+
+import java.security.NoSuchAlgorithmException;
+
 public class User {
     private final String name;
     private final int id;
@@ -17,10 +21,11 @@ public class User {
         return this.password;
     }
 
-    public final String toCSVFormat() {
+    // refactor latur
+    public final String toCSVFormat() throws NoSuchAlgorithmException {
         return this.getClass().getSimpleName()+","+
                 "\""+this.getName()+"\""+","+
-                "\""+this.getPassword()+"\"";
+                SimpleHash.simpleHash(this.password);
     }
 
     public int getUid() {

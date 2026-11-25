@@ -72,7 +72,6 @@ public class InventoryOperations {
             };
         }
     }
-
     // general update stock service
     public class updateStockService extends Service<Void> {
         private final Inventory inventory;

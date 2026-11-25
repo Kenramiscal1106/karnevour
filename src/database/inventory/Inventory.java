@@ -69,7 +69,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Add Item",
                 LocalDate.now().toString(),
-                user.getName() + " added item (" + item.getSpecificItemType() + ") to the inventory",
+                user.getName() + " added item (" + item.getItemName() + ") to the inventory",
                 user.getName(),
                 "++" + UUID.randomUUID().toString(),
                 uid
@@ -87,7 +87,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Remove Item",
                 LocalDate.now().toString(),
-                user.getName() + " removed item (" + itemHolder.getItem().getSpecificItemType() + ") to the inventory",
+                user.getName() + " removed item (" + itemHolder.getItem().getItemName() + ") to the inventory",
                 user.getName(),
                 "--" + UUID.randomUUID().toString(),
                 uid
@@ -108,7 +108,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Restock Item Amount",
                 LocalDate.now().toString(),
-                user.getName() + " restocked item (" + hold.getItem().getSpecificItemType() + ") to the inventory (from: " + hold.getItemInStock() + " to: " + (hold.getItemInStock() + amount) + ")",
+                user.getName() + " restocked item (" + hold.getItem().getItemName() + ") to the inventory (from: " + hold.getItemInStock() + " to: " + (hold.getItemInStock() + amount) + ")",
                 user.getName(),
                 "+=" + UUID.randomUUID().toString(),
                 uid
@@ -129,7 +129,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Reduce Item Amount",
                 LocalDate.now().toString(),
-                user.getName() + " reduced item (" + hold.getItem().getSpecificItemType() + ") to the inventory (from: " + hold.getItemInStock() + " to: " + (hold.getItemInStock() - amount) + ")",
+                user.getName() + " reduced item (" + hold.getItem().getItemName() + ") to the inventory (from: " + hold.getItemInStock() + " to: " + (hold.getItemInStock() - amount) + ")",
                 user.getName(),
                 "-=" + UUID.randomUUID().toString(),
                 uid
@@ -152,7 +152,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Replace Item",
                 LocalDate.now().toString(),
-                user.getName() + " replaced item " + itemHolder.getItem() + ", with item " + newItem.getSpecificItemType(),
+                user.getName() + " replaced item " + itemHolder.getItem() + ", with item " + newItem.getItemName(),
                 user.getName(),
                 "+-" + UUID.randomUUID().toString(),
                 newUid
@@ -173,7 +173,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Set Item Stock",
                 LocalDate.now().toString(),
-                user.getName() + " set the item (" + itemHolder.getItem().getSpecificItemType() + ") stock from: " + itemHolder.getItemInStock() + ", to: " + inStock,
+                user.getName() + " set the item (" + itemHolder.getItem().getItemName() + ") stock from: " + itemHolder.getItemInStock() + ", to: " + inStock,
                 user.getName(),
                 "+~" + UUID.randomUUID().toString(),
                 uid
@@ -194,7 +194,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Set Item Stock",
                 LocalDate.now().toString(),
-                user.getName() + " set the low stock limit of item (" + itemHolder.getItem().getSpecificItemType() + ") from: " + itemHolder.getLowStockLimit() + ", to: " + inStock,
+                user.getName() + " set the low stock limit of item (" + itemHolder.getItem().getItemName() + ") from: " + itemHolder.getLowStockLimit() + ", to: " + inStock,
                 user.getName(),
                 "+#" + UUID.randomUUID().toString(),
                 uid
@@ -247,7 +247,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Set Item Price",
                 LocalDate.now().toString(),
-                user.getName() + " set the item (" + itemHolder.getItem().getSpecificItemType() + ") price from: " + ((Product) item).getPrice() + ", to: " + newPrice,
+                user.getName() + " set the item (" + itemHolder.getItem().getItemName() + ") price from: " + ((Product) item).getPrice() + ", to: " + newPrice,
                 user.getName(),
                 "I$" + UUID.randomUUID().toString(),
                 uid
@@ -265,7 +265,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Set Item Description",
                 LocalDate.now().toString(),
-                user.getName() + " set the item (" + itemHolder.getItem().getSpecificItemType() + ") description from: " + itemHolder.getItemDescription() + ", to: " + desc,
+                user.getName() + " set the item (" + itemHolder.getItem().getItemName() + ") description from: " + itemHolder.getItemDescription() + ", to: " + desc,
                 user.getName(),
                 "ID" + UUID.randomUUID().toString(),
                 uid
@@ -283,7 +283,7 @@ public class Inventory {
         addToLogList(new InventoryLog(
                 "Inventory edit: Set Item Description",
                 LocalDate.now().toString(),
-                user.getName() + " set the item (" + itemHolder.getItem().getSpecificItemType() + ") alternative name from: " + itemHolder.getLowStockLimit() + ", to: " + altName,
+                user.getName() + " set the item (" + itemHolder.getItem().getItemName() + ") alternative name from: " + itemHolder.getLowStockLimit() + ", to: " + altName,
                 user.getName(),
                 "IA" + UUID.randomUUID().toString(),
                 uid

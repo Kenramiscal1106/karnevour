@@ -1,48 +1,50 @@
 package database.items;
 
+import database.Database;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public abstract class Item {
-    protected SpecificItem specificItem;
-    protected File imagePath;
+
+    protected final Database db = Database.getInstance();
+
+    protected String itemName;
+    protected String imagePath;
     protected String description;
     protected String alternativeName;
 
-    Item(SpecificItem specificItem, String description, String alternativeName) {
-        this.specificItem = specificItem;
+    Item(String itemName, String description, String alternativeName) {
+        this.itemName = itemName;
         this.description = description;
         this.alternativeName = alternativeName.trim();
 
-        File altImage = new File("src/pictures/" + alternativeName + ".jpg");
-        File specificImage = new File("src/pictures/" + specificItem + ".jpg");
-
-        if(altImage.exists())
-            this.imagePath = altImage;
-        else if(specificImage.exists())
-            this.imagePath = specificImage;
-        else
-            this.imagePath = new File("src/pictures/DEFAULT_PICTURE.jpg");
+        // later u change picture path
+        try{
+            this.imagePath = db.loadImageURLPath(this.itemName);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    Item(SpecificItem specificItem, String description) {
-        this.specificItem = specificItem;
+    Item(String itemName, String description) {
+        this.itemName = itemName;
         this.description = description;
         this.alternativeName = "";
 
-        File specificImage = new File("src/pictures/" + specificItem + ".jpg");
-
-        if (specificImage.exists())
-            this.imagePath = specificImage;
-        else
-            this.imagePath = new File("src/pictures/DEFAULT_PICTURE.jpg");
+        // later u change picture path
+        try{
+            this.imagePath = db.loadImageURLPath(this.itemName);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // getters
-    public SpecificItem getSpecificItemType() {return this.specificItem;}
-    public GeneralItem getGeneralItem() {return this.specificItem.getGeneralProductType();}
+    public String getItemName() {return this.itemName;}
     public String getDescription() {return this.description;}
     public String getAlternativeName() { return this.alternativeName; }
-    public String getImagePath() {return this.imagePath.toString();}
+    public String getImagePath() {return this.imagePath;}
     // setters
     /*
     make sure user instance of admin before setting
