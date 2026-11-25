@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.Image?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.controllers.components.RefundEntryController"
+      styleClass="adjust-item-root">
+    <HBox styleClass="adjust-item-info">
+        <ImageView fx:id="itemImage" fitWidth="56" fitHeight="56"/>
+        <VBox>
+            <Text fx:id="itemNameText" styleClass="adjust-item-name"/>
+            <Text fx:id="itemQuantityText" styleClass="adjust-item-quantity"/>
+        </VBox>
+    </HBox>
+    <Region HBox.hgrow="ALWAYS"/>
+    <Text fx:id="itemPriceText" styleClass="sales-entry-value"/>
+</HBox>
