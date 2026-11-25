@@ -1,4 +1,5 @@
 package application.services;
+
 import database.user.*;
 
 public final class SessionHandler {
@@ -14,9 +15,9 @@ public final class SessionHandler {
         return instance;
     }
 
-    public static synchronized SessionHandler getOrCreateInstance(User user){
+    public static synchronized SessionHandler getOrCreateInstance(User user) {
         if (instance == null) instance = new SessionHandler(user);
-        if (!(instance.currentUser.getUid().equals(user.getUid())))
+        if (instance.currentUser.getUid() != (user.getUid()))
             throw new IllegalStateException("Another user is logged in");
         return instance;
     }

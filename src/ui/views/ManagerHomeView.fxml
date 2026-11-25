@@ -15,9 +15,10 @@
         <URL value="@../base.css" />
         <URL value="@../components.css" />
     </stylesheets>
-    <HBox>
+    <HBox style="-fx-background-color:#000">
         <fx:include source="../components/DashboardStatCard.fxml" fx:id="revenueStatCard"/>
         <fx:include source="../components/DashboardStatCard.fxml" fx:id="inventoryValueStatCard"/>
     </HBox>
     <Text styleClass="h2">Stock Alerts</Text>
+    <ListView fx:id="stockAlertList"/>
 </VBox>

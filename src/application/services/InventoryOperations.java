@@ -31,12 +31,12 @@ public class InventoryOperations {
 
 
     public Service<Void> addItemService = new Service<Void>() {
-        private final SimpleObjectProperty<Item> item = new SimpleObjectProperty<>();
-        private final SimpleDoubleProperty stock = new SimpleDoubleProperty();
+        public final SimpleObjectProperty<Item> item = new SimpleObjectProperty<>();
+        public final SimpleDoubleProperty stock = new SimpleDoubleProperty();
 
-        private final SimpleStringProperty unit = new SimpleStringProperty();
-        private final SimpleDoubleProperty limit = new SimpleDoubleProperty();
-        private final SimpleStringProperty uid = new SimpleStringProperty();
+        public final SimpleStringProperty unit = new SimpleStringProperty();
+        public final SimpleDoubleProperty limit = new SimpleDoubleProperty();
+        public final SimpleStringProperty uid = new SimpleStringProperty();
 
 
         @Override

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.controllers.components.ProductEntryController">
+    <stylesheets>
+        <URL value="@../base.css"/>
+        <URL value="@../components.css"/>
+    </stylesheets>
+    <ImageView fx:id="imageView" fitHeight="56" fitWidth="56"/>
+    <HBox styleClass="product-entry__leading-detail" spacing="16" alignment="CENTER_LEFT">
+        <VBox alignment="CENTER_LEFT">
+            <Text fx:id="productName" styleClass="product-entry-name"/>
+            <Text fx:id="productDescription" styleClass="product-entry-description"/>
+        </VBox>
+    </HBox>
+    <Region HBox.hgrow="ALWAYS" />
+    <HBox styleClass="product-entry-actions">
+        <Button>Edit Details</Button>
+        <Button>Update Price</Button>
+    </HBox>
+</HBox>

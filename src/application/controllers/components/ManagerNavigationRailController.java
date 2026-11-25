@@ -16,10 +16,13 @@ public class ManagerNavigationRailController extends NavigationRailControllerBas
     public Button inventoryButton;
     public Button activityHistoryButton;
 
+    public Button productsButton;
     public ImageView homeIcon;
     public ImageView saleIcon;
     public ImageView inventoryIcon;
     public ImageView historyIcon;
+    public ImageView productsIcon;
+
     @FXML
     public void homeClick(ActionEvent mouseEvent) {
     	setActive(homeButton, true);
@@ -46,11 +49,18 @@ public class ManagerNavigationRailController extends NavigationRailControllerBas
     }
 
     @FXML
+    public void productsClick(ActionEvent actionEvent) {
+        setActive(productsButton, true);
+        navigationStore.updateView("/ui/views/ProductsView.fxml");
+    }
+
+    @FXML
     public void initialize() {
-    	buttons = List.of(homeButton, saleButton, inventoryButton, activityHistoryButton);
-        iconList = List.of(homeIcon, saleIcon, inventoryIcon, historyIcon);
+    	buttons = List.of(homeButton, saleButton, inventoryButton, activityHistoryButton, productsButton);
+        iconList = List.of(homeIcon, saleIcon, inventoryIcon, historyIcon, productsIcon);
     	setActive(homeButton, true);
     }
+
 
 
 }

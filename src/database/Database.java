@@ -138,15 +138,16 @@ public class Database {
 
         try(BufferedReader reader = new BufferedReader(new FileReader(USER_STAFF_LIST_DEFAULT_FILE))){
             String line;
+            reader.readLine();
             while((line=reader.readLine())!=null){
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 if(removeQuotes(rawText[1]).equals(name) && removeQuotes(rawText[3]).equals(password))
                     switch(rawText[0]){
                         case "Admin":
-                            return new Admin(removeQuotes(rawText[1]), removeQuotes(rawText[2]), removeQuotes(rawText[3]));
+                            return new Admin(removeQuotes(rawText[1]), Integer.parseInt(rawText[2]), removeQuotes(rawText[3]));
 
                         case "Clerk":
-                            return new Clerk(removeQuotes(rawText[1]), removeQuotes(rawText[2]), removeQuotes(rawText[3]));
+                            return new Clerk(removeQuotes(rawText[1]), Integer.parseInt(rawText[2]), removeQuotes(rawText[3]));
                 }
             }
         }catch (IOException e){
@@ -275,7 +276,7 @@ public class Database {
         return rawItem;
     }
 
-    private static boolean userExists(String uid) throws IOException {
+    private static boolean userExists(int uid) throws IOException {
         if(!USER_STAFF_LIST_DEFAULT_FILE.exists())
            return false;
 
@@ -286,7 +287,7 @@ public class Database {
                 if(line.isEmpty())
                     continue;
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                if(rawText.length>=4 && removeQuotes(rawText[2]).equals(uid))
+                if(rawText.length>=4 && Integer.parseInt(rawText[2]) == uid)
                     return true;
             }
         } catch(IOException e) {

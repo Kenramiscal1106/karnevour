@@ -6,9 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import database.logs.*;
 import database.items.*;
+import javafx.collections.transformation.FilteredList;
 
 import java.time.LocalDate;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class Inventory {
     /*
@@ -299,5 +301,13 @@ public class Inventory {
             throw new IllegalArgumentException("Database not found");
 
         this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));
+    }
+
+    public ObservableList<ItemHolder> getProductHoldersList() {
+        return itemHolderList.filtered(itemHolder ->  itemHolder.getItem() instanceof Product);
+    }
+
+    public FilteredList<ItemHolder> filterList(Predicate<? super ItemHolder> predicate) {
+        return new FilteredList<>(itemHolderList, predicate);
     }
 }

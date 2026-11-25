@@ -46,7 +46,7 @@
     -fx-font-family: 'Instrument Sans', sans-serif;
 }
 
-.inventory-entry__leading-detail {
+.inventory-entry__leading-detail, .product-entry__leading-detail {
     -fx-spacing: 16;
 }
 
@@ -64,7 +64,7 @@
     -fx-font-family: 'Instrument Sans Bold', sans-serif;
 }
 
-.inventory-entry-quantity {
+.inventory-entry-quantity, .product-entry-description {
     -fx-font-size: 14px;
     -fx-text-fill: #646464;
     -fx-font-family: 'Instrument Sans', sans-serif;
@@ -180,9 +180,10 @@
     -fx-spacing: 16px;
 }
 
-.sales-entry-name {
+.sales-entry-name, .product-entry-name{
     -fx-font-size: 16px;
     -fx-text-fill: -neutral-900;
+    -fx-font-family: 'Instrument Sans', sans-serif;
 }
 
 .sales-entry-quantity {
@@ -265,4 +266,8 @@
 .alert-dialog > .button-bar .button:cancel:hover{
     -fx-background-color: -neutral-200;
     -fx-text-fill: -neutral-500;
+}
+
+
+.product-entry-actions {
 }

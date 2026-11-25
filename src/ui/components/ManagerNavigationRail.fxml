@@ -82,6 +82,21 @@
             </graphic>
             Activity History
         </Button>
+        <Button contentDisplay="TOP" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000"
+                onAction="#productsClick"
+                fx:id="productsButton" wrapText="true" textAlignment="CENTER">
+            <graphic>
+                <VBox styleClass="icon-container" alignment="CENTER" fillWidth="false">
+                    <padding>
+                        <Insets left="12" right="12" top="2" bottom="2"/>
+                    </padding>
+                    <ImageView fitWidth="32" fitHeight="32" fx:id="productsIcon">
+                        <Image url="@../../icons/products.png" preserveRatio="true"/>
+                    </ImageView>
+                </VBox>
+            </graphic>
+            Products
+        </Button>
     </VBox>
     <fx:include source="LogoutButton.fxml"/>
     <!--  Bottom Section  -->

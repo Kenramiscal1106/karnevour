@@ -1,19 +1,18 @@
 package database.user;
 
-public abstract class User {
-    private String name;
-    private String uid;
-    private String password;
+public class User {
+    private final String name;
+    private final int id;
+    private final String password;
 
-    User(String name, String uid, String password){
+    User(String name, int id, String password){
         this.name = name;
-        this.uid = uid;
         this.password = password;
+        this.id = id;
     }
 
     // getters
     public final String getName(){  return this.name;   }
-    public final String getUid() {  return this.uid;    }
     public String getPassword() {
         return this.password;
     }
@@ -21,7 +20,10 @@ public abstract class User {
     public final String toCSVFormat() {
         return this.getClass().getSimpleName()+","+
                 "\""+this.getName()+"\""+","+
-                "\""+this.getUid()+"\""+","+
                 "\""+this.getPassword()+"\"";
+    }
+
+    public int getUid() {
+        return id;
     }
 }
