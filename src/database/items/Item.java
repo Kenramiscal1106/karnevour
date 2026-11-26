@@ -54,6 +54,6 @@ public abstract class Item {
     /*
     make sure user instance of admin before setting
      */
-    public void setDescription(String desc) {this.description=description;}
+    public void setDescription(String desc) {this.description=desc;}
     public void setAlternativeName(String altName) {this.alternativeName=altName;}
 }

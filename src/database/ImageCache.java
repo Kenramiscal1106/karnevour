@@ -1,11 +1,9 @@
 package database;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,6 +26,7 @@ public class ImageCache {
 
         if(new File(pictureFile.toUri()).exists())
             return;
+
         try(InputStream stream = URI.create(url).toURL().openStream()){
             Files.copy(stream, pictureFile, StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
@@ -49,6 +48,12 @@ public class ImageCache {
                 }
             });
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try{
+            Files.deleteIfExists(cacheFolder);
+        } catch (IOException e){
             throw new RuntimeException(e);
         }
     }

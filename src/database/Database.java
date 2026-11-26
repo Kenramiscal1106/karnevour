@@ -10,7 +10,6 @@ import database.user.User;
 import javafx.collections.ObservableList;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -312,9 +311,6 @@ public class Database {
     }
 
     public String loadImageURLPath(String itemName) throws FileNotFoundException {
-        File cacheFile = PICTURE_CACHE_FILE.toPath()
-                .resolve(itemName.replace(" ", "-") + ".jpg")
-                .toFile();
 
         try(BufferedReader reader = new BufferedReader(new FileReader(PICTURE_URL_DEFAULT_FILE))){
             String line;
