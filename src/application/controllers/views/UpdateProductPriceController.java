@@ -25,7 +25,7 @@ public class UpdateProductPriceController {
         price.setText(Double.toString(Inventory.getInstance().getPrice(itemHolder.getUid())));
     }
 
-    public void handleCancel(ActionEvent actionEvent) {
+    public void closeDialog(ActionEvent actionEvent) {
         var dialogStage = (Stage) root.getScene().getWindow();
         dialogStage.close();
     }
@@ -41,7 +41,7 @@ public class UpdateProductPriceController {
         }
 
         var service = operations.new updatePriceService(Inventory.getInstance(), itemHolder.getUid(), value);
-        service.setOnSucceeded(e -> handleCancel(null));
+        service.setOnSucceeded(e -> closeDialog(null));
         service.setOnFailed(e -> showError(service.getException().getMessage()));
         service.start();
     }
