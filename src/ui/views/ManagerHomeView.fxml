@@ -20,5 +20,5 @@
         <fx:include source="../components/DashboardStatCard.fxml" fx:id="inventoryValueStatCard"/>
     </HBox>
     <Text styleClass="h2">Stock Alerts</Text>
-    <ListView fx:id="stockAlertList"/>
+    <ListView fx:id="stockAlertList" VBox.vgrow="ALWAYS"/>
 </VBox>

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class EditProductController {
     public TextField lowStockLimit;
@@ -12,8 +13,8 @@ public class EditProductController {
     public TextField price;
     public VBox root;
 
-    public void handleCancel(ActionEvent actionEvent) {
-        root.getScene().getWindow().getOnCloseRequest();
+    public void closeDialog(ActionEvent actionEvent) {
+        ((Stage)root.getScene().getWindow()).close();
     }
 
     public void updateProductButton(ActionEvent actionEvent) {

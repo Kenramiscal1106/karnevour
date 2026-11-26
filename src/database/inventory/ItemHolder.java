@@ -58,6 +58,6 @@ public class ItemHolder {
     }
 
     public boolean isLowInStock(){
-        return this.getItemInStock() < this.getLowStockLimit();
+        return this.getItemInStock() <= this.getLowStockLimit();
     }
 }

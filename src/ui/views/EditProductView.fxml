@@ -11,23 +11,23 @@
       fx:id="root"
             fx:controller="application.controllers.views.EditProductController">
     <VBox>
-        <Label labelFor="productName">Product name</Label>
+        <Label labelFor="${productName}">Product name</Label>
         <TextField fx:id="productName"/>
     </VBox>
     <VBox>
-        <Label labelFor="description">Description</Label>
+        <Label labelFor="${description}">Description</Label>
         <TextArea fx:id="description"/>
     </VBox>
     <VBox>
-        <Label labelFor="price">Price</Label>
+        <Label labelFor="${price}">Price</Label>
         <TextField fx:id="price"/>
     </VBox>
     <VBox>
-        <Label labelFor="lowStockLimit">Price</Label>
+        <Label labelFor="${lowStockLimit}">Stock Warning</Label>
         <TextField fx:id="lowStockLimit"/>
     </VBox>
     <HBox>
-        <Button onAction="#handleCancel">Cancel</Button>
+        <Button onAction="#closeDialog">Cancel</Button>
         <Button onAction="#updateProductButton">Update Item</Button>
     </HBox>
 </VBox>

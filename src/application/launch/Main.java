@@ -29,6 +29,7 @@ public class Main extends Application {
         stage.setScene(new Scene(sceneryLoader.load(), 500, 500));
         stage.show();
         stage.setOnCloseRequest(_ -> {
+            System.out.println("saving");
             if (DataLoader.isLoaded()){
                 var db = Database.getInstance();
                 db.saveInventoryToDatabase(Inventory.getInstance().getItemHolderList());
@@ -39,6 +40,7 @@ public class Main extends Application {
                 }
                 db.saveCashRegisterCredentials(CashRegister.getInstance());
             }
+            System.out.println("saved");
         });
         // test commit
     }

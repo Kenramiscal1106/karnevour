@@ -9,12 +9,12 @@
 <?import javafx.scene.image.ImageView?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.components.StockAlertEntryController">
+      fx:controller="application.controllers.components.StockAlertEntryController" styleClass="low-stock-entry">
     <HBox>
-        <ImageView fx:id="itemImage"/>
+        <ImageView fx:id="itemImage" fitWidth="52" fitHeight="52"/>
         <VBox>
-            <Label fx:id="itemName"/>
-            <Label fx:id="itemRemaining"/>
+            <Label fx:id="itemName" styleClass="low-stock-entry-name"/>
+            <Label fx:id="itemRemaining" styleClass="low-stock-entry-remaining"/>
         </VBox>
     </HBox>
 </HBox>
