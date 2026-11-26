@@ -125,7 +125,7 @@
 /* Adjust item component */
 
 .adjust-item-name {
-    -fx-font-weight: 600;
+    -fx-font-weight: bold;
     -fx-font-size: 16px;
     -fx-text-fill: -neutral-900;
 }
@@ -167,13 +167,13 @@
     -fx-spading:16px;
 }
 
-
 .sales-entry-info {
     -fx-alignment: center;
     -fx-spacing: 16px;
 }
 
-.sales-entry-namem, .low-stock-entry-name{
+.sales-entry-name, .low-stock-entry-name{
+    -fx-font-weight: bold;
     -fx-font-size: 16px;
     -fx-text-fill: -neutral-900;
     -fx-font-family: 'Instrument Sans', sans-serif;
@@ -213,13 +213,13 @@
     -fx-font-family: "Instrument Sans"
 }
 
-.alert-dialog >. header-panel{
+.alert-dialog > .header-panel{
     -fx-background-color: transparent;
     -fx-padding: 0 0 8px 0;
 }
 
 .alert-dialog  > .header-panel > .label{
-    -fx-font-family: "Instrument Sans Bold";
+    -fx-font-weight: bold;
     -fx-font-size: 20px;
     -fx-text-fill: -neutral-100;
     -fx-padding: 0 0 0 0
@@ -269,6 +269,7 @@
 .stat-card {
     -fx-padding: 32px;
     -fx-background-color: -neutral-200;
+    -fx-background-radius: 10px;
 }
 
 .stat-card-descriptor {

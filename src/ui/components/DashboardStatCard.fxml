@@ -11,7 +11,7 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.DashboardStatCardController" styleClass="stat-card">
-    <VBox styleClass="">
+    <VBox>
         <Text fx:id="secondaryText" styleClass="stat-card-descriptor"/>
         <Text fx:id="primaryText" styleClass="stat-card-value"/>
     </VBox>

@@ -26,7 +26,7 @@
                 <Text fx:id="totalText"/>
             </HBox>
         </VBox>
-        <HBox>
+        <HBox spacing="8">
             <Button fx:id="cancelButton" styleClass="button--primary, button--medium">Cancel Order</Button>
             <Button fx:id="checkoutButton" styleClass="button--outline, button--medium">Checkout</Button>
         </HBox>

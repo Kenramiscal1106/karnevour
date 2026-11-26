@@ -9,13 +9,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.AdjustItemController"
       styleClass="adjust-item-root">
-    <HBox styleClass="adjust-item-info">
-        <ImageView fx:id="itemImage" fitWidth="56" fitHeight="56"/>
-        <VBox>
+    <HBox styleClass="adjust-item-info" spacing="8">
+        <ImageView fx:id="itemImage" fitWidth="56" fitHeight="56">
+            <clip>
+                <Rectangle width="56" height="56" arcWidth="16" arcHeight="16"/>
+            </clip>
+        </ImageView>
+        <VBox alignment="CENTER_LEFT">
             <Text fx:id="itemNameText" styleClass="adjust-item-name"/>
             <Text fx:id="itemQuantityText" styleClass="adjust-item-quantity"/>
         </VBox>
@@ -29,7 +34,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <HBox alignment="CENTER">
+        <HBox alignment="CENTER" spacing="8">
             <TextField fx:id="quantityField" alignment="CENTER" styleClass="adjust-item-input" promptText="Qty"/>
             <Text fx:id="unitField" textAlignment="CENTER"/>
         </HBox>
