@@ -43,7 +43,7 @@ public abstract class Item {
         try{
             return db.loadImageURLPath(itemName);
         } catch (FileNotFoundException e) {
-            return "src/pictures/default-picture.png";
+            return Database.class.getResource("/pictures/default-picture.png").toExternalForm();
         }
     }
     // setters

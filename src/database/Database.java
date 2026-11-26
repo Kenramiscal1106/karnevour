@@ -342,8 +342,7 @@ public class Database {
         } catch (Exception e){
             throw new RuntimeException("Error on loading image", e);
         }
-
-        throw new RuntimeException("Something went wrong: Default file not initialized or in the file, or is missing completely");
+        return Database.class.getResource("/pictures/default-picture.png").toExternalForm();
     }
 
     public void savePictureURL(String itemName, String url){
