@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.StockAlertEntryController" styleClass="low-stock-entry">
@@ -17,4 +18,13 @@
             <Label fx:id="itemRemaining" styleClass="low-stock-entry-remaining"/>
         </VBox>
     </HBox>
+    <Region HBox.hgrow="ALWAYS"/>
+    <Button styleClass="button--primary">
+        <graphic>
+            <ImageView fitHeight="20" fitWidth="20">
+                <Image url="@../../icons/add-box.png"/>
+            </ImageView>
+        </graphic>
+        Restock
+    </Button>
 </HBox>
