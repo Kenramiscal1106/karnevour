@@ -22,7 +22,7 @@ public class Database {
     private static final File LOG_LIST_DEFAULT_FILE = new File("src/database/data/log-list.kar");
     private static final File CASH_REGISTER_DEFAULT_FILE = new File("src/database/data/cash-register.kar");
     private static final File PICTURE_URL_DEFAULT_FILE = new File("src/database/data/pictureurl.kar");
-    private static final File PICTURE_CACHE_FILE = new File("src/database/data/picturecache.kar");
+    private static final File PICTURE_CACHE_FILE = new File("src/database/data/picturecache");
 
     public static Database getInstance() {return instance;}
 
@@ -325,7 +325,8 @@ public class Database {
 
                 // strict implementation for now
                 if(rawName.equals(itemName) || rawName.equals("Default")) {
-                    ImageCache.getInstance().cacheImage(itemName, rawText[1]);
+//                    ImageCache.getInstance().cacheImage(itemName, rawText[1]);
+
                     return rawText[1];
                 }
             }
