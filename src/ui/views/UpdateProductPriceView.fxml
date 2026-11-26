@@ -12,7 +12,7 @@
       fx:controller="application.controllers.views.UpdateProductPriceController">
     <TextField fx:id="price"/>
     <HBox>
-        <Button onAction="#handleCancel">Cancel</Button>
+        <Button onAction="#closeDialog">Cancel</Button>
         <Button onAction="#handlePriceUpdate">Update Price</Button>
     </HBox>
 </VBox>

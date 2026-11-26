@@ -9,7 +9,7 @@ public class UpdateProductPriceController {
     public TextField price;
     public VBox root;
 
-    public void handleCancel(ActionEvent actionEvent) {
+    public void closeDialog(ActionEvent actionEvent) {
         var dialogStage = (Stage) root.getScene().getWindow();
         dialogStage.close();
     }

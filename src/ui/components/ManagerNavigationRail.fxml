@@ -18,6 +18,9 @@
     <padding>
         <Insets top="16" bottom="32"/>
     </padding>
+    <ImageView fitWidth="64" fitHeight="64">
+        <Image url="@../../pictures/logo.png"/>
+    </ImageView>
     <!--  Logo  -->
     <VBox VBox.vgrow="ALWAYS" spacing="12">
         <padding>

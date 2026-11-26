@@ -168,25 +168,27 @@
     -fx-spacing: 8px;
 }
 
-.sales-entry {
+.sales-entry, .low-stock-entry {
     -fx-padding: 10px 16px;
-    -fx-alignment: center;
+    -fx-alignment: center-left;
     -fx-background-color: -neutral-200;
     -fx-background-radius: 4px;
+    -fx-spading:16px;
 }
+
 
 .sales-entry-info {
     -fx-alignment: center;
     -fx-spacing: 16px;
 }
 
-.sales-entry-name, .product-entry-name{
+.sales-entry-name, .product-entry-name, .low-stock-entry-name{
     -fx-font-size: 16px;
     -fx-text-fill: -neutral-900;
     -fx-font-family: 'Instrument Sans', sans-serif;
 }
 
-.sales-entry-quantity {
+.sales-entry-quantity, .low-stock-entry-remaining {
     -fx-font-size: 14px;
     -fx-text-fill: -neutral-800;
 }
@@ -270,4 +272,20 @@
 
 
 .product-entry-actions {
+}
+
+.stat-card {
+    -fx-padding: 32px;
+    -fx-background-color: -neutral-200;
+}
+
+.stat-card-descriptor {
+    -fx-font-size: 14px;
+    -fx-text-fill: -neutral-700;
+}
+
+.stat-card-value {
+    -fx-font-size: 32px;
+    -fx-text-fill: -neutral-900;
+    -fx-font-weight: bold;
 }

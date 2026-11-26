@@ -4,11 +4,10 @@ import application.services.DataLoader;
 import database.CashRegister;
 import database.Database;
 import database.inventory.Inventory;
-import database.logs.Log;
-import database.logs.Loggable;
 import database.logs.Logger;
 import database.user.Admin;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,6 +28,7 @@ public class Main extends Application {
         stage.setScene(new Scene(sceneryLoader.load(), 500, 500));
         stage.show();
         stage.setOnCloseRequest(_ -> {
+            System.out.println("saving");
             if (DataLoader.isLoaded()){
                 var db = Database.getInstance();
                 db.saveInventoryToDatabase(Inventory.getInstance().getItemHolderList());
@@ -39,6 +39,8 @@ public class Main extends Application {
                 }
                 db.saveCashRegisterCredentials(CashRegister.getInstance());
             }
+            System.out.println("saved");
+            Platform.exit();
         });
         // test commit
     }

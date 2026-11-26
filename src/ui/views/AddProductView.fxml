@@ -8,6 +8,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
+      fx:id="root"
       fx:controller="application.controllers.views.AddProductController">
     <VBox>
         <Label labelFor="${productName}">Product name</Label>
@@ -22,11 +23,11 @@
         <TextField fx:id="price"/>
     </VBox>
     <VBox>
-        <Label labelFor="${lowStockLimit}">Price</Label>
+        <Label labelFor="${lowStockLimit}">Stock Limit Warning</Label>
         <TextField fx:id="lowStockLimit"/>
     </VBox>
     <HBox>
-        <Button onAction="#addProductButton">Cancel</Button>
+        <Button onAction="#closeDialog">Cancel</Button>
         <Button onAction="#addProductButton">Add</Button>
     </HBox>
 </VBox>

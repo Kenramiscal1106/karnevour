@@ -15,10 +15,10 @@ public class StockAlertEntryController implements EntryControllerBase<ItemHolder
 
     @Override
     public void initData(ItemHolder itemHolder) {
-        itemName.setText(itemHolder.getItem().getAlternativeName());
+        var item =  itemHolder.getItem();
+        itemName.setText(itemHolder.getItem().getItemName());
         itemRemaining.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit() + "remaining" );
-        File imageFile = new File(itemHolder.getItem().getImagePath());
-        itemImage.setImage(new Image(imageFile.toURI().toString()));
+        itemImage.setImage(new Image(item.getImagePath(), true));
     }
 
     public void openRestockItemDialog(ActionEvent actionEvent) {

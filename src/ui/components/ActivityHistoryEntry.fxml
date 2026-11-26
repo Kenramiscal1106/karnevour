@@ -11,6 +11,5 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.ActivityHistoryEntryController">
-    <ImageView fitHeight="56" fitWidth="56"/>
     <Text fx:id="logText"/>
 </HBox>
