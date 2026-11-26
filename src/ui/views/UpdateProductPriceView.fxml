@@ -6,11 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="root"
       fx:controller="application.controllers.views.UpdateProductPriceController">
-    <TextField fx:id="price"/>
+    <stylesheets>
+        <URL value ="@../base.css"/>
+        <URL value ="@../components.css"/>
+    </stylesheets>
+    <TextField fx:id="price" styleClass="adjust-item-controls"/>
     <HBox>
         <Button onAction="#closeDialog">Cancel</Button>
         <Button onAction="#handlePriceUpdate">Update Price</Button>

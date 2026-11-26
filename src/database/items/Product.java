@@ -23,7 +23,7 @@ public class Product extends Item {
     make sure user instance of admin
      */
     public void setPrice(double price) {
-        if (price <= 0)
+        if (price < 0)
             throw new IllegalArgumentException("Negative number passed as price");
         this.price = price;
     }
