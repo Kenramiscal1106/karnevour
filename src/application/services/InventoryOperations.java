@@ -29,50 +29,6 @@ public class InventoryOperations {
         }
     };
 
-
-    public Service<Void> addItemService = new Service<Void>() {
-        public final SimpleObjectProperty<Item> item = new SimpleObjectProperty<>();
-        public final SimpleDoubleProperty stock = new SimpleDoubleProperty();
-
-        public final SimpleStringProperty unit = new SimpleStringProperty();
-        public final SimpleDoubleProperty limit = new SimpleDoubleProperty();
-        public final SimpleStringProperty uid = new SimpleStringProperty();
-
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<>() {
-                @Override
-                protected Void call() throws Exception {
-                    inventory.addItem(uid.get(), item.get(), unit.get(), stock.get(), limit.get(), SessionHandler.getInstance().getCurrentUser());
-                    return null;
-                }
-            };
-        }
-
-    };
-
-    public class removeItemService extends Service<Void> {
-        private final Inventory inventory;
-        private final String uid;
-
-        public removeItemService(Inventory inventory, String uid) {
-            this.inventory = inventory;
-            this.uid = uid;
-        }
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<>() {
-                @Override
-                protected Void call() throws Exception {
-                    inventory.removeItemInInventory(uid, SessionHandler.getInstance().getCurrentUser());
-                    return null;
-                }
-            };
-        }
-    }
-
     public class updatePriceService extends Service<Void> {
         private final Inventory inventory;
         private final String uid;
