@@ -25,7 +25,7 @@ public class SaleLog extends Log implements Transaction{
         this.qty = qty;
         this.payment = payment;
         this.change = change;
-        this.authorClass;
+        this.userClass = userClass;
     }
     @Override
     public String toCSVFormat() {
