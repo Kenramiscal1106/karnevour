@@ -10,7 +10,7 @@ public class SimpleHash {
 
     private final static SimpleHash instance = new SimpleHash();
 
-    public final SimpleHash getInstance(){
+    public static SimpleHash getInstance(){
         return instance;
     }
 

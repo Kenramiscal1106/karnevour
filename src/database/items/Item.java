@@ -10,7 +10,6 @@ public abstract class Item {
     protected final Database db = Database.getInstance();
 
     protected String itemName;
-    protected String imagePath;
     protected String description;
     protected String alternativeName;
 
@@ -20,11 +19,6 @@ public abstract class Item {
         this.alternativeName = alternativeName.trim();
 
         // later u change picture path
-        try{
-            this.imagePath = db.loadImageURLPath(this.itemName);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     Item(String itemName, String description) {
@@ -33,18 +27,19 @@ public abstract class Item {
         this.alternativeName = "";
 
         // later u change picture path
-        try{
-            this.imagePath = db.loadImageURLPath(this.itemName);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     // getters
     public String getItemName() {return this.itemName;}
     public String getDescription() {return this.description;}
     public String getAlternativeName() { return this.alternativeName; }
-    public String getImagePath() {return this.imagePath;}
+    public String getImagePath() {
+        try{
+            return Database.getInstance().loadImageURLPath(itemName);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
     // setters
     /*
     make sure user instance of admin before setting
