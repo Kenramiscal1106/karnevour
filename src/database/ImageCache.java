@@ -58,10 +58,5 @@ public class ImageCache {
         }
     }
 
-
-    public String getCachedImage(String name){
-        Path resolved = PICTURE_CACHE_FILE.toPath().resolve(name.replace(" ","-")+".jpg");
-        return resolved.toUri().toString();
-    }
     public static ImageCache getInstance(){return instance;}
 }

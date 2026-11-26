@@ -10,6 +10,7 @@ import database.user.User;
 import javafx.collections.ObservableList;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -312,6 +313,11 @@ public class Database {
 
     public String loadImageURLPath(String itemName) throws FileNotFoundException {
 
+        File resolved = PICTURE_CACHE_FILE.toPath().resolve(itemName.replace(" ","-")+".jpg").toFile();
+
+        if(resolved.exists() && resolved.length()>0)
+            return resolved.toURI().toString();
+
         try(BufferedReader reader = new BufferedReader(new FileReader(PICTURE_URL_DEFAULT_FILE))){
             String line;
             reader.readLine();
@@ -327,14 +333,14 @@ public class Database {
                 String rawName = removeQuotes(rawText[0]);
 
                 // strict implementation for now
-                if(rawName.equals(itemName) || rawName.equals("Default")) {
+                if(rawName.equals(itemName)) {
                     backgroundExecutor.submit(()->
                             ImageCache.getInstance().cacheImage(itemName, rawText[1]));
-                    return rawText[1];
+                    return rawText[1].trim();
                 }
             }
         } catch (Exception e){
-            throw new RuntimeException("Error on loading image");
+            throw new RuntimeException("Error on loading image", e);
         }
 
         throw new RuntimeException("Something went wrong: Default file not initialize or in the file, or is missing completely");
