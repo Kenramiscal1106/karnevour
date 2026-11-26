@@ -25,6 +25,7 @@ public class User {
     public final String toCSVFormat() throws NoSuchAlgorithmException {
         return this.getClass().getSimpleName()+","+
                 "\""+this.getName()+"\""+","+
+                this.getUid()+","+
                 SimpleHash.simpleHash(this.password);
     }
 
