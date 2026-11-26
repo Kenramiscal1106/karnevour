@@ -46,7 +46,7 @@ public class Database {
                 }
                 String saveLine = rawItem.getClass().getSimpleName()+","+
                         itemHolder.getUid()+","+
-                        rawItem.getItemName()+","+
+                        "\""+rawItem.getItemName()+"\""+","+
                         itemHolder.getUnit()+","+
                         "\""+rawItem.getDescription()+"\""+","+
                         isProduct+","+
