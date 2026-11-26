@@ -76,7 +76,7 @@ public class Database {
             parentFolder.mkdirs();
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFile, false))){
-            writer.write("LogType,Name,Date,Description,Author,Uid,ItemUid,{Total},{Qty},{Payment},{Change}");
+            writer.write("LogType,Name,Date,Description,Author,Uid,ItemUid,{Total},{Qty},{Payment},{Change},{AuthorClass}");
             writer.newLine();
             activityList.forEach(log->{
                 String saveLine = log.toCSVFormat();
@@ -229,7 +229,8 @@ public class Database {
                             Double.parseDouble(rawText[7]),
                             Double.parseDouble(rawText[8]),
                             Double.parseDouble(rawText[9]),
-                            Double.parseDouble(rawText[10])
+                            Double.parseDouble(rawText[10]),
+                            rawText[11]
                     ));
                 }
             }

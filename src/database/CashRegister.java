@@ -62,7 +62,8 @@ public class CashRegister {
                 inventory.getPrice(uid)*unit,
                 unit,
                 payment,
-                change
+                change,
+                user.getClass().getSimpleName()
         ));
 
 

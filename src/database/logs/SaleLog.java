@@ -11,9 +11,10 @@ public class SaleLog extends Log implements Transaction{
     public final double qty;
     public final double payment;
     public final double change;
+    public final String userClass;
 
     public SaleLog(String name, String date, String description, String author, String uid,
-                   String productUid, double value, double qty, double payment, double change) {
+                   String productUid, double value, double qty, double payment, double change, String userClass) {
         this.name = name;
         this.date = date;
         this.description = description;
@@ -24,7 +25,7 @@ public class SaleLog extends Log implements Transaction{
         this.qty = qty;
         this.payment = payment;
         this.change = change;
-
+        this.authorClass;
     }
     @Override
     public String toCSVFormat() {
@@ -38,7 +39,8 @@ public class SaleLog extends Log implements Transaction{
                 value + "," +
                 qty +","+
                 payment + "," +
-                change;
+                change+","+
+                userClass;
     }
 
     @Override
