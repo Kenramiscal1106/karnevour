@@ -7,6 +7,9 @@ import database.inventory.ItemHolder;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 public abstract class OperationInventoryController
@@ -22,6 +25,7 @@ public abstract class OperationInventoryController
 
     @FXML
     public AdjustItemController adjustItemController;
+
 
     private final InventoryOperations operations = new InventoryOperations();
 
@@ -82,11 +86,17 @@ public abstract class OperationInventoryController
     }
 
     private void close(){
-        windowCloseButton.getScene().getWindow().getOnCloseRequest();
+        ((Stage) windowCloseButton.getScene().getWindow()).close();
     }
     private void showError(String error){
+            markError();
             System.out.println(error);
         }
 
+    private void markError( ){
+        if (!adjustItemController.quantityField.getStyleClass().contains("error")){
+            adjustItemController.quantityField.getStyleClass().add("error");
+        }
+    }
 
 }

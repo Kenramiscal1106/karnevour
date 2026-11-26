@@ -24,8 +24,7 @@ public class InventoryEntryController implements EntryControllerBase<ItemHolder>
 
     public void initData(ItemHolder itemHolder) {
         var item =  itemHolder.getItem();
-        File file = new File(item.getImagePath());
-        imageView.setImage(new Image(file.toURI().toString()));
+        imageView.setImage(new Image(item.getImagePath(), true));
         textContent = itemHolder == null ? "" : itemHolder.getItemAlternativeName().isEmpty() ? itemHolder.getItemDescription() : itemHolder.getItemAlternativeName();
         itemName.setText(textContent);
         itemQuantity.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit());

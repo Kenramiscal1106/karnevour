@@ -39,11 +39,10 @@ public class POSSelectionEntryController implements EntryControllerBase<CartLine
     public void initData(CartLine line){
         this.line = line;
         var itemHolder = line.getItemHolder();
-        File file = new File(itemHolder.getItem().getImagePath());
         String alt = itemHolder.getItemAlternativeName();
         String unit = itemHolder.getUnit();
 
-        checkoutImage.setImage(new Image(file.toURI().toString()));
+        checkoutImage.setImage(new Image(itemHolder.getItem().getImagePath(), true));
         productName.setText(alt.isEmpty() ? itemHolder.getItemDescription() : alt);
         productPrice.setText(String.format("₱%,.0f", line.getPrice()));
         unitText.setText(unit);

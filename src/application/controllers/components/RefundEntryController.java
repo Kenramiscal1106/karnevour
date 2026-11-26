@@ -26,8 +26,7 @@ public class RefundEntryController implements EntryControllerBase<ItemHolder> {
     @Override
     public void initData(ItemHolder itemHolder) {
         var item =  itemHolder.getItem();
-        File file = new File(item.getImagePath());
-        itemImage.setImage(new Image(file.toURI().toString()));
+        itemImage.setImage(new Image(item.getImagePath(), true));
         itemQuantityText.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit());
         textContent = itemHolder == null ? "" : itemHolder.getItemAlternativeName().isEmpty() ? itemHolder.getItemDescription() : itemHolder.getItemAlternativeName();
         itemNameText.setText(textContent);

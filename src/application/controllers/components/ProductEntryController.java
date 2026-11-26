@@ -22,8 +22,7 @@ public class ProductEntryController implements EntryControllerBase<ItemHolder> {
 
     public void initData(ItemHolder itemHolder) {
         var item = itemHolder.getItem();
-        File file = new File(item.getImagePath());
-        imageView.setImage(new Image(file.toURI().toString()));
+        imageView.setImage(new Image(item.getImagePath(), true));
         textContent = itemHolder.getItemAlternativeName().isEmpty() ? itemHolder.getItemDescription() : itemHolder.getItemAlternativeName();
         productName.setText(textContent);
         productDescription.setText(item.getDescription());

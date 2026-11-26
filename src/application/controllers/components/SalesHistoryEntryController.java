@@ -29,8 +29,7 @@ public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>
         textContent = holder == null ? "" : holder.getItemAlternativeName().isEmpty() ? holder.getItemDescription() : holder.getItemAlternativeName();
         entryName.setText(textContent);
         entryQuantity.setText(formatQty(saleLog.qty) + " " + holder.getUnit());
-        File file = new File(holder.getItem().getImagePath());
-        imageDisplay.setImage(new Image(file.toURI().toString()));
+        imageDisplay.setImage(new Image(holder.getItem().getImagePath(), true));
     }
 
     private String formatQty(double qty){
