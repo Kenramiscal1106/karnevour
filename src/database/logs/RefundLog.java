@@ -1,5 +1,7 @@
 package database.logs;
 
+import database.inventory.Inventory;
+
 public class RefundLog extends Log implements Transaction {
     public final String name;
     public final String date;
@@ -38,7 +40,7 @@ public class RefundLog extends Log implements Transaction {
 
     @Override
     public String logMessage() {
-        return name + " processed a refunded product worth " + value + " pesos" ;
+        return author + " processed a refunded" + Inventory.getInstance().getItemById(productUid).getItemName() + " worth " + value + " pesos" ;
     }
 
 }

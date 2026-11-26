@@ -1,5 +1,7 @@
 package database.logs;
 
+import database.inventory.Inventory;
+
 public class SaleLog extends Log implements Transaction{
     public final String name;
     public final String date;
@@ -45,6 +47,7 @@ public class SaleLog extends Log implements Transaction{
 
     @Override
     public String logMessage() {
-        return "";
+        return author + " sold an item  (" + qty + " " + Inventory.getInstance().getItemHolderByUid(productUid).getUnit() + " of " +
+                Inventory.getInstance().getItemById(productUid).getItemName() + ") worth " + value + " pesos "  ;
     }
 }
