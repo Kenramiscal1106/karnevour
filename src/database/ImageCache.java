@@ -17,7 +17,7 @@ public class ImageCache {
 
     private final static ImageCache instance = new ImageCache();
 
-    private static final File PICTURE_CACHE_FILE = new File("src/database/data/picturecache.kar");
+    private static final File PICTURE_CACHE_FILE = new File("src/database/data/picturecache");
 
     void cacheImage(String name, String url) {
         if(!PICTURE_CACHE_FILE.exists())
@@ -26,6 +26,8 @@ public class ImageCache {
         String fileName = name.replace(" ", "-");
         Path pictureFile = PICTURE_CACHE_FILE.toPath().resolve(fileName+".jpg");
 
+        if(new File(pictureFile.toUri()).exists())
+            return;
         try(InputStream stream = URI.create(url).toURL().openStream()){
             Files.copy(stream, pictureFile, StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
@@ -51,5 +53,10 @@ public class ImageCache {
         }
     }
 
-    static ImageCache getInstance(){return instance;}
+
+    public String getCachedImage(String name){
+        Path resolved = PICTURE_CACHE_FILE.toPath().resolve(name.replace(" ","-")+".jpg");
+        return resolved.toUri().toString();
+    }
+    public static ImageCache getInstance(){return instance;}
 }

@@ -1,12 +1,15 @@
 package database.items;
 
 import database.Database;
+import database.ImageCache;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
+
 public abstract class Item {
 
+    private static final File PICTURE_CACHE_FILE = new File("src/database/data/picturecache");
     protected final Database db = Database.getInstance();
 
     protected String itemName;
@@ -20,6 +23,11 @@ public abstract class Item {
         this.alternativeName = alternativeName.trim();
 
         // later u change picture path
+        try{
+            this.imagePath = db.loadImageURLPath(itemName);
+        } catch (FileNotFoundException e) {
+            this.imagePath = "src/pictures/default-picture.png";
+        }
     }
 
     Item(String itemName, String description) {
@@ -28,6 +36,11 @@ public abstract class Item {
         this.alternativeName = "";
 
         // later u change picture path
+        try{
+            this.imagePath = db.loadImageURLPath(itemName);
+        } catch (FileNotFoundException e) {
+            this.imagePath = "src/pictures/default-picture.png";
+        }
     }
 
     // getters
@@ -35,11 +48,7 @@ public abstract class Item {
     public String getDescription() {return this.description;}
     public String getAlternativeName() { return this.alternativeName; }
     public String getImagePath() {
-        try{
-            return db.loadImageURLPath(itemName);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        return PICTURE_CACHE_FILE.toPath().resolve(itemName.replace(" ", "-") + ".jpg").toFile().exists()? ImageCache.getInstance().getCachedImage(this.itemName) : this.imagePath;
     }
     // setters
     /*

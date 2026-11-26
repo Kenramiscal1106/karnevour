@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 import java.io.*;
 import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Database {
 
@@ -23,6 +25,12 @@ public class Database {
     private static final File CASH_REGISTER_DEFAULT_FILE = new File("src/database/data/cash-register.kar");
     private static final File PICTURE_URL_DEFAULT_FILE = new File("src/database/data/pictureurl.kar");
     private static final File PICTURE_CACHE_FILE = new File("src/database/data/picturecache");
+
+    private final ExecutorService backgroundExecutor = Executors.newSingleThreadExecutor(e->{
+        Thread thread = new Thread(e);
+        thread.setDaemon(true);
+        return thread;
+    });
 
     public static Database getInstance() {return instance;}
 
@@ -304,10 +312,9 @@ public class Database {
     }
 
     public String loadImageURLPath(String itemName) throws FileNotFoundException {
-        File cacheFile = new File(PICTURE_CACHE_FILE.toPath().resolve(itemName.replace(" ","-")+".jpg").toUri());
-
-        if(cacheFile.exists() && cacheFile.length() > 0)
-            return cacheFile.toURI().toString();
+        File cacheFile = PICTURE_CACHE_FILE.toPath()
+                .resolve(itemName.replace(" ", "-") + ".jpg")
+                .toFile();
 
         try(BufferedReader reader = new BufferedReader(new FileReader(PICTURE_URL_DEFAULT_FILE))){
             String line;
@@ -325,8 +332,8 @@ public class Database {
 
                 // strict implementation for now
                 if(rawName.equals(itemName) || rawName.equals("Default")) {
-//                    ImageCache.getInstance().cacheImage(itemName, rawText[1]);
-
+                    backgroundExecutor.submit(()->
+                            ImageCache.getInstance().cacheImage(itemName, rawText[1]));
                     return rawText[1];
                 }
             }

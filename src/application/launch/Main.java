@@ -3,6 +3,7 @@ package application.launch;
 import application.services.DataLoader;
 import database.CashRegister;
 import database.Database;
+import database.ImageCache;
 import database.inventory.Inventory;
 import database.logs.Logger;
 import database.user.Admin;
@@ -40,6 +41,7 @@ public class Main extends Application {
                 db.saveCashRegisterCredentials(CashRegister.getInstance());
             }
             System.out.println("saved");
+            ImageCache.getInstance().clearImageCache();
             Platform.exit();
         });
         // test commit
