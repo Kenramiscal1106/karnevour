@@ -5,11 +5,16 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="root"
       fx:controller="application.controllers.views.AddProductController">
+    <VBox>
+        <Label labelFor="${imageUrl}">Image URL</Label>
+        <TextField fx:id="imageUrl" promptText="https://..."/>
+    </VBox>
     <VBox>
         <Label labelFor="${productName}">Product name</Label>
         <TextField fx:id="productName"/>
@@ -17,6 +22,21 @@
     <VBox>
         <Label labelFor="${description}">Description</Label>
         <TextArea fx:id="description"/>
+    </VBox>
+
+    <VBox>
+        <Label labelFor="${unit}">Unit</Label>
+        <ComboBox fx:id="unit" editable="true" promptText="kg">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="kg"/>
+                    <String fx:value="pcs"/>
+                    <String fx:value="sacks"/>
+                    <String fx:value="tray"/>
+                    <String fx:value="liters"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
     </VBox>
     <VBox>
         <Label labelFor="${price}">Price</Label>
