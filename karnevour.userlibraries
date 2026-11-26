@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="lib">
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/javafx-swt.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/javafx.web.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/javafx.base.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/javafx.fxml.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/javafx.media.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/javafx.swing.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/jdk.jsobject.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/javafx.controls.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/javafx.graphics.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/jfx.incubator.input.jar" />
+    <archive path="/home/kenramiscal/Java-workspace/javafx-sdk-25.0.5/lib/jfx.incubator.richtext.jar" />
+  </library>
+  <library name="lib1" />
+</eclipse-userlibraries>
+
