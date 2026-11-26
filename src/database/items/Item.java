@@ -12,6 +12,7 @@ public abstract class Item {
     protected String itemName;
     protected String description;
     protected String alternativeName;
+    protected String imagePath;
 
     Item(String itemName, String description, String alternativeName) {
         this.itemName = itemName;
@@ -35,7 +36,7 @@ public abstract class Item {
     public String getAlternativeName() { return this.alternativeName; }
     public String getImagePath() {
         try{
-            return Database.getInstance().loadImageURLPath(itemName);
+            return db.loadImageURLPath(itemName);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
