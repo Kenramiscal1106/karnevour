@@ -285,7 +285,7 @@ public class Inventory {
                 LocalDate.now().toString(),
                 user.getName() + " set the item (" + itemHolder.getItem().getItemName() + ") alternative name from: " + itemHolder.getLowStockLimit() + ", to: " + altName,
                 user.getName(),
-                "IA" + UUID.randomUUID().toString(),
+                "IA" + UUID.randomUUID(),
                 uid
         ));
 
@@ -301,6 +301,26 @@ public class Inventory {
             throw new IllegalArgumentException("Database not found");
 
         this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));
+    }
+
+    public void replaceItemDetails(String uid, String newUnit, double newItemInStock, double newLowStockInLimit, User user){
+        if (!doesItemExist(uid))
+            throw new NullPointerException("Item does not exist");
+
+        ItemHolder holder = getItemHolderByUid(uid);
+
+        addToLogList(new InventoryLog(
+                "Inventory edit: Replace Item Edits",
+                LocalDate.now().toString(),
+                user.getName()+" replaced item (" + holder.getItem().getItemName()+") details.",
+                user.getName(),
+                "//" + UUID.randomUUID(),
+                uid
+        ));
+
+        holder.setUnit(newUnit);
+        holder.updateItemInStock(newItemInStock,"override");
+        holder.setLowStockLimit(newLowStockInLimit);
     }
 
     public ObservableList<ItemHolder> getProductHoldersList() {
