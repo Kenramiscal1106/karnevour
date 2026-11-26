@@ -72,6 +72,30 @@ public class InventoryOperations {
             };
         }
     }
+
+    public class updatePriceService extends Service<Void> {
+        private final Inventory inventory;
+        private final String uid;
+        private final double value;
+
+        public updatePriceService(Inventory inventory, String uid, Double value) {
+            this.inventory = inventory;
+            this.value = value;
+            this.uid = uid;
+        }
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<>(){
+                @Override
+                protected Void call() throws Exception{
+                    inventory.setItemPrice(uid, value, SessionHandler.getInstance().getCurrentUser());
+                    return null;
+                }
+            };
+        }
+    }
+
     // general update stock service
     public class updateStockService extends Service<Void> {
         private final Inventory inventory;
