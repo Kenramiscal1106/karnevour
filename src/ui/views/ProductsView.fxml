@@ -15,5 +15,5 @@
         <URL value="@../components.css"/>
     </stylesheets>
     <Button onAction="#openAddProductDialog">Add Product</Button>
-    <ListView fx:id="productsList"/>
+    <ListView fx:id="productsList" styleClass="list-view" VBox.vgrow="ALWAYS"/>
 </VBox>

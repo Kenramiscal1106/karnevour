@@ -39,7 +39,7 @@
     -fx-pref-width: 840;
 }
 
-.inventory-entry {
+.inventory-entry, .product-entry, .pos-available-entry, .pos-selection-entry {
     -fx-padding: 8 12;
     -fx-background-color: -neutral-200;
     -fx-background-radius: 4;
@@ -50,23 +50,14 @@
     -fx-spacing: 16;
 }
 
-.inventory-entry__trailing-detail {
 
-}
-
-.inventory-entries {
-    -fx-spacing: 4;
-}
-
-.inventory-entry-name {
+.inventory-entry-name, .product-entry-name{
     -fx-font-size: 16px;
-    -fx-text-fill: #000;
     -fx-font-family: 'Instrument Sans Bold', sans-serif;
 }
 
 .inventory-entry-quantity, .product-entry-description {
     -fx-font-size: 14px;
-    -fx-text-fill: #646464;
     -fx-font-family: 'Instrument Sans', sans-serif;
 }
 
@@ -182,7 +173,7 @@
     -fx-spacing: 16px;
 }
 
-.sales-entry-name, .product-entry-name, .low-stock-entry-name{
+.sales-entry-namem, .low-stock-entry-name{
     -fx-font-size: 16px;
     -fx-text-fill: -neutral-900;
     -fx-font-family: 'Instrument Sans', sans-serif;
@@ -200,7 +191,7 @@
 
 
 .list-view{
-    -fx-background-color: transparent;
+    -fx-background-color: -neutral-100;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
@@ -272,6 +263,7 @@
 
 
 .product-entry-actions {
+    -fx-spacing: 8px;
 }
 
 .stat-card {

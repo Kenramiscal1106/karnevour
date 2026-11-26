@@ -11,20 +11,21 @@
 <?import java.net.URL?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.components.ProductEntryController">
+      fx:controller="application.controllers.components.ProductEntryController"
+      styleClass="inventory-entry">
     <stylesheets>
         <URL value="@../base.css"/>
         <URL value="@../components.css"/>
     </stylesheets>
-    <ImageView fx:id="imageView" fitHeight="56" fitWidth="56"/>
     <HBox styleClass="product-entry__leading-detail" spacing="16" alignment="CENTER_LEFT">
+        <ImageView fx:id="imageView" fitHeight="56" fitWidth="56"/>
         <VBox alignment="CENTER_LEFT">
             <Text fx:id="productName" styleClass="product-entry-name"/>
             <Text fx:id="productDescription" styleClass="product-entry-description"/>
         </VBox>
     </HBox>
     <Region HBox.hgrow="ALWAYS" />
-    <HBox styleClass="product-entry-actions">
+    <HBox styleClass="product-entry-actions" alignment="CENTER">
         <Button onAction="#handleEditDialog">Edit Details</Button>
         <Button onAction="#handleUpdatePrice">Update Price</Button>
     </HBox>

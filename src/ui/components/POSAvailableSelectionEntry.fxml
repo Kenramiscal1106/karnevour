@@ -10,11 +10,13 @@
 <?import javafx.scene.text.Text?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.components.POSAvailableSelectionEntryController">
-    <HBox>
+      fx:controller="application.controllers.components.POSAvailableSelectionEntryController"
+      styleClass="pos-available-entry"
+      alignment="CENTER">
+    <HBox spacing="8">
         <ImageView fx:id="availableImage" fitHeight="56" fitWidth="56"/>
-        <VBox>
-            <Text fx:id="productName"/>
+        <VBox alignment="CENTER_LEFT">
+            <Text fx:id="productName" styleClass="product-entry-name"/>
             <Text fx:id="productRemaining"/>
         </VBox>
     </HBox>
