@@ -28,7 +28,7 @@ public class RefundEntryController implements EntryControllerBase<ItemHolder> {
         var item =  itemHolder.getItem();
         itemImage.setImage(new Image(item.getImagePath(), true));
         itemQuantityText.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit());
-        textContent = itemHolder == null ? "" : itemHolder.getItemAlternativeName().isEmpty() ? itemHolder.getItemDescription() : itemHolder.getItemAlternativeName();
+        textContent = itemHolder.getItemAlternativeName().isEmpty() ? itemHolder.getItem().getItemName() : item.getAlternativeName();
         itemNameText.setText(textContent);
     }
 }

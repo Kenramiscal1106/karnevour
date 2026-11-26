@@ -27,8 +27,8 @@ public class ProductEntryController implements EntryControllerBase<ItemHolder> {
         this.itemHolder = itemHolder;
         var item = itemHolder.getItem();
         imageView.setImage(new Image(item.getImagePath(), true));
-        textContent = itemHolder.getItemAlternativeName().isEmpty() ? itemHolder.getItemDescription() : itemHolder.getItemAlternativeName();
-        productName.setText(textContent);
+        textContent = item.getDescription().isEmpty() ? "No product description" : item.getDescription();
+        productName.setText(item.getItemName());
         productDescription.setText(item.getDescription());
     }
 

@@ -49,7 +49,7 @@ public abstract class OperationInventoryController
         itemSelector.setConverter(new StringConverter<ItemHolder>() {
             @Override
             public String toString(ItemHolder itemHolder) {
-                return itemHolder == null ? "" : itemHolder.getItemAlternativeName().isEmpty() ? itemHolder.getItemDescription() : itemHolder.getItemAlternativeName();
+                return itemHolder.getItemAlternativeName().isEmpty() ? itemHolder.getItem().getItemName() : itemHolder.getItemAlternativeName();
             }
             @Override
             public ItemHolder fromString(String s) {

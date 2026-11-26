@@ -23,10 +23,9 @@ public class POSAvailableSelectionEntryController implements EntryControllerBase
 
     public void initData(ItemHolder itemHolder){
         this.itemHolder = itemHolder;
-        File file = new File(itemHolder.getItem().getImagePath());
-        availableImage.setImage(new Image(file.toURI().toString()));
+        availableImage.setImage(new Image(itemHolder.getItem().getImagePath(), true));
         String alt = itemHolder.getItemAlternativeName();
-        productName.setText(alt.isEmpty() ? itemHolder.getItemDescription() : alt);
+        productName.setText(alt.isEmpty() ? itemHolder.getItem().getItemName() : alt);
         productRemaining.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit() + " remaining");
         addButton.setDisable(itemHolder.getItemInStock() <= 0);
     }

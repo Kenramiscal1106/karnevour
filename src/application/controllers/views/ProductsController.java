@@ -30,6 +30,7 @@ public class ProductsController {
                     var loader = new FXMLLoader(getClass().getResource("/ui/components/ProductEntry.fxml"));
                     row = loader.load();
                     controller = loader.getController();
+
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

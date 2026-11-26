@@ -26,7 +26,7 @@ public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>
     public void initData(SaleLog saleLog) {
         priceLabel.setText(String.format("₱%,.0f", saleLog.value));
         var holder = Inventory.getInstance().getItemHolderByUid(saleLog.productUid);
-        textContent = holder == null ? "" : holder.getItemAlternativeName().isEmpty() ? holder.getItemDescription() : holder.getItemAlternativeName();
+        textContent = holder.getItemAlternativeName().isEmpty() ? holder.getItem().getItemName() : holder.getItemAlternativeName();
         entryName.setText(textContent);
         entryQuantity.setText(formatQty(saleLog.qty) + " " + holder.getUnit());
         imageDisplay.setImage(new Image(holder.getItem().getImagePath(), true));
