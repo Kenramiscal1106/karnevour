@@ -7,6 +7,7 @@ import database.inventory.Inventory;
 import database.logs.Log;
 import database.logs.Loggable;
 import database.logs.Logger;
+import database.user.Admin;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +22,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        Database.getInstance().saveUsersToDatabase(new Admin("admin", 1, "1234"));
         loadFonts();
-
         var sceneryLoader = new FXMLLoader(Main.class.getResource("/ui/views/LoginView.fxml"));
         stage.setTitle("Karnevour - Farm Management System");
         stage.setScene(new Scene(sceneryLoader.load(), 500, 500));
