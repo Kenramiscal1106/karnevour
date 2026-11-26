@@ -12,13 +12,15 @@ public class StockAlertEntryController implements EntryControllerBase<ItemHolder
     public ImageView itemImage;
     public Label itemName;
     public Label itemRemaining;
+    public Label stockBadge;
 
     @Override
     public void initData(ItemHolder itemHolder) {
         var item =  itemHolder.getItem();
         itemName.setText(itemHolder.getItem().getItemName());
-        itemRemaining.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit() + "remaining" );
+        itemRemaining.setText(itemHolder.getItemInStock() + " " + itemHolder.getUnit() + " remaining" );
         itemImage.setImage(new Image(item.getImagePath(), true));
+        StockBadge.apply(stockBadge, itemHolder);
     }
 
     public void openRestockItemDialog(ActionEvent actionEvent) {

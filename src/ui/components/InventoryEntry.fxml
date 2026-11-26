@@ -12,7 +12,8 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       styleClass="inventory-entry"
-      stylesheets="@../base.css">
+      stylesheets="@../base.css"
+      alignment="CENTER_LEFT">
     <HBox styleClass="inventory-entry__leading-detail" spacing="16" alignment="CENTER_LEFT">
         <ImageView fx:id="imageView" fitHeight="56" fitWidth="56">
             <clip>
@@ -24,4 +25,6 @@
             <Text fx:id="itemQuantity" styleClass="inventory-entry-quantity"/>
         </VBox>
     </HBox>
+    <Region HBox.hgrow="ALWAYS" />
+    <Label fx:id="stockBadge" styleClass="stock-badge"/>
 </HBox>

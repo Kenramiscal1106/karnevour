@@ -1,30 +1,30 @@
 Class,Uid,ItemName,Unit,Description,{Price},AlternativeName,ItemInStock,LowerLimitStock
-Product,e1f96c59-4100-4639-ac07-905a8db7e69c,"Chicken Breast",kg,"Fresh cut Chicken Breast",220.0,"",0.0,0.0
-Product,03a93ece-4ef5-426f-b6d3-7e5c0c6a78ca,"Chicken Thighs",kg,"Fresh cut Chicken Thighs",230.0,"",0.0,0.0
-Product,abb565e1-8690-4f00-8ca0-8ae4ecc03ada,"Chicken Leg Quarter",kg,"Fresh cut Chicken Leg Quarter",230.0,"",0.0,0.0
-Product,6afa991c-d044-432d-b5de-5c38e9cc4fdf,"Chicken Wings",kg,"Fresh cut Chicken Wings",230.0,"",0.0,0.0
-Product,95dd4058-f26b-4b7f-be07-5ac266d49698,"Chicken Skin",kg,"Fresh cut Chicken Skin",420.0,"",0.0,0.0
-Product,3311ffbd-0cad-48f5-8830-e8dc816badf7,"Chicken Feet",kg,"Fresh cut Chicken Feet",160.0,"",0.0,0.0
-Product,778e3b3c-8763-4a2c-9629-172ec98b6ced,"Whole Chicken",pcs,"Fresh Whole Chicken",175.0,"",0.0,0.0
-Product,f8de2c71-07fe-4338-a996-1d8e2b65aa25,"Pork Shoulder",kg,"Fresh cut Pork Shoulder",360.0,"",0.0,0.0
-Product,7349dcb8-2c96-4b09-a4aa-1074a343097e,"Pork Belly",kg,"Fresh cut Pork Belly",420.0,"",13.0,0.0
-Product,3054a910-0cef-40b0-b06b-5110f7c76e51,"Pork Mascara",kg,"Fresh cut Pork Mascara",125.0,"",0.0,0.0
-Product,2356b4d7-aed3-4258-9cbd-81e81bca4005,"Pork Leg",kg,"Fresh cut Pork Leg",370.0,"",0.0,0.0
-Product,ec8de315-e612-4b85-a5aa-42a9ec7ee878,"Pork Chop",kg,"Fresh cut Pork Chop",310.0,"",0.0,0.0
-Product,aa584161-8e51-46b0-902e-b6776c7e9e29,"Pork Ribs",kg,"Fresh cut Pork Ribs",300.0,"",0.0,0.0
-Product,0e8818aa-00a8-4ee2-8158-0d050c3678a2,"Beef Chuck",kg,"Fresh cut Beef Chuck",430.0,"",0.0,0.0
-Product,1081ae54-aa21-4422-9a56-02a5061f5f64,"Beef Brisket",kg,"Fresh cut Beef Brisket",450.0,"",0.0,0.0
-Product,448a0d3d-51b2-4565-b73a-0e3e98cd2a4f,"Beef Ribeye",kg,"Fresh cut Beef Ribeye",460.0,"",0.0,0.0
-Product,27212cf0-3315-4f24-99ae-884f134a7298,"Beef Loin",kg,"Fresh cut Beef Loin",570.0,"",0.0,0.0
-Product,1187d453-53f6-4106-aff3-aa55fcc46e2e,"Beef Plate",kg,"Fresh cut Beef Plate",450.0,"",0.0,0.0
-Product,c335b128-c306-4dd8-a617-206eda14b442,"Beef Flank",kg,"Fresh cut Beef Flank",460.0,"",0.0,0.0
-Product,6431b029-661f-42b8-8b34-1d6214a04fa3,"Beef Short Ribs",kg,"Fresh cut Beef Short Ribs",430.0,"",0.0,0.0
-Product,24f5d5d0-a7a5-4c29-b552-1a5dbe7063d2,"Beef Sirloin",kg,"Fresh cut Beef Sirloin",510.0,"",0.0,0.0
-Product,18aa98c0-e85d-49f7-bdec-3179ddd2339a,"Beef Tenderloin",kg,"Fresh cut Beef Tenderloin",740.0,"",0.0,0.0
-Product,bef2a4b1-5d1b-43d6-ad6c-5ce24fe9d072,"Small Egg",tray,"Fresh Small Egg",9.0,"",0.0,0.0
-Product,7504dcf1-5a48-4065-bd5e-aaf6823d7894,"Medium Egg",tray,"Fresh Medium Egg",10.0,"",0.0,0.0
-Product,2d9a49d4-605e-4ecf-b749-c9632f769cee,"Large Egg",tray,"Fresh Large Egg",11.0,"",0.0,0.0
-Product,5189393c-7c01-4fe4-bb8f-c2a6eb346258,"Cow Milk",liters,"Fresh Cow Milk",120.0,"",0.0,0.0
-Product,cc7d402e-32a5-45fb-ae1e-c146942d77d7,"Chicken Feed",sacks,"Quality Chicken Feed",0.0,"",0.0,0.0
-Product,24d9ff84-6e51-4fca-93bb-0e6595988d6f,"Cow Feed",sacks,"Quality Cow Feed",0.0,"",0.0,0.0
-Product,7802bbe7-61a5-4a28-a176-d6007f127ff3,"Pig Feed",sacks,"Quality Pig Feed",0.0,"",0.0,0.0
+Product,e1f96c59-4100-4639-ac07-905a8db7e69c,"Chicken Breast",kg,"Fresh cut Chicken Breast",220.0,"",0.0,10.0
+Product,03a93ece-4ef5-426f-b6d3-7e5c0c6a78ca,"Chicken Thighs",kg,"Fresh cut Chicken Thighs",230.0,"",0.0,10.0
+Product,abb565e1-8690-4f00-8ca0-8ae4ecc03ada,"Chicken Leg Quarter",kg,"Fresh cut Chicken Leg Quarter",230.0,"",0.0,10.0
+Product,6afa991c-d044-432d-b5de-5c38e9cc4fdf,"Chicken Wings",kg,"Fresh cut Chicken Wings",230.0,"",0.0,10.0
+Product,95dd4058-f26b-4b7f-be07-5ac266d49698,"Chicken Skin",kg,"Fresh cut Chicken Skin",420.0,"",0.0,10.0
+Product,3311ffbd-0cad-48f5-8830-e8dc816badf7,"Chicken Feet",kg,"Fresh cut Chicken Feet",160.0,"",0.0,10.0
+Product,778e3b3c-8763-4a2c-9629-172ec98b6ced,"Whole Chicken",pcs,"Fresh Whole Chicken",175.0,"",0.0,10.0
+Product,f8de2c71-07fe-4338-a996-1d8e2b65aa25,"Pork Shoulder",kg,"Fresh cut Pork Shoulder",360.0,"",0.0,10.0
+Product,7349dcb8-2c96-4b09-a4aa-1074a343097e,"Pork Belly",kg,"Fresh cut Pork Belly",420.0,"",13.0,10.0
+Product,3054a910-0cef-40b0-b06b-5110f7c76e51,"Pork Mascara",kg,"Fresh cut Pork Mascara",125.0,"",0.0,10.0
+Product,2356b4d7-aed3-4258-9cbd-81e81bca4005,"Pork Leg",kg,"Fresh cut Pork Leg",370.0,"",0.0,10.0
+Product,ec8de315-e612-4b85-a5aa-42a9ec7ee878,"Pork Chop",kg,"Fresh cut Pork Chop",310.0,"",0.0,10.0
+Product,aa584161-8e51-46b0-902e-b6776c7e9e29,"Pork Ribs",kg,"Fresh cut Pork Ribs",300.0,"",0.0,10.0
+Product,0e8818aa-00a8-4ee2-8158-0d050c3678a2,"Beef Chuck",kg,"Fresh cut Beef Chuck",430.0,"",0.0,10.0
+Product,1081ae54-aa21-4422-9a56-02a5061f5f64,"Beef Brisket",kg,"Fresh cut Beef Brisket",450.0,"",0.0,10.0
+Product,448a0d3d-51b2-4565-b73a-0e3e98cd2a4f,"Beef Ribeye",kg,"Fresh cut Beef Ribeye",460.0,"",0.0,10.0
+Product,27212cf0-3315-4f24-99ae-884f134a7298,"Beef Loin",kg,"Fresh cut Beef Loin",570.0,"",0.0,10.0
+Product,1187d453-53f6-4106-aff3-aa55fcc46e2e,"Beef Plate",kg,"Fresh cut Beef Plate",450.0,"",0.0,10.0
+Product,c335b128-c306-4dd8-a617-206eda14b442,"Beef Flank",kg,"Fresh cut Beef Flank",460.0,"",0.0,10.0
+Product,6431b029-661f-42b8-8b34-1d6214a04fa3,"Beef Short Ribs",kg,"Fresh cut Beef Short Ribs",430.0,"",0.0,10.0
+Product,24f5d5d0-a7a5-4c29-b552-1a5dbe7063d2,"Beef Sirloin",kg,"Fresh cut Beef Sirloin",510.0,"",0.0,10.0
+Product,18aa98c0-e85d-49f7-bdec-3179ddd2339a,"Beef Tenderloin",kg,"Fresh cut Beef Tenderloin",740.0,"",0.0,10.0
+Product,bef2a4b1-5d1b-43d6-ad6c-5ce24fe9d072,"Small Egg",tray,"Fresh Small Egg",9.0,"",0.0,10.0
+Product,7504dcf1-5a48-4065-bd5e-aaf6823d7894,"Medium Egg",tray,"Fresh Medium Egg",10.0,"",0.0,10.0
+Product,2d9a49d4-605e-4ecf-b749-c9632f769cee,"Large Egg",tray,"Fresh Large Egg",11.0,"",0.0,10.0
+Product,5189393c-7c01-4fe4-bb8f-c2a6eb346258,"Cow Milk",liters,"Fresh Cow Milk",120.0,"",0.0,10.0
+Product,cc7d402e-32a5-45fb-ae1e-c146942d77d7,"Chicken Feed",sacks,"Quality Chicken Feed",0.0,"",0.0,10.0
+Product,24d9ff84-6e51-4fca-93bb-0e6595988d6f,"Cow Feed",sacks,"Quality Cow Feed",0.0,"",0.0,10.0
+Product,7802bbe7-61a5-4a28-a176-d6007f127ff3,"Pig Feed",sacks,"Quality Pig Feed",0.0,"",0.0,10.0

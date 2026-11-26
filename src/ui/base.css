@@ -15,7 +15,6 @@
 }
 
 .button {
-    -fx-font-family: "Instrument Sans", sans-serif;
     -fx-border-radius: 999px;
     -fx-background-radius: 999px;
 }
