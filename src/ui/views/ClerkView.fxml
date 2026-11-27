@@ -6,19 +6,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="application.controllers.views.ClerkController"
-            stylesheets="@../base.css"
-            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color:#FFCFD1" fx:id="root" >
+            style="-fx-background-color: #F1F1F1" fx:id="root">
+    <stylesheets>
+        <URL value="@../base.css"/>
+        <URL value="@../components.css"/>
+    </stylesheets>
     <left>
         <fx:include source="../components/ClerkNavigationRail.fxml" BorderPane.alignment="CENTER"/>
     </left>
     <center>
-<!--        <AnchorPane fx:id="content" styleClass="main-content" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER"-->
-<!--                    fitToWidth="true">-->
-            <fx:include source="SalesView.fxml"/>
-<!--        </AnchorPane>-->
+        <fx:include source="SalesView.fxml"/>
     </center>
 </BorderPane>

@@ -34,6 +34,9 @@ public class InventoryController {
     public Button subtractInventory;
 
     @FXML
+    public HBox inventoryActions;
+
+    @FXML
     void initialize() {
         inventoryList.setItems(Inventory.getInstance().getItemHolderList());
         inventoryList.setCellFactory(listView -> new ListCell<>(){
@@ -63,6 +66,9 @@ public class InventoryController {
             }
         });
         updateSubtractButton();
+        boolean admin = SessionHandler.getInstance().isAdmin();
+        inventoryActions.setVisible(admin);
+        inventoryActions.setManaged(admin);
     }
 
     @FXML

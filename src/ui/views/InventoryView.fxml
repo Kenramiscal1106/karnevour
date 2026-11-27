@@ -21,7 +21,7 @@
     <padding>
         <Insets topRightBottomLeft="32"/>
     </padding>
-    <HBox styleClass="inventory-actions">
+    <HBox fx:id="inventoryActions" styleClass="inventory-actions">
         <Button onAction="#addInventoryClick" styleClass="button--primary, button--medium">
             <graphic>
                 <ImageView fitWidth="20" fitHeight="20">

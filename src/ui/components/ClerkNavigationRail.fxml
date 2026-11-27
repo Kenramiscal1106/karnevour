@@ -14,12 +14,34 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.ClerkNavigationRailController"
-      prefWidth="108" stylesheets="@../base.css" spacing="32">
+      prefWidth="108" stylesheets="@../components.css" alignment="CENTER" spacing="32" styleClass="navigation-rail">
+    <padding>
+        <Insets top="16" bottom="32"/>
+    </padding>
     <!--  Logo  -->
+    <ImageView fitWidth="64" fitHeight="64">
+        <Image url="@../../pictures/logo.png"/>
+    </ImageView>
+    <!--  Navigation items  -->
     <VBox VBox.vgrow="ALWAYS" spacing="12">
         <padding>
             <Insets left="2" right="2" top="12" bottom="12"/>
         </padding>
+        <Button contentDisplay="TOP" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000"
+                onAction="#inventoryClick"
+                fx:id="inventoryButton">
+            <graphic>
+                <VBox styleClass="icon-container" alignment="CENTER" fillWidth="false">
+                    <padding>
+                        <Insets left="12" right="12" top="2" bottom="2"/>
+                    </padding>
+                    <ImageView fitWidth="32" fitHeight="32" fx:id="inventoryIcon">
+                        <Image url="@../../icons/warehouse.png" preserveRatio="true"/>
+                    </ImageView>
+                </VBox>
+            </graphic>
+            Inventory
+        </Button>
         <Button contentDisplay="TOP" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000"
                 onAction="#saleClick"
                 fx:id="saleButton">
@@ -36,6 +58,6 @@
             Sale
         </Button>
     </VBox>
+    <!--  Bottom section  -->
     <fx:include source="LogoutButton.fxml"/>
-    <!--  Bottom Section  -->
 </VBox>
