@@ -65,13 +65,18 @@ public class CashRegister {
     }
 
     /**
-     * 
-     * @param uid
-     * @param unit
-     * @param payment
-     * @param user
+     * A method that sells the {@link Product} to the buyer via {@link User} discretion, adds a {@link SaleLog} via {@link Logger}
+     *
+     * @param uid unique id of {@link Product}
+     * @param unit a non-negative value
+     * @param payment a non-negative value
+     * @param user a non-null {@link User}
+     *
+     * @throws NullPointerException if {@link database.inventory.ItemHolder} does not exist
+     * @throws IllegalArgumentException if {@param unit} is a negative or zero value
+     * @throws IllegalArgumentException if {@param payment} is less than the price of {@link Product}*{@param unit}
      */
-    public void sellItem(String uid, double unit, double payment, User user) {
+    public void sellItem(String uid, double unit, double payment, User user, String buyerName) {
         if(inventory.getItemHolderByUid(uid)==null)
             throw new NullPointerException("Item does not exist");
         if(unit<=0)
@@ -89,7 +94,7 @@ public class CashRegister {
         lg.addLog(new SaleLog(
                 "Transaction Processed: Item Sold",
                 LocalDate.now().toString(),
-                "Item ("+inventory.getItemById(uid).getItemName()+") is sold with "+unit+" sold, by employee "+user.getName()+", for "+(inventory.getPrice(uid)*unit)+"[Payment: "+payment+", Change: "+change+"]",
+                "Item ("+inventory.getItemById(uid).getItemName()+") is sold with "+unit+" sold, by employee "+user.getName()+" to "+buyerName+", for "+(inventory.getPrice(uid)*unit)+"[Payment: "+payment+", Change: "+change+"]",
                 user.getName(),
                 "+S"+ UUID.randomUUID(),
                 uid,
@@ -104,9 +109,18 @@ public class CashRegister {
         salesCount.add(1);
         totalSales.add(unit*(inventory.getPrice(uid)));
     }
-
-    // TODO: again, unit is string
-    // CHANGES: added exception handling, also inventory editing, unless sa services sya lalagay
+    /**
+     * A method that refunds the {@link Product} to the {@link Inventory} via {@link User} discretion, adds a {@link RefundLog} via {@link Logger}
+     *
+     * @param uid unique id of {@link Product}
+     * @param unit a non-negative value
+     * @param payment a non-negative value
+     * @param user a non-null {@link User}
+     *
+     * @throws NullPointerException if {@link database.inventory.ItemHolder} does not exist
+     * @throws IllegalArgumentException if {@param unit} is a negative or zero value
+     * @throws IllegalArgumentException if {@param payment} is less than the price of {@link Product}*{@param unit}
+     */
     public void refundItem(String uid, double unit, User user) {
         var itemHolder = inventory.getItemHolderByUid(uid);
         if (itemHolder==null)
