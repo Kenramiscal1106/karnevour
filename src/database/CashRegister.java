@@ -109,17 +109,16 @@ public class CashRegister {
         salesCount.add(1);
         totalSales.add(unit*(inventory.getPrice(uid)));
     }
+
     /**
      * A method that refunds the {@link Product} to the {@link Inventory} via {@link User} discretion, adds a {@link RefundLog} via {@link Logger}
      *
      * @param uid unique id of {@link Product}
      * @param unit a non-negative value
-     * @param payment a non-negative value
      * @param user a non-null {@link User}
      *
      * @throws NullPointerException if {@link database.inventory.ItemHolder} does not exist
      * @throws IllegalArgumentException if {@param unit} is a negative or zero value
-     * @throws IllegalArgumentException if {@param payment} is less than the price of {@link Product}*{@param unit}
      */
     public void refundItem(String uid, double unit, User user) {
         var itemHolder = inventory.getItemHolderByUid(uid);
@@ -176,13 +175,4 @@ public class CashRegister {
     void setCurrentBalance(double currentBalance) {this.currentBalance.set(currentBalance);}
     void setTotalSales(int totalSales) {this.totalSales.set(totalSales);}
 
-//    wtf is this
-//    public void addToLogList(Logable log){
-//        switch (log) {
-//            case null -> throw new NullPointerException("Log does not exist");
-//            case Activity activity -> this.activityList.add(activity);
-//            case Transaction transaction -> this.transactionList.add(transaction);
-//            default -> {
-//            }
-//    }
 }
