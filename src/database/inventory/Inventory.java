@@ -102,7 +102,7 @@ public class Inventory {
     }
 
     /**
-     * Adds an {@link Item} to the {@link Inventory}, adds a {@link Log} to the {@link Logger}
+     * Adds an {@link Item} to the {@link Inventory}, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @param uid a unique id for the {@link ItemHolder}
      * @param item a unique {@link Item}
@@ -133,7 +133,7 @@ public class Inventory {
     }
 
     /**
-     * Removes an item in the {@link Inventory}, adds a {@link Log} to the {@link Logger}
+     * Removes an item in the {@link Inventory}, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @param uid a unique id for the {@link ItemHolder}
      * @param user a non-null {@link User}
@@ -162,7 +162,7 @@ public class Inventory {
     }
 
     /**
-     * Restocks an item by using a method in {@link ItemHolder}, adds a {@link Log} to the {@link Logger}
+     * Restocks an item by using a method in {@link ItemHolder}, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @param uid a unique id for the {@link ItemHolder}
      * @param amount a non-zero, non-negative value
@@ -262,6 +262,15 @@ public class Inventory {
         this.itemHolderList.set(i, new ItemHolder(newUid, newItem, newUnit, newItemInStock, newLowStockLimit));
     }
 
+    /**
+     * Sets stock parameter in {@param itemHolder}, adds a {@link Log} to the {@link Logger}
+     *
+     * @param uid unique id of the {@link ItemHolder}
+     * @param inStock a non-negative value
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if {@link User} is null or {@param inStock} is a negative value
+     */
     public void setItemHolderInStock(String uid, double inStock, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
@@ -283,6 +292,15 @@ public class Inventory {
         itemHolder.updateItemInStock(inStock, "override");
     }
 
+    /**
+     * Sets {@link ItemHolder} low in stock parameter, adds a {@link Log} to the {@link Logger}
+     *
+     * @param uid unique id of the {@link ItemHolder}
+     * @param inStock a non-negative value
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if {@link User} is null or {@param inStock} is a negative value
+     */
     public void setItemHolderLowInStock(String uid, double inStock, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
@@ -304,6 +322,11 @@ public class Inventory {
         itemHolder.setLowStockLimit(inStock);
     }
 
+    /**
+     * Adds log to the loglist
+     *
+     * @param log
+     */
     public void addToLogList(Log log) {
         if (log == null) {
             throw new NullPointerException("Log does not exist");
@@ -311,6 +334,14 @@ public class Inventory {
         logger.addLog(log);
     }
 
+    /**
+     * A shortcut method that returns the {@link Product} price, adds a {@link Log} to the {@link Logger}
+     *
+     * @param uid unique id of the {@link ItemHolder}
+     * @return double {@param itemPrice}
+     *
+     * @throws IllegalArgumentException if {@link Item} is not an instance of {@link Product}
+     */
     public double getPrice(String uid) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
         Item item = itemHolder.getItem();
@@ -321,6 +352,11 @@ public class Inventory {
         return ((Product) item).getPrice();
     }
 
+    /**
+     * Returns the current total {@link Inventory} liquid value, adds a {@link Log} to the {@link Logger}
+     *
+     * @return double {@param total}
+     */
     public double getTotalInventoryValue(){
         double total = 0;
         for (ItemHolder itemHolder: itemHolderList){
@@ -331,6 +367,17 @@ public class Inventory {
         return total;
     }
 
+    /**
+     * A shortcut method that sets the price of the {@link Item}, adds a {@link Log} to the {@link Logger}
+     *
+     * @param uid unique id of the {@link ItemHolder}
+     * @param newPrice a non-negative value
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if {@link User} is null
+     * @throws IllegalArgumentException if {@link Item} is an instance of {@link FarmItem}
+     * @throws IllegalArgumentException if {@param newPrice} is a negative value
+     */
     public void setItemPrice(String uid, double newPrice, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
@@ -357,6 +404,15 @@ public class Inventory {
         ((Product) item).setPrice(newPrice);
     }
 
+    /**
+     * A shortcut method that sets the {@link Item} description parameter, adds a {@link Log} to the {@link Logger}
+     *
+     * @param uid a unique id of {@link ItemHolder}
+     * @param desc a non-empty String
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if {@link User} is null
+     */
     public void setItemDescription(String uid, String desc, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
@@ -375,6 +431,15 @@ public class Inventory {
         itemHolder.getItem().setDescription(desc);
     }
 
+    /**
+     * A shortcut method that sets the {@link Item} alternative name parameter
+     *
+     * @param uid unique id of the {@link ItemHolder}
+     * @param altName non-empty String
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if {@link User} is null
+     */
     public void setItemAlternativeName(String uid, String altName, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
 
@@ -393,6 +458,18 @@ public class Inventory {
         itemHolder.getItem().setAlternativeName(altName);
     }
 
+    /**
+     * Sets an item in the {@link Inventory}, a method for the database
+     *
+     * @param uid unique id of the {@link ItemHolder}
+     * @param item a non-null {@link Item}
+     * @param unit a non-empty String
+     * @param itemInStock a non-negative value
+     * @param lowStockLimit a non-negative value
+     * @param db {@link Database} instance
+     *
+     * @throws NullPointerException if {@link Item} is null
+     */
     public void setItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, Database db) {
         if (item == null)
             throw new NullPointerException("No such item");

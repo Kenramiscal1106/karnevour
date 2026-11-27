@@ -25,6 +25,6 @@ Product,bef2a4b1-5d1b-43d6-ad6c-5ce24fe9d072,"Small Egg",tray,"Fresh Small Egg",
 Product,7504dcf1-5a48-4065-bd5e-aaf6823d7894,"Medium Egg",tray,"Fresh Medium Egg",10.0,"",0.0,10.0
 Product,2d9a49d4-605e-4ecf-b749-c9632f769cee,"Large Egg",tray,"Fresh Large Egg",11.0,"",0.0,10.0
 Product,5189393c-7c01-4fe4-bb8f-c2a6eb346258,"Cow Milk",liters,"Fresh Cow Milk",120.0,"",0.0,10.0
-Product,cc7d402e-32a5-45fb-ae1e-c146942d77d7,"Chicken Feed",sacks,"Quality Chicken Feed",0.0,"",0.0,10.0
-Product,24d9ff84-6e51-4fca-93bb-0e6595988d6f,"Cow Feed",sacks,"Quality Cow Feed",0.0,"",0.0,10.0
-Product,7802bbe7-61a5-4a28-a176-d6007f127ff3,"Pig Feed",sacks,"Quality Pig Feed",0.0,"",0.0,10.0
+FarmItem,cc7d402e-32a5-45fb-ae1e-c146942d77d7,"Chicken Feed",sacks,"Quality Chicken Feed",0.0,"",0.0,10.0
+FarmItem,24d9ff84-6e51-4fca-93bb-0e6595988d6f,"Cow Feed",sacks,"Quality Cow Feed",0.0,"",0.0,10.0
+FarmItem,7802bbe7-61a5-4a28-a176-d6007f127ff3,"Pig Feed",sacks,"Quality Pig Feed",0.0,"",0.0,10.0
