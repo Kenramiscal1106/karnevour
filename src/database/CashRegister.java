@@ -153,23 +153,12 @@ public class CashRegister {
         this.currentBalance.set(this.currentBalance.get() - amount);
     }
 
-    // help me here
-    // TODO: add logs for this
-    public void recieveDonateMoney(String name, double amount) {
-        if (amount <= 0)
-            throw new IllegalArgumentException("Donation amount must be greater than zero.");
-
-        lg.addLog(new DonationLog(
-                "Transaction Processed: Donation",
-                LocalDate.now().toString(),
-                name + " donated "+amount,
-                name,
-                "+D"+ UUID.randomUUID(),
-                amount
-        ));
-
+    public void cancelRefund(double amount){
         cashIn(amount);
-// maybe add donor name tas log din
+    }
+
+    public void cancelSell(double amount){
+        cashOut(amount);
     }
 
     void setCurrentBalance(double currentBalance) {this.currentBalance.set(currentBalance);}
