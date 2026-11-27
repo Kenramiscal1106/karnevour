@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class RestockController {
+public class RestockProductController {
     @FXML
     public TextField amount;
     @FXML

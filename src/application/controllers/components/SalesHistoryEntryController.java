@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import java.io.File;
-
 public class SalesHistoryEntryController implements EntryControllerBase<SaleLog> {
     @FXML
     public Text priceLabel;
@@ -25,7 +23,7 @@ public class SalesHistoryEntryController implements EntryControllerBase<SaleLog>
     @Override
     public void initData(SaleLog saleLog) {
         priceLabel.setText(String.format("₱%,.0f", saleLog.value));
-        var holder = Inventory.getInstance().getItemHolderByUid(saleLog.productUid);
+        var holder = Inventory.getInstance().getItemHolderByUid(saleLog.itemHolderUid);
         textContent = holder.getItemAlternativeName().isEmpty() ? holder.getItem().getItemName() : holder.getItemAlternativeName();
         entryName.setText(textContent);
         entryQuantity.setText(formatQty(saleLog.qty) + " " + holder.getUnit());

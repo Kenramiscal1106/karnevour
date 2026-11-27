@@ -205,14 +205,6 @@ public class Database {
                 if(line.isBlank()) continue;
                 String[] rawText = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 switch (rawText[0]){
-                    case "DonationLog" -> logger.addLog(new DonationLog(
-                            removeQuotes(rawText[1]),
-                            rawText[2],
-                            removeQuotes(rawText[3]),
-                            removeQuotes(rawText[4]),
-                            rawText[5],
-                            Double.parseDouble(rawText[6])
-                            ));
                     case "InventoryLog" -> logger.addLog(new InventoryLog(
                             removeQuotes(rawText[1]),
                             rawText[2],

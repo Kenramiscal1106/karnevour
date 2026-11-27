@@ -1,5 +1,8 @@
 package database.logs;
 
+import application.services.SessionHandler;
+import database.CashRegister;
+import database.inventory.Inventory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,6 +19,8 @@ import java.util.function.Predicate;
  */
 public class Logger{
     private final ObservableList<Log> logs =  FXCollections.observableArrayList();
+    private final Inventory inventory = Inventory.getInstance();
+    private final CashRegister cashRegister = CashRegister.getInstance();
 
     private final static Logger instance = new Logger();
 
@@ -92,5 +97,29 @@ public class Logger{
     public FilteredList<InventoryLog> getInventoryLogs() {
         var filteredList = getFilteredLogs(log -> log instanceof InventoryLog);
         return (FilteredList<InventoryLog>) filteredList;
+    }
+
+    public void voidLog(int index) {
+        var log = logs.get(index);
+
+        if (log instanceof RefundLog refundLog) {
+            var itemHolder = inventory.getItemHolderByUid(refundLog.itemHolderUid);
+            cashRegister.cancelRefund(refundLog.value);
+            inventory.restockItem(itemHolder.getUid(), refundLog.qty, SessionHandler.getInstance().getCurrentUser());
+        } else if (log instanceof SaleLog saleLog) {
+            var itemHolder = inventory.getItemHolderByUid(saleLog.itemHolderUid);
+            cashRegister.cancelSell(saleLog.value);
+            inventory.reduceItemAmount(itemHolder.getUid(), saleLog.qty, SessionHandler.getInstance().getCurrentUser());
+        } else if (log instanceof InventoryLog inventoryLog) {
+            switch(inventoryLog.name) {
+                case "Inventory edit: Restock Item Amount":
+                    break;
+
+                case "Inventory edit: Reduce Item Amount":
+                    break;
+            }
+        }
+        log.voidLog();
+//        logs.get(index).voidLog();
     }
 }
