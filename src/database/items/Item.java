@@ -73,11 +73,7 @@ public abstract class Item {
      * @return URL path if not cached, else URI
      */
     public String getImagePath() {
-        try{
-            return db.loadImageURLPath(itemName);
-        } catch (FileNotFoundException e) {
-            return Database.class.getResource("/pictures/default-picture.png").toExternalForm();
-        }
+        return db.loadImageURLPath(itemName);
     }
 
     /**
