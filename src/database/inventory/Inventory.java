@@ -338,6 +338,16 @@ public class Inventory {
         logger.addLog(log);
     }
 
+    public void subtractVoidItem(String uid, double qty) {
+        var itemHolder = getItemHolderByUid(uid);
+        itemHolder.updateItemInStock(qty, "subtract");
+    }
+
+    public void addVoidItem(String uid, double qty) {
+        var itemHolder = getItemHolderByUid(uid);
+        itemHolder.updateItemInStock(qty, "add");
+    }
+
     /**
      * A shortcut method that returns the {@link Product} price, adds a {@link InventoryLog} to the {@link Logger}
      *

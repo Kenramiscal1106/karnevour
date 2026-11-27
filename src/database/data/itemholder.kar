@@ -7,7 +7,7 @@ Product,95dd4058-f26b-4b7f-be07-5ac266d49698,"Chicken Skin",kg,"Fresh cut Chicke
 Product,3311ffbd-0cad-48f5-8830-e8dc816badf7,"Chicken Feet",kg,"Fresh cut Chicken Feet",160.0,"",0.0,10.0
 Product,778e3b3c-8763-4a2c-9629-172ec98b6ced,"Whole Chicken",pcs,"Fresh Whole Chicken",175.0,"",0.0,10.0
 Product,f8de2c71-07fe-4338-a996-1d8e2b65aa25,"Pork Shoulder",kg,"Fresh cut Pork Shoulder",360.0,"",0.0,10.0
-Product,7349dcb8-2c96-4b09-a4aa-1074a343097e,"Pork Belly",kg,"Fresh cut Pork Belly",420.0,"",13.0,10.0
+Product,7349dcb8-2c96-4b09-a4aa-1074a343097e,"Pork Belly",kg,"Fresh cut Pork Belly",420.0,"",29.0,10.0
 Product,3054a910-0cef-40b0-b06b-5110f7c76e51,"Pork Mascara",kg,"Fresh cut Pork Mascara",125.0,"",0.0,10.0
 Product,2356b4d7-aed3-4258-9cbd-81e81bca4005,"Pork Leg",kg,"Fresh cut Pork Leg",370.0,"",0.0,10.0
 Product,ec8de315-e612-4b85-a5aa-42a9ec7ee878,"Pork Chop",kg,"Fresh cut Pork Chop",310.0,"",0.0,10.0
@@ -25,6 +25,6 @@ Product,bef2a4b1-5d1b-43d6-ad6c-5ce24fe9d072,"Small Egg",tray,"Fresh Small Egg",
 Product,7504dcf1-5a48-4065-bd5e-aaf6823d7894,"Medium Egg",tray,"Fresh Medium Egg",10.0,"",0.0,10.0
 Product,2d9a49d4-605e-4ecf-b749-c9632f769cee,"Large Egg",tray,"Fresh Large Egg",11.0,"",0.0,10.0
 Product,5189393c-7c01-4fe4-bb8f-c2a6eb346258,"Cow Milk",liters,"Fresh Cow Milk",120.0,"",0.0,10.0
-FarmItem,cc7d402e-32a5-45fb-ae1e-c146942d77d7,"Chicken Feed",sacks,"Quality Chicken Feed",0.0,"",0.0,10.0
-FarmItem,24d9ff84-6e51-4fca-93bb-0e6595988d6f,"Cow Feed",sacks,"Quality Cow Feed",0.0,"",0.0,10.0
-FarmItem,7802bbe7-61a5-4a28-a176-d6007f127ff3,"Pig Feed",sacks,"Quality Pig Feed",0.0,"",0.0,10.0
+FarmItem,cc7d402e-32a5-45fb-ae1e-c146942d77d7,"Chicken Feed",sacks,"Quality Chicken Feed",-1,"",0.0,10.0
+FarmItem,24d9ff84-6e51-4fca-93bb-0e6595988d6f,"Cow Feed",sacks,"Quality Cow Feed",-1,"",0.0,10.0
+FarmItem,7802bbe7-61a5-4a28-a176-d6007f127ff3,"Pig Feed",sacks,"Quality Pig Feed",-1,"",0.0,10.0

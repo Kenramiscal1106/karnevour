@@ -2,6 +2,7 @@ package application.controllers.views;
 
 import application.controllers.components.RefundEntryController;
 import application.services.RefundProductService;
+import application.services.SessionHandler;
 import database.inventory.Inventory;
 import database.logs.Logger;
 import database.logs.SaleLog;
@@ -26,9 +27,14 @@ public class RefundController {
 
     private final RefundProductService refundProductService = new RefundProductService();
 
+    private final SessionHandler sessionHandler = SessionHandler.getInstance();
+
     @FXML
     public void initialize(){
-        var sales = Logger.getInstance().getSalesLogs();
+        var sales = Logger.getInstance().getSalesLogs().filtered(log -> {
+            if (!sessionHandler.isAdmin()) return log.author.equals(sessionHandler.getCurrentUser().getName());
+            return true;
+        });
         itemSelector.setItems(new SortedList<>(sales, Comparator.comparingInt(sales::indexOf).reversed()));
         itemSelector.setConverter(new StringConverter<SaleLog>() {
             @Override

@@ -37,7 +37,6 @@ public class RefundProductService extends Service<Void> {
                 var refund = new FutureTask<Void>(() -> {
                     cashRegister.refundItem(uid, amount, user);
                     inventory.restockItem(uid, amount, user);
-                    Logger.getInstance().removeLog(sale);
                     return null;
                 });
                 Platform.runLater(refund);

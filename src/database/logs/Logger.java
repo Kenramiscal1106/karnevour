@@ -19,8 +19,6 @@ import java.util.function.Predicate;
  */
 public class Logger{
     private final ObservableList<Log> logs =  FXCollections.observableArrayList();
-    private final Inventory inventory = Inventory.getInstance();
-    private final CashRegister cashRegister = CashRegister.getInstance();
 
     private final static Logger instance = new Logger();
 
@@ -62,24 +60,6 @@ public class Logger{
     }
 
     /**
-     * Removes a {@link Log} from the list
-     *
-     * @param log a non-null {@link Log}
-     */
-    public void removeLog(Log log) {
-        logs.remove(log);
-    }
-
-    /**
-     * Returns {@link Transaction} subclass {@link Log}
-     *
-     * @return {@link FilteredList} of {@link Log} with {@link Transaction}
-     */
-    public FilteredList<Log> getTransactionLogs() {
-        return (FilteredList<Log>) getFilteredLogs(log -> log instanceof Transaction);
-    }
-
-    /**
      * Returns {@link SaleLog} subclass {@link Log}
      *
      * @return {@link FilteredList} of {@link Log} with {@link SaleLog}
@@ -99,27 +79,4 @@ public class Logger{
         return (FilteredList<InventoryLog>) filteredList;
     }
 
-    public void voidLog(int index) {
-        var log = logs.get(index);
-
-        if (log instanceof RefundLog refundLog) {
-            var itemHolder = inventory.getItemHolderByUid(refundLog.itemHolderUid);
-            cashRegister.cancelRefund(refundLog.value);
-            inventory.restockItem(itemHolder.getUid(), refundLog.qty, SessionHandler.getInstance().getCurrentUser());
-        } else if (log instanceof SaleLog saleLog) {
-            var itemHolder = inventory.getItemHolderByUid(saleLog.itemHolderUid);
-            cashRegister.cancelSell(saleLog.value);
-            inventory.reduceItemAmount(itemHolder.getUid(), saleLog.qty, SessionHandler.getInstance().getCurrentUser());
-        } else if (log instanceof InventoryLog inventoryLog) {
-            switch(inventoryLog.name) {
-                case "Inventory edit: Restock Item Amount":
-                    break;
-
-                case "Inventory edit: Reduce Item Amount":
-                    break;
-            }
-        }
-        log.voidLog();
-//        logs.get(index).voidLog();
-    }
 }

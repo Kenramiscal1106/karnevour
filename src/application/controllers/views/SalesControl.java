@@ -2,6 +2,7 @@ package application.controllers.views;
 
 import application.controllers.components.DashboardStatCardController;
 import application.controllers.components.SalesHistoryEntryController;
+import application.services.SessionHandler;
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
 import database.logs.Logger;
@@ -31,11 +32,16 @@ public class SalesControl {
     @FXML
     public DashboardStatCardController inventoryValueStatCardController;
 
+    private final SessionHandler sessionHandler =  SessionHandler.getInstance();
+
     @FXML
     void initialize() {
         refreshTotalInventoryValue();
         var logger = Logger.getInstance();
-        var sales = logger.getSalesLogs();
+        var sales = logger.getSalesLogs().filtered(log -> {
+            if (!sessionHandler.isAdmin()) return log.author.equals(sessionHandler.getCurrentUser().getName());
+            return true;
+        });
         refundButton.disableProperty().bind(Bindings.isEmpty(sales));
         salesList.setItems(new SortedList<> (sales, (a, b) -> Integer.compare(sales.indexOf(b), sales.indexOf(a))));
         salesList.setCellFactory(_ -> new ListCell<>() {

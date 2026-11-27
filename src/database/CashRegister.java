@@ -20,7 +20,7 @@ import java.util.UUID;
  */
 public class CashRegister {
     private final static CashRegister instance = new CashRegister(0, 0);
-    private final static Logger lg = Logger.getInstance();
+    private final Logger lg = Logger.getInstance();
 
     protected SimpleDoubleProperty currentBalance = new SimpleDoubleProperty();
     protected SimpleDoubleProperty totalSales = new SimpleDoubleProperty();

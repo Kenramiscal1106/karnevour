@@ -17,6 +17,8 @@ public class ClerkNavigationRailController extends NavigationRailControllerBase 
     public ImageView saleIcon;
     @FXML
     public ImageView inventoryIcon;
+    public Button activityHistoryButton;
+    public ImageView activityIcon;
 
     @FXML
     public void saleClick(ActionEvent mouseEvent) {
@@ -32,10 +34,15 @@ public class ClerkNavigationRailController extends NavigationRailControllerBase 
 
     @FXML
     public void initialize() {
-    	buttons = List.of(saleButton, inventoryButton);
-        iconList = List.of(saleIcon, inventoryIcon);
+    	buttons = List.of(saleButton, inventoryButton, activityHistoryButton);
+        iconList = List.of(saleIcon, inventoryIcon, activityIcon);
     	setActive(saleButton, true);
     }
 
 
+    public void activityHistoryClick(ActionEvent actionEvent) {
+        setActive(activityHistoryButton, false);
+        navigationStore.updateView("/ui/views/ActivityHistoryView.fxml");
+
+    }
 }
