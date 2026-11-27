@@ -43,6 +43,24 @@
     -fx-background-color: -neutral-300;
 }
 
+.combo-box:editable {
+    -fx-background-radius: 4px;
+    -fx-padding: 0;
+}
+
+.combo-box:editable > .text-field {
+    -fx-background-color: transparent;
+}
+
+.combo-box > .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box.error {
+    -fx-border-color: -primary-600;
+    -fx-border-radius: 4px;
+}
+
 /* Button variants */
 
 .button--medium {

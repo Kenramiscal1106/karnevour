@@ -321,7 +321,7 @@
     -fx-border-color: transparent;
 }
 
-.text-area .container{
+.text-area .content{
     -fx-background-color: -neutral-200;
     -fx-padding: 8px
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
+<?import javafx.collections.FXCollections?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="root"
@@ -25,6 +26,20 @@
     <VBox styleClass="form-field">
         <Label labelFor="${price}">Price</Label>
         <TextField fx:id="price"/>
+    </VBox>
+    <VBox styleClass="form-field">
+        <Label labelFor="${unit}">Unit</Label>
+        <ComboBox fx:id="unit" editable="true" promptText="kg" maxWidth="Infinity">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="kg"/>
+                    <String fx:value="pcs"/>
+                    <String fx:value="sacks"/>
+                    <String fx:value="tray"/>
+                    <String fx:value="liters"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
     </VBox>
     <VBox styleClass="form-field">
         <Label labelFor="${lowStockLimit}">Low stock warning</Label>
