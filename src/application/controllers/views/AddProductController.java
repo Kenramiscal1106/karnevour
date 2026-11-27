@@ -93,7 +93,7 @@ public class AddProductController {
         }
 
         addProductService.setOnSucceeded(e -> close());
-        addProductService.setOnFailed(e -> showError(productName, e.getSource().getMessage()));
+        close();
         addProductService.restart();
     }
 
