@@ -265,7 +265,7 @@ public class Inventory {
     }
 
     /**
-     * Sets stock parameter in {@param itemHolder}, adds a {@link Log} to the {@link Logger}
+     * Sets stock parameter in {@param itemHolder}, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @param uid unique id of the {@link ItemHolder}
      * @param inStock a non-negative value
@@ -295,7 +295,7 @@ public class Inventory {
     }
 
     /**
-     * Sets {@link ItemHolder} low in stock parameter, adds a {@link Log} to the {@link Logger}
+     * Sets {@link ItemHolder} low in stock parameter, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @param uid unique id of the {@link ItemHolder}
      * @param inStock a non-negative value
@@ -325,11 +325,13 @@ public class Inventory {
     }
 
     /**
-     * Adds log to the loglist
+     * Adds {@link Log} to the log list in {@link Loggable}
      *
-     * @param log
+     * @param log a non-null {@link Log}
+     *
+     * @throws NullPointerException if {@param log} is null
      */
-    public void addToLogList(Log log) {
+    private void addToLogList(Log log) {
         if (log == null) {
             throw new NullPointerException("Log does not exist");
         }
@@ -337,7 +339,7 @@ public class Inventory {
     }
 
     /**
-     * A shortcut method that returns the {@link Product} price, adds a {@link Log} to the {@link Logger}
+     * A shortcut method that returns the {@link Product} price, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @param uid unique id of the {@link ItemHolder}
      * @return double {@param itemPrice}
@@ -355,7 +357,7 @@ public class Inventory {
     }
 
     /**
-     * Returns the current total {@link Inventory} liquid value, adds a {@link Log} to the {@link Logger}
+     * Returns the current total {@link Inventory} liquid value, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @return double {@param total}
      */
@@ -370,7 +372,7 @@ public class Inventory {
     }
 
     /**
-     * A shortcut method that sets the price of the {@link Item}, adds a {@link Log} to the {@link Logger}
+     * A shortcut method that sets the price of the {@link Item}, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @param uid unique id of the {@link ItemHolder}
      * @param newPrice a non-negative value
@@ -407,7 +409,7 @@ public class Inventory {
     }
 
     /**
-     * A shortcut method that sets the {@link Item} description parameter, adds a {@link Log} to the {@link Logger}
+     * A shortcut method that sets the {@link Item} description parameter, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @param uid a unique id of {@link ItemHolder}
      * @param desc a non-empty String
@@ -434,7 +436,7 @@ public class Inventory {
     }
 
     /**
-     * A shortcut method that sets the {@link Item} alternative name parameter
+     * A shortcut method that sets the {@link Item} alternative name parameter, adds a {@link InventoryLog} to the {@link Logger}
      *
      * @param uid unique id of the {@link ItemHolder}
      * @param altName non-empty String
@@ -483,9 +485,20 @@ public class Inventory {
         this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));
     }
 
+    /**
+     * Replaces {@link Item} and {@link ItemHolder} parameters, adds a {@link InventoryLog} to the {@link Logger}
+     *
+     * @param uid unique id of the {@link ItemHolder}
+     * @param newUnit a non-empty String
+     * @param newItemInStock a non-negative value
+     * @param newLowStockInLimit a non-negative value
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if {@link ItemHolder} does not exist
+     */
     public void replaceItemDetails(String uid, String newUnit, double newItemInStock, double newLowStockInLimit, User user){
         if (!doesItemExist(uid))
-            throw new NullPointerException("Item does not exist");
+            throw new IllegalArgumentException("Item does not exist");
 
         ItemHolder holder = getItemHolderByUid(uid);
 
@@ -503,10 +516,21 @@ public class Inventory {
         holder.setLowStockLimit(newLowStockInLimit);
     }
 
+    /**
+     * Returns the product holder list
+     *
+     * @return a non-empty {@link ItemHolder} of {@link Product} list
+     */
     public ObservableList<ItemHolder> getProductHoldersList() {
         return itemHolderList.filtered(itemHolder ->  itemHolder.getItem() instanceof Product);
     }
 
+    /**
+     * Returns a {@link FilteredList} of the given parameter
+     *
+     * @param predicate a non-empty {@param predicate}
+     * @return a {@link FilteredList} of the given {@param predicate}
+     */
     public FilteredList<ItemHolder> filterList(Predicate<? super ItemHolder> predicate) {
         return new FilteredList<>(itemHolderList, predicate);
     }

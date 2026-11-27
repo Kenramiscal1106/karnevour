@@ -1,5 +1,8 @@
 package database.logs;
 
+/**
+ * An abstract Class that holds basic functionalities for logging
+ */
 public abstract class Log implements Loggable{
     protected boolean isVoid = false;
     @Override
