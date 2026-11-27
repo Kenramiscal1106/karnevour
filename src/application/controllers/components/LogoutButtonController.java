@@ -4,6 +4,7 @@ import application.services.AuthOperations;
 import application.stores.NavigationStore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -14,7 +15,7 @@ import java.io.IOException;
 
 public class LogoutButtonController {
     public void logoutClick(ActionEvent actionEvent) throws IOException {
-        var scene = NavigationStore.getInstance().getScene();
+        var scene = ((Node) actionEvent.getSource()).getScene();
         DialogPane pane = new FXMLLoader(getClass().getResource("/ui/components/LogoutDialog.fxml")).load();
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Logout");
