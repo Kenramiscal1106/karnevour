@@ -2,6 +2,14 @@ package database.logs;
 
 import database.inventory.Inventory;
 
+/**
+ * This class holds the basic metadata and information of sales from {@link database.CashRegister}
+ *
+ * <p>
+ *     Holds basic formatting and information about a sale from {@link database.CashRegister}.
+ *     A subclass of {@link Log}.
+ * </p>
+ */
 public class SaleLog extends Log implements Transaction{
     public final String name;
     public final String date;
@@ -15,6 +23,18 @@ public class SaleLog extends Log implements Transaction{
     public final double change;
     public final String userClass;
 
+    /**
+     * Instantiate a {@link SaleLog} via given parameters
+     *
+     * @param name a non-empty String {@link SaleLog} name
+     * @param date {@link java.time.LocalDate}
+     * @param description a non-empty String
+     * @param author a non-empty string of {@link database.user.User}
+     * @param uid {@link java.util.UUID} generated uid
+     * @param productUid {@link java.util.UUID} of {@link database.inventory.ItemHolder}
+     * @param value a non-negative value
+     * @param qty a non-negative value
+     */
     public SaleLog(String name, String date, String description, String author, String uid,
                    String productUid, double value, double qty, double payment, double change, String userClass) {
         this.name = name;
@@ -29,6 +49,12 @@ public class SaleLog extends Log implements Transaction{
         this.change = change;
         this.userClass = userClass;
     }
+
+    /**
+     * An overridden method from {@link Log} Class, automatically formats the {@link Log} to CSV
+     *
+     * @return a CSV String
+     */
     @Override
     public String toCSVFormat() {
         return this.getClass().getSimpleName()+","+
@@ -45,6 +71,11 @@ public class SaleLog extends Log implements Transaction{
                 userClass;
     }
 
+    /**
+     * An overridden method from {@link Log} Class, returns a message for UI
+     *
+     * @return a formatted String message
+     */
     @Override
     public String logMessage() {
         return author + " sold an item  (" + qty + " " + Inventory.getInstance().getItemHolderByUid(productUid).getUnit() + " of " +

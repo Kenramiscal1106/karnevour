@@ -1,4 +1,6 @@
 package database.logs;
 
-// Marker interface only
+/**
+ * A marker interface called {@link Transaction} for {@link SaleLog} and {@link RefundLog}
+ */
 public interface Transaction {}
