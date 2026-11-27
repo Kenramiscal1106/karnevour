@@ -27,4 +27,4 @@ out/
 
 *.kar
 !itemholder.kar
-!pictureurl.kar
+!src/database/data/pictureurl.kar

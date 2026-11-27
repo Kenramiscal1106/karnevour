@@ -28,7 +28,7 @@ public class RefundLog extends Log implements Transaction {
      * @param description a non-empty String
      * @param author a non-empty string of {@link database.user.User}
      * @param uid {@link java.util.UUID} generated uid
-     * @param productUid {@link java.util.UUID} of {@link database.inventory.ItemHolder}
+     * @param itemHolderUid {@link java.util.UUID} of {@link database.inventory.ItemHolder}
      * @param value a non-negative value
      * @param qty a non-negative value
      */

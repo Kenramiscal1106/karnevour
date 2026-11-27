@@ -304,7 +304,7 @@ public class Database {
         return rawText.substring(1,rawText.length()-1);
     }
 
-    public String loadImageURLPath(String itemName) throws FileNotFoundException {
+    public String loadImageURLPath(String itemName) {
 
         File resolved = PICTURE_CACHE_FILE.toPath().resolve(itemName.replace(" ","-")+".jpg").toFile();
 
@@ -333,8 +333,9 @@ public class Database {
                 }
             }
         } catch (Exception e){
-            throw new RuntimeException("Error on loading image", e);
+            return Database.class.getResource("/pictures/default-picture.png").toExternalForm();
         }
+
         return Database.class.getResource("/pictures/default-picture.png").toExternalForm();
     }
 

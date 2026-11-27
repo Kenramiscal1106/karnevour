@@ -14,8 +14,8 @@
       stylesheets="@../base.css"
       styleClass="view">
     <stylesheets>
-        <URL value="@../base.css" />
-        <URL value="@../components.css" />
+        <URL value="@../base.css"/>
+        <URL value="@../components.css"/>
     </stylesheets>
     <Text styleClass="h2">Activity History</Text>
     <ListView fx:id="activityHistoryList" styleClass="list-view" VBox.vgrow="ALWAYS"/>

@@ -57,6 +57,21 @@
             </graphic>
             Sale
         </Button>
+        <Button contentDisplay="TOP" styleClass="navigation-item" VBox.vgrow="ALWAYS" maxWidth="1000"
+                onAction="#activityHistoryClick"
+                fx:id="activityHistoryButton">
+            <graphic>
+                <VBox styleClass="icon-container" alignment="CENTER" fillWidth="false">
+                    <padding>
+                        <Insets left="12" right="12" top="2" bottom="2"/>
+                    </padding>
+                    <ImageView fitWidth="32" fitHeight="32" fx:id="activityIcon">
+                        <Image url="@../../icons/history.png" preserveRatio="true"/>
+                    </ImageView>
+                </VBox>
+            </graphic>
+            Activity History
+        </Button>
     </VBox>
     <!--  Bottom section  -->
     <fx:include source="LogoutButton.fxml"/>
