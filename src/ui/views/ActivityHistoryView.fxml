@@ -12,14 +12,12 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.ActivityHistoryController"
       stylesheets="@../base.css"
-      styleClass="view"
-      prefHeight="400.0" prefWidth="600.0">
+      styleClass="view">
     <stylesheets>
         <URL value="@../base.css" />
         <URL value="@../components.css" />
     </stylesheets>
     <Text styleClass="h2">Activity History</Text>
-    <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true">
-        <ListView fx:id="activityHistoryList"/>
-    </ScrollPane>
+    <ListView fx:id="activityHistoryList" styleClass="list-view" VBox.vgrow="ALWAYS" />
+
 </VBox>
