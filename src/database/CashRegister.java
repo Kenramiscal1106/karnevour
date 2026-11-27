@@ -16,8 +16,9 @@ public class CashRegister {
     protected SimpleDoubleProperty currentBalance = new SimpleDoubleProperty();
     protected SimpleIntegerProperty totalSales = new SimpleIntegerProperty();
     private final Inventory inventory = Inventory.getInstance();
+    private final Logger logger = Logger.getInstance();
 
-    public CashRegister(double currentBalance, int totalSales) {
+    private CashRegister(double currentBalance, int totalSales) {
         this.currentBalance.set(currentBalance);
         this.totalSales.set(totalSales);
     }
@@ -37,7 +38,7 @@ public class CashRegister {
     // methods
     // TODO: make it readable, unit is in string
     // CHANGES: added exception handling, also inventory editing, unless sa services sya lalagay
-    public void sellItem(String uid, double unit, double payment, User user) {
+    public void sellItem(String uid, double unit, double payment, User user, String soldToName) {
         if(inventory.getItemHolderByUid(uid)==null)
             throw new NullPointerException("Item does not exist");
         if(unit<=0)
@@ -52,7 +53,7 @@ public class CashRegister {
         if (change!=0)
             cashOut(change);
 
-        inventory.addToLogList(new SaleLog(
+        logger.addLog(new SaleLog(
                 "Transaction Processed: Item Sold",
                 LocalDate.now().toString(),
                 "Item ("+inventory.getItemById(uid).getItemName()+") is sold with "+unit+" sold, by employee "+user.getName()+", for "+(inventory.getPrice(uid)*unit)+"[Payment: "+payment+", Change: "+change+"]",
@@ -63,7 +64,7 @@ public class CashRegister {
                 unit,
                 payment,
                 change,
-                user.getClass().getSimpleName()
+                soldToName
         ));
 
 

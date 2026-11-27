@@ -37,6 +37,8 @@ public class Inventory {
         return instance;
     }
 
+    private Inventory() {}
+
     // getters
 
     /**

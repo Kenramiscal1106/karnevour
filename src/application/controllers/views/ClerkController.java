@@ -1,10 +1,8 @@
 package application.controllers.views;
 
-import application.services.NavigationStore;
+import application.stores.NavigationStore;
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 
 public class ClerkController {
 

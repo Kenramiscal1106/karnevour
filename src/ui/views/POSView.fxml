@@ -13,17 +13,32 @@
       fx:controller="application.controllers.views.POSController"
       prefHeight="840" prefWidth="1000" styleClass="pos-window">
     <stylesheets>
-        <URL value="@../base.css" />
-        <URL value="@../components.css" />
+        <URL value="@../base.css"/>
+        <URL value="@../components.css"/>
     </stylesheets>
     <VBox>
         <ListView fx:id="selectedList" prefWidth="560"/>
         <Region VBox.vgrow="ALWAYS"/>
         <VBox>
             <HBox>
+                <Text>Sold to</Text>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="soldTo"/>
+            </HBox>
+            <HBox>
+                <Text>Tendered</Text>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="tenderedField"/>
+            </HBox>
+            <HBox>
                 <Text>Net Total</Text>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Text fx:id="totalText"/>
+            </HBox>
+            <HBox>
+                <Text>Change</Text>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Text fx:id="change"/>
             </HBox>
         </VBox>
         <HBox spacing="8">

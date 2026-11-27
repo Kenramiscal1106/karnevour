@@ -1,7 +1,7 @@
 package application.controllers.components;
 
 import application.services.AuthOperations;
-import application.services.NavigationStore;
+import application.stores.NavigationStore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,14 +10,6 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-
-import java.io.IOException;
-
-import application.services.AuthOperations;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
 
 import java.io.IOException;
 

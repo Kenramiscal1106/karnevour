@@ -19,6 +19,8 @@ public class Database {
 
     private final static Database instance = new Database();
 
+    private Database() {}
+
     private static final File ITEMHOLDER_LIST_DEFAULT_FILE = new File("src/database/data/itemholder.kar");
     private static final File USER_STAFF_LIST_DEFAULT_FILE = new File("src/database/data/user-list.kar");
     private static final File LOG_LIST_DEFAULT_FILE = new File("src/database/data/log-list.kar");

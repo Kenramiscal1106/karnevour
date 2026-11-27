@@ -3,11 +3,12 @@ package application.controllers.views;
 import application.controllers.components.POSAvailableSelectionEntryController;
 import application.controllers.components.POSSelectionEntryController;
 import application.models.CartLine;
-import application.services.SalesOperations;
+import application.services.CheckoutService;
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
 import database.items.Product;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -16,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 
@@ -36,7 +39,14 @@ public class POSController {
     @FXML
     public Button checkoutButton;
 
-    private final SalesOperations operations = new SalesOperations();
+    public final SimpleDoubleProperty tenderedProperty = new SimpleDoubleProperty(0);
+
+    public final SimpleDoubleProperty netTotalProperty = new SimpleDoubleProperty(0);
+
+    public final SimpleDoubleProperty changeProperty = new SimpleDoubleProperty(0);
+    public TextField tenderedField;
+    public Text change;
+    public TextField soldTo;
 
     @FXML
     public void initialize(){
@@ -100,8 +110,12 @@ public class POSController {
         cancelButton.setOnAction(e -> close());
         checkoutButton.setOnAction(e -> confirm());
 
+        totalText.textProperty().bind(Bindings.format("₱%,.2f", netTotalProperty));
         cart.addListener((ListChangeListener<CartLine>) change -> updateTotal());
-        updateTotal();
+
+        Bindings.bindBidirectional(tenderedField.textProperty(), tenderedProperty,  new NumberStringConverter());
+        changeProperty.bind(tenderedProperty.subtract(netTotalProperty));
+        change.textProperty().bind(Bindings.format("₱%,.2f", changeProperty));
     }
 
     private void addToCart(ItemHolder itemHolder){
@@ -119,7 +133,7 @@ public class POSController {
         for (CartLine line: cart){
             total += line.getTotal();
         }
-        totalText.setText(String.format("₱%,.2f", total));
+        netTotalProperty.set(total);
     }
 
     private void confirm(){
@@ -131,7 +145,8 @@ public class POSController {
             }
         }
 
-        var service = operations.new checkoutService(cart);
+
+        var service = new CheckoutService(cart, soldTo.getText());
         service.setOnSucceeded(e -> close());
         service.setOnFailed(e -> showError(service.getException().getMessage()));
         service.start();

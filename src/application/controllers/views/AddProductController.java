@@ -1,18 +1,17 @@
 package application.controllers.views;
 
-import application.services.InventoryOperations;
+import application.services.AddProductService;
 import application.services.SessionHandler;
 import database.Database;
 import database.inventory.Inventory;
 import database.items.Product;
-import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,10 +25,25 @@ public class AddProductController {
     public TextField lowStockLimit;
     public VBox root;
 
+    private final AddProductService addProductService = new AddProductService();
+
+    @FXML
+    public void initialize() {
+        var priceFormatter = new TextFormatter<Double>(new DoubleStringConverter(), 0.0);
+        var lowStockLimitFormatter = new TextFormatter<Double>(new DoubleStringConverter(), 0.0);
+
+        price.setTextFormatter(priceFormatter);
+        lowStockLimit.setTextFormatter(lowStockLimitFormatter);
+
+        addProductService.nameProperty().bind(productName.textProperty());
+        addProductService.descriptionProperty().bind(description.textProperty());
+        addProductService.unitTextProperty().bind(unit.valueProperty());
+        addProductService.priceValueProperty().bind(priceFormatter.valueProperty());
+        addProductService.lowStockLimitProperty().bind(lowStockLimitFormatter.valueProperty());
+    }
     public void addProductButton(ActionEvent actionEvent) {
 
         String name = productName.getText().trim();
-        String desc = description.getText().trim();
         String unitText = unit.getEditor().getText().trim();
 
 
@@ -54,6 +68,7 @@ public class AddProductController {
 
         if (priceValue <= 0){
             showError(price, "Price must be greater than zero");
+            return;
         }
 
         double limitNumber;
@@ -77,34 +92,23 @@ public class AddProductController {
             return;
         }
 
-        try{
-            Product product = new Product(name, desc, priceValue);
-            inventory.addItem(UUID.randomUUID().toString(), product, unitText, 0, limitNumber, SessionHandler.getInstance().getCurrentUser());
-
-            if(!imageUrl.getText().isBlank()){
-                Database.getInstance().savePictureURL(name, imageUrl.getText());
-            }
-            closeDialog(null);
-        } catch (IllegalArgumentException e){
-            showError(productName, e.getMessage());
-        }
-
+        addProductService.setOnSucceeded(e -> close());
+        addProductService.setOnFailed(e -> showError(productName, e.getSource().getMessage()));
+        addProductService.restart();
     }
 
-    public void closeDialog(ActionEvent actionEvent) {
+    public void closeDialogAction(ActionEvent actionEvent) {
+        close();
+    }
+
+
+    private void close() {
         ((Stage)root.getScene().getWindow()).close();
     }
-
     public void showError(Control field, String message){
         if(!field.getStyleClass().contains("error")){
             field.getStyleClass().add("error");
         }
         System.out.println(message);
-    }
-
-    public void clearErrors(){
-        for (Control field : List.of(productName, unit, price, lowStockLimit)){
-            field.getStyleClass().remove("error");
-        }
     }
 }

@@ -1,5 +1,7 @@
 package database;
 
+import javafx.beans.property.SimpleDoubleProperty;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,6 +15,8 @@ public class SimpleHash {
     public static SimpleHash getInstance(){
         return instance;
     }
+
+    private SimpleHash() {}
 
     public static String simpleHash(String toHash) throws NoSuchAlgorithmException {
         String basicSalt = UUID.randomUUID().toString().substring(0,16);

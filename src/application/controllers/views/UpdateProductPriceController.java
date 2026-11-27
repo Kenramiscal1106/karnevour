@@ -1,13 +1,15 @@
 package application.controllers.views;
 
-import application.services.InventoryOperations;
-import database.inventory.Inventory;
+import application.services.UpdatePriceService;
 import database.inventory.ItemHolder;
+import database.items.Product;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 
 public class UpdateProductPriceController {
     @FXML
@@ -16,13 +18,12 @@ public class UpdateProductPriceController {
     @FXML
     public VBox root;
 
-    private ItemHolder itemHolder;
-
-    InventoryOperations operations = new InventoryOperations();
+    UpdatePriceService service = new UpdatePriceService();
 
     public void initData(ItemHolder itemHolder){
-        this.itemHolder = itemHolder;
-        price.setText(Double.toString(Inventory.getInstance().getPrice(itemHolder.getUid())));
+        service.itemHolderObjectProperty().set(itemHolder);
+        service.newPriceProperty().set(((Product)itemHolder.getItem()).getPrice());
+        Bindings.bindBidirectional(price.textProperty(), service.newPriceProperty(), new NumberStringConverter());
     }
 
     public void closeDialog(ActionEvent actionEvent) {
@@ -40,10 +41,9 @@ public class UpdateProductPriceController {
             return;
         }
 
-        var service = operations.new updatePriceService(Inventory.getInstance(), itemHolder.getUid(), value);
         service.setOnSucceeded(e -> closeDialog(null));
         service.setOnFailed(e -> showError(service.getException().getMessage()));
-        service.start();
+        service.restart();
     }
 
     private void showError(String error){

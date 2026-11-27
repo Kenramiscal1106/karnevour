@@ -1,6 +1,5 @@
 package application.controllers.components;
 
-import application.services.NavigationStore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
