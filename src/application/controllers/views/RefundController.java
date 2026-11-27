@@ -43,8 +43,8 @@ public class RefundController {
         });
         refundProductService.saleLogProperty().bind(itemSelector.valueProperty());
         itemSelector.valueProperty().addListener((observableValue, oldValue, selected) -> {
-                if (selected != null && Inventory.getInstance().doesItemExist(selected.productUid)){
-                    var holder = Inventory.getInstance().getItemHolderByUid(selected.productUid);
+                if (selected != null && Inventory.getInstance().doesItemExist(selected.itemHolderUid)){
+                    var holder = Inventory.getInstance().getItemHolderByUid(selected.itemHolderUid);
                     refundEntryController.initData(holder);
                     refundEntryController.itemQuantityText.setText("Sold: " + selected.qty + " " + holder.getUnit());
                     refundEntryController.itemPriceText.setText(String.format("₱%,.2f", selected.value));
@@ -62,8 +62,8 @@ public class RefundController {
     }
 
     private String getItemName(SaleLog sale){
-        if (!Inventory.getInstance().doesItemExist(sale.productUid)) return "deleted item!";
-        var holder = Inventory.getInstance().getItemHolderByUid(sale.productUid);
+        if (!Inventory.getInstance().doesItemExist(sale.itemHolderUid)) return "deleted item!";
+        var holder = Inventory.getInstance().getItemHolderByUid(sale.itemHolderUid);
         return holder.getItemAlternativeName().isEmpty() ? holder.getItemDescription() : holder.getItemAlternativeName();
     }
 

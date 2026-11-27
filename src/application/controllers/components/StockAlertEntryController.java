@@ -1,20 +1,17 @@
 package application.controllers.components;
 
 import application.controllers.views.*;
-import database.inventory.Inventory;
 import database.inventory.ItemHolder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
 public class StockAlertEntryController implements EntryControllerBase<ItemHolder> {
@@ -40,7 +37,7 @@ public class StockAlertEntryController implements EntryControllerBase<ItemHolder
         try{
             var loader = new FXMLLoader(getClass().getResource("/ui/views/RestockProductView.fxml"));
             Parent root = loader.load();
-            RestockController popup = loader.getController();
+            RestockProductController popup = loader.getController();
             popup.initData(itemHolder);
 
             var stage = new Stage();

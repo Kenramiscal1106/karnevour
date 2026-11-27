@@ -16,7 +16,7 @@ public class RefundLog extends Log implements Transaction {
     public final String description;
     public final String author;
     public final String uid;
-    public final String productUid;
+    public final String itemHolderUid;
     public final double value;
     public final double qty;
 
@@ -33,13 +33,13 @@ public class RefundLog extends Log implements Transaction {
      * @param qty a non-negative value
      */
     public RefundLog(String name, String date, String description, String author, String uid,
-                     String productUid, double value, double qty) {
+                     String itemHolderUid, double value, double qty) {
         this.name = name;
         this.date = date;
         this.description = description;
         this.author = author;
         this.uid = uid;
-        this.productUid = productUid;
+        this.itemHolderUid = itemHolderUid;
         this.value = value;
         this.qty = qty;
 
@@ -58,7 +58,7 @@ public class RefundLog extends Log implements Transaction {
                 "\""+description+"\"" + "," +
                 "\""+author+"\"" + "," +
                 uid + "," +
-                productUid + ","+
+                itemHolderUid + ","+
                 value + "," +
                 qty;
     }
@@ -70,7 +70,7 @@ public class RefundLog extends Log implements Transaction {
      */
     @Override
     public String logMessage() {
-        return author + " processed a refunded " + Inventory.getInstance().getItemById(productUid).getItemName() + " worth " + value + " pesos" ;
+        return author + " processed a refunded " + Inventory.getInstance().getItemById(itemHolderUid).getItemName() + " worth " + value + " pesos" ;
     }
 
 }

@@ -10,7 +10,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="root"
-      fx:controller="application.controllers.views.RestockController"
+      fx:controller="application.controllers.views.RestockProductController"
       prefWidth="512" styleClass="mini-prompt">
     <stylesheets>
         <URL value ="@../base.css"/>

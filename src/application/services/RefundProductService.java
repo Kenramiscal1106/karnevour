@@ -26,7 +26,7 @@ public class RefundProductService extends Service<Void> {
         return new Task<>(){
             @Override
             protected Void call() throws Exception{
-                String uid = saleLogProperty.get().productUid;
+                String uid = saleLogProperty.get().itemHolderUid;
                 double amount = saleLogProperty.get().qty;
 
                 if (amount <= 0)
