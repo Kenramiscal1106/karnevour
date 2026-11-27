@@ -10,11 +10,10 @@
 <?import javafx.scene.image.ImageView?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="application.controllers.components.DashboardStatCardController" styleClass="stat-card">
+      fx:controller="application.controllers.components.DashboardStatCardController" styleClass="stat-card" spacing="16">
     <VBox>
         <Text fx:id="secondaryText" styleClass="stat-card-descriptor"/>
         <Text fx:id="primaryText" styleClass="stat-card-value"/>
     </VBox>
-    <Region />
     <ImageView fx:id="imageContainer" fitWidth="40" fitHeight="40"/>
 </HBox>
