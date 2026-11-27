@@ -2,8 +2,6 @@ package application.services;
 
 import database.Database;
 import database.user.*;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -63,7 +61,7 @@ public class AuthOperations {
             return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-                    database.saveUsersToDatabase(user);
+                    database.saveUserToDatabase(user);
                     SessionHandler.clearSession();
                     return null;
                 }

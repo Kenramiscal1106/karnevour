@@ -10,7 +10,6 @@ import database.user.User;
 import javafx.collections.ObservableList;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -119,7 +118,7 @@ public class Database {
         }
     }
 
-    public void saveUsersToDatabase(User user){
+    public void saveUserToDatabase(User user){
         if (user==null)
             throw new IllegalArgumentException("No users found");
 

@@ -23,8 +23,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Database.getInstance().saveUsersToDatabase(new Admin("admin", 1, "1234"));
-        Database.getInstance().saveUsersToDatabase(new Clerk("clerk", 2, "1"));
+        Database.getInstance().saveUserToDatabase(new Admin("admin", 1, "1234"));
+        Database.getInstance().saveUserToDatabase(new Clerk("clerk", 2, "1"));
         loadFonts();
         var sceneryLoader = new FXMLLoader(Main.class.getResource("/ui/views/LoginView.fxml"));
         stage.setTitle("Karnevour - Farm Management System");
