@@ -3,13 +3,16 @@ package application.controllers.views;
 import application.controllers.components.DashboardStatCardController;
 import application.controllers.components.SalesHistoryEntryController;
 import database.inventory.Inventory;
+import database.inventory.ItemHolder;
 import database.logs.Logger;
 import database.logs.SaleLog;
+import javafx.beans.binding.Bindings;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -23,6 +26,9 @@ public class SalesControl {
     public ListView<SaleLog> salesList;
 
     @FXML
+    public Button refundButton;
+
+    @FXML
     public DashboardStatCardController inventoryValueStatCardController;
 
     @FXML
@@ -30,7 +36,8 @@ public class SalesControl {
         refreshTotalInventoryValue();
         var logger = Logger.getInstance();
         var sales = logger.getSalesLogs();
-        salesList.setItems(new SortedList<>(sales, (a, b) -> Integer.compare(sales.indexOf(b), sales.indexOf(a))));
+        refundButton.disableProperty().bind(Bindings.isEmpty(sales));
+        salesList.setItems(new SortedList<> (sales, (a, b) -> Integer.compare(sales.indexOf(b), sales.indexOf(a))));
         salesList.setCellFactory(_ -> new ListCell<>() {
             private final Node row;
             private final SalesHistoryEntryController controller;

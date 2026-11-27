@@ -37,13 +37,13 @@ public class ManagerHomeController {
         inventoryValueStatCardController.setData(
                 String.format("₱%,.0f", totalInventoryValue),
                 "Total Inventory Value",
-                "/icons/value.png" // placeholder icon
+                "/icons/value.png"
         );
 
         revenueStatCardController.setData(
                 String.format("₱%,.0f", revenue),
                 "Revenue",
-                "/icons/value.png" // placeholder icon
+                "/icons/value.png"
         );
 
         stockAlertList.setItems(inventory.filterList(ItemHolder::isLowInStock));
@@ -56,7 +56,7 @@ public class ManagerHomeController {
                     var loader = new FXMLLoader(getClass().getResource("/ui/components/StockAlertEntry.fxml"));
                     row = loader.load();
                     controller = loader.getController();
-
+                    controller.setHome(ManagerHomeController.this);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -73,5 +73,22 @@ public class ManagerHomeController {
                 }
             }
         });
+    }
+
+    public void refreshAfterRestock(){
+        refreshStockAlerts();
+        refreshInventoryValue();
+    }
+
+    public void refreshStockAlerts(){
+        stockAlertList.setItems(Inventory.getInstance().filterList(ItemHolder::isLowInStock));
+    }
+
+    public void refreshInventoryValue(){
+        inventoryValueStatCardController.setData(
+                String.format("₱%,.0f", Inventory.getInstance().getTotalInventoryValue()),
+                "Total Inventory Value",
+                "/icons/value.png"
+        );
     }
 }

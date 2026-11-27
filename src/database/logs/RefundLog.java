@@ -40,7 +40,7 @@ public class RefundLog extends Log implements Transaction {
 
     @Override
     public String logMessage() {
-        return author + " processed a refunded" + Inventory.getInstance().getItemById(productUid).getItemName() + " worth " + value + " pesos" ;
+        return author + " processed a refunded " + Inventory.getInstance().getItemById(productUid).getItemName() + " worth " + value + " pesos" ;
     }
 
 }

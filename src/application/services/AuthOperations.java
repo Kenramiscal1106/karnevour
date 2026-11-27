@@ -23,6 +23,7 @@ public class AuthOperations {
     public void logout(Runnable onDone){
         var service = new LogoutService(SessionHandler.getInstance().getCurrentUser());
         service.setOnSucceeded(e -> onDone.run());
+        service.setOnFailed(e -> service.getException().getStackTrace());
         service.start();
     }
 

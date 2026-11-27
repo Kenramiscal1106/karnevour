@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:id="root"
+      fx:controller="application.controllers.views.RestockController"
+      prefWidth="512" styleClass="mini-prompt">
+    <stylesheets>
+        <URL value ="@../base.css"/>
+        <URL value ="@../components.css"/>
+    </stylesheets>
+    <VBox styleClass="form-field">
+        <Label fx:id="currentStock"/>
+        <Label labelFor="${amount}">Amount to add</Label>
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <TextField fx:id="amount" promptText="0" HBox.hgrow="ALWAYS"/>
+            <Label fx:id="unit" textAlignment="CENTER"></Label>
+        </HBox>
+    </VBox>
+    <HBox spacing="8">
+        <Button onAction="#closeDialog" styleClass="button--outline, button--medium">Cancel</Button>
+        <Button onAction="#handleRestock" styleClass="button--primary, button--medium">Restock</Button>
+    </HBox>
+</VBox>
