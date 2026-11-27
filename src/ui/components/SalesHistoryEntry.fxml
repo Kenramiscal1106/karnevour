@@ -8,13 +8,18 @@
 
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Rectangle?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.SalesHistoryEntryController"
-        styleClass="sales-entry">
+      styleClass="sales-entry">
     <HBox styleClass="sales-entry-info">
-        <ImageView fitWidth="56" fitHeight="56" fx:id="imageDisplay" />
-        <VBox>
+        <ImageView fitWidth="56" fitHeight="56" fx:id="imageDisplay">
+            <clip>
+                <Rectangle width="56" height="56" arcWidth="16" arcHeight="16"/>
+            </clip>
+        </ImageView>
+        <VBox alignment="CENTER_LEFT">
             <Text fx:id="entryName" styleClass="sales-entry-name"/>
             <Text fx:id="entryQuantity" styleClass="sales-entry-quantity"/>
         </VBox>

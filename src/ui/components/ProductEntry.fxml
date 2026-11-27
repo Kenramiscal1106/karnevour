@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
+<?import javafx.scene.shape.Rectangle?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.ProductEntryController"
@@ -18,7 +19,11 @@
         <URL value="@../components.css"/>
     </stylesheets>
     <HBox styleClass="product-entry__leading-detail" spacing="16" alignment="CENTER_LEFT">
-        <ImageView fx:id="imageView" fitHeight="56" fitWidth="56"/>
+        <ImageView fx:id="imageView" fitHeight="56" fitWidth="56">
+            <clip>
+                <Rectangle width="56" height="56" arcWidth="16" arcHeight="16"/>
+            </clip>
+        </ImageView>
         <VBox alignment="CENTER_LEFT">
             <Text fx:id="productName" styleClass="product-entry-name"/>
             <Text fx:id="productDescription" styleClass="product-entry-description"/>
@@ -26,7 +31,7 @@
     </HBox>
     <Region HBox.hgrow="ALWAYS" />
     <HBox styleClass="product-entry-actions" alignment="CENTER">
-        <Button onAction="#handleEditDialog">Edit Details</Button>
-        <Button onAction="#handleUpdatePrice">Update Price</Button>
+        <Button onAction="#handleEditDialog" styleClass="button--primary, button--medium">Edit Details</Button>
+        <Button onAction="#handleUpdatePrice" styleClass="button--primary, button--medium">Update Price</Button>
     </HBox>
 </HBox>

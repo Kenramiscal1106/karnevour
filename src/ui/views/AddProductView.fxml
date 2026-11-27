@@ -5,29 +5,55 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
 
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="root"
-      fx:controller="application.controllers.views.AddProductController">
-    <VBox>
+      fx:controller="application.controllers.views.AddProductController"
+      prefWidth="512" styleClass='mini-prompt'>
+    <stylesheets>
+        <URL value ="@../base.css"/>
+        <URL value ="@../components.css"/>
+    </stylesheets>
+    <VBox styleClass="form-field">
+        <Label labelFor="${imageUrl}">Image URL</Label>
+        <TextField fx:id="imageUrl" promptText="https://..."/>
+    </VBox>
+    <VBox styleClass="form-field">
         <Label labelFor="${productName}">Product name</Label>
         <TextField fx:id="productName"/>
     </VBox>
-    <VBox>
+    <VBox styleClass="form-field">
         <Label labelFor="${description}">Description</Label>
         <TextArea fx:id="description"/>
     </VBox>
-    <VBox>
+
+    <VBox styleClass="form-field">
+        <Label labelFor="${unit}">Unit</Label>
+        <ComboBox fx:id="unit" editable="true" promptText="kg">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="kg"/>
+                    <String fx:value="pcs"/>
+                    <String fx:value="sacks"/>
+                    <String fx:value="tray"/>
+                    <String fx:value="liters"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </VBox>
+    <VBox styleClass="form-field">
         <Label labelFor="${price}">Price</Label>
         <TextField fx:id="price"/>
     </VBox>
-    <VBox>
+    <VBox styleClass="form-field">
         <Label labelFor="${lowStockLimit}">Stock Limit Warning</Label>
         <TextField fx:id="lowStockLimit"/>
     </VBox>
-    <HBox>
-        <Button onAction="#closeDialog">Cancel</Button>
-        <Button onAction="#addProductButton">Add</Button>
+    <HBox spacing="8">
+        <Button onAction="#closeDialog" styleClass="button--primary, button--medium">Cancel</Button>
+        <Button onAction="#addProductButton" styleClass="button--primary, button--medium">Add</Button>
     </HBox>
 </VBox>

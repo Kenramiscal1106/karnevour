@@ -21,7 +21,7 @@
     </stylesheets>
     <VBox spacing="24" minWidth="360" prefWidth="420">
         <Text styleClass="h2">Recent Sales</Text>
-        <HBox HBox.hgrow="ALWAYS">
+        <HBox HBox.hgrow="ALWAYS" spacing="8">
             <!--            Buttons -->
             <Button onAction="#NewOrderClick" styleClass="button--primary, button--medium">
                 <graphic>

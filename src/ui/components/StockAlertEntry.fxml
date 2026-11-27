@@ -8,23 +8,31 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.components.StockAlertEntryController" styleClass="low-stock-entry">
-    <HBox>
-        <ImageView fx:id="itemImage" fitWidth="52" fitHeight="52"/>
-        <VBox>
+    <HBox spacing="8">
+        <ImageView fx:id="itemImage" fitWidth="52" fitHeight="52">
+            <clip>
+                <Rectangle width="52" height="52" arcWidth="12" arcHeight="12"/>
+            </clip>
+        </ImageView>
+        <VBox alignment="CENTER_LEFT">
             <Label fx:id="itemName" styleClass="low-stock-entry-name"/>
             <Label fx:id="itemRemaining" styleClass="low-stock-entry-remaining"/>
         </VBox>
     </HBox>
     <Region HBox.hgrow="ALWAYS"/>
-    <Button styleClass="button--primary">
-        <graphic>
-            <ImageView fitHeight="20" fitWidth="20">
-                <Image url="@../../icons/add-box.png"/>
-            </ImageView>
-        </graphic>
-        Restock
-    </Button>
+    <HBox alignment="CENTER_RIGHT" spacing="8">
+        <Label fx:id="stockBadge" styleClass="stock-badge"/>
+        <Button styleClass="button--primary">
+            <graphic>
+                <ImageView fitHeight="20" fitWidth="20">
+                    <Image url="@../../icons/add-box.png"/>
+                </ImageView>
+            </graphic>
+            Restock
+        </Button>
+    </HBox>
 </HBox>
