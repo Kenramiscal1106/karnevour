@@ -94,7 +94,7 @@ public class CashRegister {
         lg.addLog(new SaleLog(
                 "Transaction Processed: Item Sold",
                 LocalDate.now().toString(),
-                "Item ("+inventory.getItemById(uid).getItemName()+") is sold with "+unit+" sold, by employee "+user.getName()+" to "+buyerName+", for "+(inventory.getPrice(uid)*unit)+"[Payment: "+payment+", Change: "+change+"]",
+                "Item ("+inventory.getItemById(uid).getItemName()+") was sold ("+ unit + inventory.getItemHolderByUid(uid).getUnit() + ") by " + user.getName()+" to "+buyerName+", for "+(inventory.getPrice(uid)*unit)+" [Payment: "+payment+", Change: "+change+"]",
                 user.getName(),
                 "+S"+ UUID.randomUUID(),
                 uid,

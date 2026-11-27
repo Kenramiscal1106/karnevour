@@ -78,7 +78,5 @@ public class SaleLog extends Log implements Transaction{
      */
     @Override
     public String logMessage() {
-        return author + " sold an item  (" + qty + " " + Inventory.getInstance().getItemHolderByUid(itemHolderUid).getUnit() + " of " +
-                Inventory.getInstance().getItemById(itemHolderUid).getItemName() + ") worth " + value + " pesos "  ;
-    }
+        return this.description; }
 }
