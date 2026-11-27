@@ -298,3 +298,23 @@
     -fx-background-color: -neutral-100;
     -fx-text-fill: #fa9e3c
 }
+
+.form-field{
+    -fx-spacing: 6px;
+}
+
+.text-area{
+    -fx-background-color: -neutral-200;
+    -fx-background-radius: 4px;
+    -fx-border-color: transparent;
+}
+
+.text-area .container{
+    -fx-background-color: -neutral-200;
+    -fx-padding: 8px
+}
+
+.text-area:focused{
+    -fx-border-color: -neutral-400;
+    -fx-border-radius: 4px
+}

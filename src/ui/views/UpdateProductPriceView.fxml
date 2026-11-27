@@ -10,14 +10,17 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="root"
-      fx:controller="application.controllers.views.UpdateProductPriceController">
+      fx:controller="application.controllers.views.UpdateProductPriceController"
+      prefWidth="512" styleClass='mini-prompt'>
     <stylesheets>
         <URL value ="@../base.css"/>
         <URL value ="@../components.css"/>
     </stylesheets>
-    <TextField fx:id="price" styleClass="adjust-item-controls"/>
-    <HBox>
-        <Button onAction="#closeDialog">Cancel</Button>
-        <Button onAction="#handlePriceUpdate">Update Price</Button>
+    <VBox styleClass="form-field">
+        <TextField fx:id="price"/>
+    </VBox>
+    <HBox spacing="8">
+        <Button onAction="#closeDialog" styleClass="button--primary, button--medium">Cancel</Button>
+        <Button onAction="#handlePriceUpdate" styleClass="button--primary, button--medium">Update Price</Button>
     </HBox>
 </VBox>
