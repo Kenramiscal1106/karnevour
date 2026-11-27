@@ -116,6 +116,9 @@ public class POSController {
         Bindings.bindBidirectional(tenderedField.textProperty(), tenderedProperty,  new NumberStringConverter());
         changeProperty.bind(tenderedProperty.subtract(netTotalProperty));
         change.textProperty().bind(Bindings.format("₱%,.2f", changeProperty));
+
+        tenderedProperty.addListener((obs, oldValue, newValue) -> updateTenderedError());
+        netTotalProperty.addListener((obs, oldValue, newValue) -> updateTenderedError());
     }
 
     private void addToCart(ItemHolder itemHolder){
@@ -136,7 +139,26 @@ public class POSController {
         netTotalProperty.set(total);
     }
 
+    private void updateTenderedError(){
+        double tendered = tenderedProperty.get();
+        double total = netTotalProperty.get();
+        boolean tooLow = tendered > 0 && tendered < total;
+
+        if (tooLow) {
+            if (!tenderedField.getStyleClass().contains("error")) {
+                tenderedField.getStyleClass().add("error");
+            }
+        } else {
+            tenderedField.getStyleClass().remove("error");
+        }
+    }
+
     private void confirm(){
+        if (tenderedProperty.get() < netTotalProperty.get()) {
+            showError(String.format("Tendered must be at least ₱%,.2f.", netTotalProperty.get()));
+            return;
+        }
+
         for (CartLine line: cart){
             var holder = line.getItemHolder();
             if (line.getQty() <= 0 || line.getQty() > holder.getItemInStock()){
@@ -145,15 +167,27 @@ public class POSController {
             }
         }
 
-
         var service = new CheckoutService(cart, soldTo.getText());
         service.setOnSucceeded(e -> close());
         service.setOnFailed(e -> showError(service.getException().getMessage()));
         service.start();
     }
 
+    private void markError(TextField field, boolean hasError) {
+        if (hasError) {
+            if (!field.getStyleClass().contains("error")) {
+                field.getStyleClass().add("error");
+            }
+        } else {
+            field.getStyleClass().remove("error");
+        }
+    }
+
     private void showError(String message){
-        new Alert(Alert.AlertType.WARNING, message).showAndWait();
+        if (tenderedProperty.get() < netTotalProperty.get()) {
+            markError(tenderedField, true);
+            return;
+        }
     }
 
     private void close(){
