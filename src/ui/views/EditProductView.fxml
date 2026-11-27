@@ -1,33 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
+<?import javafx.collections.FXCollections?>
 <VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+      xmlns:fx="http://javafx.com/fxml"
       fx:id="root"
-            fx:controller="application.controllers.views.EditProductController">
-    <VBox>
-        <Label labelFor="${productName}">Product name</Label>
+      fx:controller="application.controllers.views.EditProductController"
+      prefWidth="512" styleClass="mini-prompt">
+    <stylesheets>
+        <URL value="@../base.css"/>
+        <URL value="@../components.css"/>
+    </stylesheets>
+    <VBox styleClass="form-field">
+        <Label labelFor="${productName}">Name</Label>
         <TextField fx:id="productName"/>
     </VBox>
-    <VBox>
+    <VBox styleClass="form-field">
         <Label labelFor="${description}">Description</Label>
-        <TextArea fx:id="description"/>
+        <TextArea fx:id="description" prefRowCount="3" wrapText="true"/>
     </VBox>
-    <VBox>
+    <VBox styleClass="form-field">
         <Label labelFor="${price}">Price</Label>
         <TextField fx:id="price"/>
     </VBox>
-    <VBox>
-        <Label labelFor="${lowStockLimit}">Stock Warning</Label>
+    <VBox styleClass="form-field">
+        <Label labelFor="${unit}">Unit</Label>
+        <ComboBox fx:id="unit" editable="true" promptText="kg" maxWidth="Infinity">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="kg"/>
+                    <String fx:value="pcs"/>
+                    <String fx:value="sacks"/>
+                    <String fx:value="tray"/>
+                    <String fx:value="liters"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </VBox>
+    <VBox styleClass="form-field">
+        <Label labelFor="${lowStockLimit}">Low stock warning</Label>
         <TextField fx:id="lowStockLimit"/>
     </VBox>
-    <HBox>
-        <Button onAction="#closeDialog">Cancel</Button>
-        <Button onAction="#updateProductButton">Update Item</Button>
+    <HBox spacing="8">
+        <Button onAction="#closeDialog" styleClass="button--outline, button--medium">Cancel</Button>
+        <Button onAction="#updateProductButton" styleClass="button--primary, button--medium">Save Changes</Button>
     </HBox>
 </VBox>

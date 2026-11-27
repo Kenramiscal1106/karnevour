@@ -11,41 +11,42 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="application.controllers.views.POSController"
-      prefHeight="840" prefWidth="1000" styleClass="pos-window">
+      prefHeight="840" prefWidth="1000" styleClass="pos-window" spacing="15">
     <stylesheets>
         <URL value="@../base.css"/>
         <URL value="@../components.css"/>
     </stylesheets>
-    <VBox>
+    <VBox spacing="15">
         <ListView fx:id="selectedList" prefWidth="560"/>
-        <Region VBox.vgrow="ALWAYS"/>
-        <VBox>
-            <HBox>
-                <Text>Sold to</Text>
-                <Region HBox.hgrow="ALWAYS"/>
-                <TextField fx:id="soldTo"/>
+            <VBox spacing="15">
+                <HBox alignment="CENTER_LEFT">
+                    <Text>Sold to</Text>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="soldTo" promptText="Buyer name"/>
+                </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <Text>Tendered</Text>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="tenderedField" promptText="Money Received"/>
+                </HBox>
+                 <VBox spacing="8">
+                    <HBox alignment="CENTER_LEFT">
+                        <Text>Net Total</Text>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Text fx:id="totalText"/>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT">
+                        <Text>Change</Text>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Text fx:id="change"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+            <HBox spacing="8">
+                <Button fx:id="cancelButton" styleClass="button--primary, button--medium">Cancel Order</Button>
+                <Button fx:id="checkoutButton" styleClass="button--outline, button--medium">Checkout</Button>
             </HBox>
-            <HBox>
-                <Text>Tendered</Text>
-                <Region HBox.hgrow="ALWAYS"/>
-                <TextField fx:id="tenderedField"/>
-            </HBox>
-            <HBox>
-                <Text>Net Total</Text>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Text fx:id="totalText"/>
-            </HBox>
-            <HBox>
-                <Text>Change</Text>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Text fx:id="change"/>
-            </HBox>
-        </VBox>
-        <HBox spacing="8">
-            <Button fx:id="cancelButton" styleClass="button--primary, button--medium">Cancel Order</Button>
-            <Button fx:id="checkoutButton" styleClass="button--outline, button--medium">Checkout</Button>
-        </HBox>
     </VBox>
-    <ListView fx:id="choicesList" prefWidth="360"/>
+        <ListView fx:id="choicesList" prefWidth="360"/>
 
 </HBox>

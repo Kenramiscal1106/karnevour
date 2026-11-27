@@ -1,5 +1,6 @@
 package application.controllers.components;
 
+import application.controllers.views.EditProductController;
 import application.controllers.views.UpdateProductPriceController;
 import database.inventory.ItemHolder;
 import javafx.event.ActionEvent;
@@ -12,7 +13,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
 public class ProductEntryController implements EntryControllerBase<ItemHolder> {
@@ -28,12 +28,29 @@ public class ProductEntryController implements EntryControllerBase<ItemHolder> {
         var item = itemHolder.getItem();
         imageView.setImage(new Image(item.getImagePath(), true));
         textContent = item.getDescription().isEmpty() ? "No product description" : item.getDescription();
-        productName.setText(item.getItemName());
+        String alt = item.getAlternativeName();
+        productName.setText(alt.isEmpty() ? item.getItemName() : alt);
         productDescription.setText(item.getDescription());
     }
 
     public void handleEditDialog(ActionEvent actionEvent) {
-        openPopup("/ui/views/EditProductView.fxml", "Edit Product Details");
+        try {
+            var loader = new FXMLLoader(getClass().getResource("/ui/views/EditProductView.fxml"));
+            Parent root = loader.load();
+            EditProductController popup = loader.getController();
+            popup.initData(itemHolder);
+
+            var stage = new Stage();
+            stage.setTitle("Edit Product Details");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(imageView.getScene().getWindow());
+            stage.showAndWait();
+
+            initData(itemHolder);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void handleUpdatePrice(ActionEvent actionEvent) {
@@ -46,20 +63,6 @@ public class ProductEntryController implements EntryControllerBase<ItemHolder> {
             var stage = new Stage();
             stage.setTitle("Update Product Price");
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initOwner(imageView.getScene().getWindow());
-            stage.showAndWait();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void openPopup(String path, String windowTitle) {
-        try {
-            var loader = new FXMLLoader(getClass().getResource(path));
-            var stage = new Stage();
-            stage.setTitle(windowTitle);
-            stage.setScene(new Scene(loader.load()));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(imageView.getScene().getWindow());
             stage.showAndWait();
