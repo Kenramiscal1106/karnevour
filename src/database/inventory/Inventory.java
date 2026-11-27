@@ -26,6 +26,8 @@ public class Inventory {
         return instance;
     }
 
+    private Inventory() {}
+
     // getters
     public ObservableList<ItemHolder> getItemHolderList() {
         return this.itemHolderList;

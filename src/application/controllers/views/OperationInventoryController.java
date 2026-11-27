@@ -1,7 +1,6 @@
 package application.controllers.views;
 
 import application.controllers.components.AdjustItemController;
-import application.services.InventoryOperations;
 import application.services.UpdateStockService;
 import database.inventory.Inventory;
 import database.inventory.ItemHolder;
@@ -11,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 public abstract class OperationInventoryController {
