@@ -26,7 +26,7 @@ public class AuthOperations {
         service.start();
     }
 
-    public class LoginService extends Service<User> {
+    private class LoginService extends Service<User> {
 
         private final String name;
         private final String password;
@@ -50,7 +50,7 @@ public class AuthOperations {
         }
     }
 
-    public class LogoutService extends Service<Void> {
+    private class LogoutService extends Service<Void> {
         private final User user;
 
         public LogoutService(User user) {

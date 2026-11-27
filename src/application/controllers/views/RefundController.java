@@ -1,7 +1,7 @@
 package application.controllers.views;
 
 import application.controllers.components.RefundEntryController;
-import application.services.SalesOperations;
+import application.services.RefundProductService;
 import database.inventory.Inventory;
 import database.logs.Logger;
 import database.logs.SaleLog;
@@ -24,8 +24,7 @@ public class RefundController {
     @FXML
     public RefundEntryController refundEntryController;
 
-
-    private final SalesOperations operations = new SalesOperations();
+    private final RefundProductService refundProductService = new RefundProductService();
 
     @FXML
     public void initialize(){
@@ -42,12 +41,13 @@ public class RefundController {
                 return null;
             }
         });
+        refundProductService.saleLogProperty().bind(itemSelector.valueProperty());
         itemSelector.valueProperty().addListener((observableValue, oldValue, selected) -> {
                 if (selected != null && Inventory.getInstance().doesItemExist(selected.productUid)){
                     var holder = Inventory.getInstance().getItemHolderByUid(selected.productUid);
                     refundEntryController.initData(holder);
                     refundEntryController.itemQuantityText.setText("Sold: " + selected.qty + " " + holder.getUnit());
-                    refundEntryController.itemPriceText.setText(String.format("₱%,.2f", Inventory.getInstance().getPrice(selected.productUid) * selected.qty));
+                    refundEntryController.itemPriceText.setText(String.format("₱%,.2f", selected.value));
                 }
         });
         addInventoryButton.disableProperty().bind(itemSelector.valueProperty().isNull());
@@ -56,17 +56,9 @@ public class RefundController {
     }
 
     private void confirm(){
-        SaleLog selected = itemSelector.getValue();
-
-        operations.refundUID.set(selected.productUid);
-        operations.refundAmount.set(selected.qty);
-        operations.refundSoldQty.set(selected.qty);
-        operations.refundSale.set(selected);
-
-        var service = operations.refundProductService;
-        service.setOnSucceeded(e -> close());
-        service.setOnFailed(e -> showError(service.getException().getMessage()));
-        service.restart();
+        refundProductService.setOnSucceeded(e -> close());
+        refundProductService.setOnFailed(e -> showError(refundProductService.getException().getMessage()));
+        refundProductService.restart();
     }
 
     private String getItemName(SaleLog sale){

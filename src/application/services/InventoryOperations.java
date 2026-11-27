@@ -15,201 +15,60 @@ import javafx.concurrent.Task;
 public class InventoryOperations {
     private Inventory inventory = Inventory.getInstance();
     private Logger logger = Logger.getInstance();
-    public Service<Void> loadService = new Service<>() {
-        private final Database database = new Database();
 
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<>() {
-                protected Void call() throws Exception {
-                    database.loadAllFromDatabase(inventory, SalesOperations.cashRegister, logger);
-                    return null;
-                }
-            };
-        }
-    };
-
-
-    public Service<Void> addItemService = new Service<Void>() {
-        public final SimpleObjectProperty<Item> item = new SimpleObjectProperty<>();
-        public final SimpleDoubleProperty stock = new SimpleDoubleProperty();
-
-        public final SimpleStringProperty unit = new SimpleStringProperty();
-        public final SimpleDoubleProperty limit = new SimpleDoubleProperty();
-        public final SimpleStringProperty uid = new SimpleStringProperty();
-
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<>() {
-                @Override
-                protected Void call() throws Exception {
-                    inventory.addItem(uid.get(), item.get(), unit.get(), stock.get(), limit.get(), SessionHandler.getInstance().getCurrentUser());
-                    return null;
-                }
-            };
-        }
-
-    };
-
-    public class removeItemService extends Service<Void> {
-        private final Inventory inventory;
-        private final String uid;
-
-        public removeItemService(Inventory inventory, String uid) {
-            this.inventory = inventory;
-            this.uid = uid;
-        }
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<>() {
-                @Override
-                protected Void call() throws Exception {
-                    inventory.removeItemInInventory(uid, SessionHandler.getInstance().getCurrentUser());
-                    return null;
-                }
-            };
-        }
-    }
-
-    public class updatePriceService extends Service<Void> {
-        private final Inventory inventory;
-        private final String uid;
-        private final double value;
-
-        public updatePriceService(Inventory inventory, String uid, Double value) {
-            this.inventory = inventory;
-            this.value = value;
-            this.uid = uid;
-        }
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<>(){
-                @Override
-                protected Void call() throws Exception{
-                    inventory.setItemPrice(uid, value, SessionHandler.getInstance().getCurrentUser());
-                    return null;
-                }
-            };
-        }
-    }
-
-    // general update stock service
-    public class updateStockService extends Service<Void> {
-        private final Inventory inventory;
-        private final String uid;
-        private final double amount;
-        private final String actionType;
-
-        public updateStockService(Inventory inventory, String uid, double amount, String actionType) {
-            this.inventory = inventory;
-            this.uid = uid;
-            this.amount = amount;
-            this.actionType = actionType;
-        }
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<>() {
-                @Override
-                protected Void call() throws Exception {
-                    if (actionType.equalsIgnoreCase("restock")) {
-                        inventory.restockItem(uid, amount, SessionHandler.getInstance().getCurrentUser());
-                        return null;
-                    }
-                    if (actionType.equalsIgnoreCase("sell")) {
-                        inventory.reduceItemAmount(uid, amount, SessionHandler.getInstance().getCurrentUser());
-                        return null;
-                    }
-                    if (actionType.equalsIgnoreCase("override")) {
-                        inventory.setItemHolderInStock(uid, amount, SessionHandler.getInstance().getCurrentUser());
-                        return null;
-                    }
-                    throw new IllegalArgumentException("No stock type");
+//
+//    public Service<Void> addItemService = new Service<Void>() {
+//        public final SimpleObjectProperty<Item> item = new SimpleObjectProperty<>();
+//        public final SimpleDoubleProperty stock = new SimpleDoubleProperty();
+//
+//        public final SimpleStringProperty unit = new SimpleStringProperty();
+//        public final SimpleDoubleProperty limit = new SimpleDoubleProperty();
+//        public final SimpleStringProperty uid = new SimpleStringProperty();
+//
+//
+//        @Override
+//        protected Task<Void> createTask() {
+//            return new Task<>() {
+//                @Override
+//                protected Void call() throws Exception {
+//                    inventory.addItem(uid.get(), item.get(), unit.get(), stock.get(), limit.get(), SessionHandler.getInstance().getCurrentUser());
 //                    return null;
-                }
-            };
-        }
-    }
-
-    public class setLowStockService extends Service<Void> {
-        private final Inventory inventory;
-        private final String uid;
-        private final double inStock;
-
-        public setLowStockService(Inventory inventory, String uid, double inStock) {
-            this.inventory = inventory;
-            this.uid = uid;
-            this.inStock = inStock;
-        }
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    inventory.setItemHolderLowInStock(uid, inStock, SessionHandler.getInstance().getCurrentUser());
-                    return null;
-                }
-            };
-        }
-    }
-
-    public class setInStockService extends Service<Void> {
-        private final Inventory inventory;
-        private final String uid;
-        private final double inStock;
-
-        public setInStockService(Inventory inventory, String uid, double inStock) {
-            this.inventory = inventory;
-            this.uid = uid;
-            this.inStock = inStock;
-        }
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    inventory.setItemHolderInStock(uid, inStock, SessionHandler.getInstance().getCurrentUser());
-                    return null;
-                }
-            };
-        }
-    }
-
-    public class replaceInventoryItemService extends Service<Void> {
-        private final Inventory inventory;
-        private final Item newItem;
-
-        private final String newUnit;
-        private final String oldUid;
-        private final String newUid;
-        private final double newItemInStock;
-        private final double newLowStockLimit;
-
-        public replaceInventoryItemService(Inventory inventory, String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit) {
-            this.inventory = inventory;
-            this.oldUid = oldUid;
-            this.newItem = newItem;
-            this.newItemInStock = newItemInStock;
-            this.newUid = newUid;
-            this.newUnit = newUnit;
-            this.newLowStockLimit = newLowStockLimit;
-        }
-
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    inventory.replaceItemInInventory(oldUid, newUid, newItem, newUnit, newItemInStock, newLowStockLimit, SessionHandler.getInstance().getCurrentUser());
-                    return null;
-                }
-            };
-        }
-    }
+//                }
+//            };
+//        }
+//
+//    };
+//
+//    public class replaceInventoryItemService extends Service<Void> {
+//        private final Inventory inventory;
+//        private final Item newItem;
+//
+//        private final String newUnit;
+//        private final String oldUid;
+//        private final String newUid;
+//        private final double newItemInStock;
+//        private final double newLowStockLimit;
+//
+//        public replaceInventoryItemService(Inventory inventory, String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit) {
+//            this.inventory = inventory;
+//            this.oldUid = oldUid;
+//            this.newItem = newItem;
+//            this.newItemInStock = newItemInStock;
+//            this.newUid = newUid;
+//            this.newUnit = newUnit;
+//            this.newLowStockLimit = newLowStockLimit;
+//        }
+//
+//        @Override
+//        protected Task<Void> createTask() {
+//            return new Task<Void>() {
+//                @Override
+//                protected Void call() throws Exception {
+//                    inventory.replaceItemInInventory(oldUid, newUid, newItem, newUnit, newItemInStock, newLowStockLimit, SessionHandler.getInstance().getCurrentUser());
+//                    return null;
+//                }
+//            };
+//        }
+//    }
 
 }

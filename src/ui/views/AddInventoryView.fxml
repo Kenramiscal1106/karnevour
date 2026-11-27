@@ -23,7 +23,7 @@
         <Button styleClass="button--outline, button--medium" fx:id="windowCloseButton">
             Cancel
         </Button>
-        <Button styleClass="button--primary, button--medium" fx:id="addInventoryButton">
+        <Button styleClass="button--primary, button--medium" fx:id="confirmActionButton">
             Add Inventory
         </Button>
     </HBox>

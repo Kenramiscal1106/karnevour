@@ -15,6 +15,8 @@ public class ImageCache {
 
     private final static ImageCache instance = new ImageCache();
 
+    private ImageCache() {}
+
     private static final File PICTURE_CACHE_FILE = new File("src/database/data/picturecache");
 
     void cacheImage(String name, String url) {

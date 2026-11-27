@@ -19,10 +19,10 @@
     </ComboBox>
     <fx:include source="../components/AdjustItem.fxml" fx:id="adjustItem"/>
     <HBox>
-        <Button styleClass="button--outline, button--medium" fx:id="windowCloseButton">
+        <Button styleClass="button--outline, button--medium" fx:id="windowCloseButton" onAction="#close">
             Cancel
         </Button>
-        <Button styleClass="button--primary, button--medium" fx:id="addInventoryButton">
+        <Button styleClass="button--primary, button--medium" fx:id="confirmActionButton" onAction="#confirm">
             Subtract Inventory
         </Button>
     </HBox>

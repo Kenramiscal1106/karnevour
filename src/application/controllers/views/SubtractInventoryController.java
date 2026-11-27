@@ -5,7 +5,7 @@ import database.inventory.ItemHolder;
 public class SubtractInventoryController extends OperationInventoryController{
     @Override
     protected String getActionType(){
-        return "sell";
+        return "subtract";
     }
 
     @Override
