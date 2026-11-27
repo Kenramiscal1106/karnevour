@@ -13,7 +13,10 @@
 
 .navigation-item .icon-container {
     -fx-background-color: transparent;
-    transition: -fx-background-color 1s;
+}
+
+.navigation-item .icon-container:hover {
+    -fx-background-color: -neutral-300;
 }
 
 .icon-container {
@@ -72,6 +75,10 @@
 .logout-button {
     -fx-background-color: #F0004C;
     -fx-background-radius: 12;
+}
+
+.logout-button:hover{
+    -fx-background-color: -primary-700;
 }
 
 .pos-window {
