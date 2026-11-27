@@ -334,7 +334,7 @@ public class Database {
                 }
             }
         } catch (Exception e){
-            throw new RuntimeException("Error on loading image", e);
+            return Database.class.getResource("/pictures/default-picture.png").toExternalForm();
         }
         return Database.class.getResource("/pictures/default-picture.png").toExternalForm();
     }
