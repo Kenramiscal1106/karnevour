@@ -272,6 +272,11 @@
     -fx-spacing: 8px;
 }
 
+.inventory-entry.activity-entry{
+    -fx-padding: 16px 20px;
+    -fx-font-family: 'Instrument Sans', sans-serif;
+}
+
 .stat-card {
     -fx-padding: 32px;
     -fx-background-color: -neutral-200;

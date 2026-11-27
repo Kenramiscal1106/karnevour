@@ -19,28 +19,35 @@
         <URL value="@../base.css"/>
         <URL value="@../components.css"/>
     </stylesheets>
-    <VBox spacing="24" minWidth="360" prefWidth="420">
-        <Text styleClass="h2">Recent Sales</Text>
-        <HBox HBox.hgrow="ALWAYS" spacing="8">
-            <!--            Buttons -->
-            <Button onAction="#NewOrderClick" styleClass="button--primary, button--medium">
-                <graphic>
-                    <ImageView fitHeight="20" fitWidth="20">
-                        <Image url="@../../icons/cart.png"/>
-                    </ImageView>
-                </graphic>
-                New Order
-            </Button>
-            <Button fx:id="refundButton" onAction="#ItemRefundClick" styleClass="button--outline, button--medium">
-                <graphic>
-                    <ImageView fitHeight="20" fitWidth="20">
-                        <Image url="@../../icons/hand-package.png"/>
-                    </ImageView>
-                </graphic>
-                Item Refund
-            </Button>
-        </HBox>
+    <VBox spacing="24" minWidth="360" prefWidth="420" HBox.hgrow="ALWAYS">
+            <HBox HBox.hgrow="ALWAYS" spacing="8">
+                <!--            Buttons -->
+                <VBox spacing="24">
+                    <Text styleClass="h2">Recent Sales</Text>
+                    <HBox spacing = "8">
+                        <Button onAction="#NewOrderClick" styleClass="button--primary, button--medium">
+                            <graphic>
+                                <ImageView fitHeight="20" fitWidth="20">
+                                    <Image url="@../../icons/cart.png"/>
+                                </ImageView>
+                            </graphic>
+                            New Order
+                        </Button>
+                        <Button fx:id="refundButton" onAction="#ItemRefundClick" styleClass="button--outline, button--medium">
+                            <graphic>
+                                <ImageView fitHeight="20" fitWidth="20">
+                                    <Image url="@../../icons/hand-package.png"/>
+                                </ImageView>
+                            </graphic>
+                            Item Refund
+                        </Button>
+                    </HBox>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <HBox alignment="CENTER_RIGHT">
+                    <fx:include source="../components/DashboardStatCard.fxml" fx:id="inventoryValueStatCard" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </HBox>
         <ListView fx:id="salesList" styleClass="list" VBox.vgrow="ALWAYS"/>
     </VBox>
-    <fx:include source="../components/DashboardStatCard.fxml" fx:id="inventoryValueStatCard" HBox.hgrow="ALWAYS"/>
 </HBox>

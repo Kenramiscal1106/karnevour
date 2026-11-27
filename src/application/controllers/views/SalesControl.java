@@ -47,7 +47,6 @@ public class SalesControl {
                     var loader = new FXMLLoader(getClass().getResource("/ui/components/SalesHistoryEntry.fxml"));
                     row = loader.load();
                     controller = loader.getController();
-                    ((Region) row).prefWidthProperty().bind(widthProperty());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

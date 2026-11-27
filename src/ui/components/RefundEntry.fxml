@@ -20,7 +20,7 @@
                 <Rectangle width="56" height="56" arcWidth="16" arcHeight="16"/>
             </clip>
         </ImageView>
-        <VBox>
+        <VBox alignment="CENTER_LEFT">
             <Text fx:id="itemNameText" styleClass="adjust-item-name"/>
             <Text fx:id="itemQuantityText" styleClass="adjust-item-quantity"/>
         </VBox>

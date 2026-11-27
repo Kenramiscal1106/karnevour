@@ -17,12 +17,12 @@
         <URL value="@../base.css"/>
         <URL value="@../components.css"/>
     </stylesheets>
-    <HBox styleClass="inventory-entry" spacing="16" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+    <HBox styleClass="activity-entry, inventory-entry" spacing="16" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
         <ImageView fx:id="imageView" fitHeight="15" fitWidth="15">
             <Image url="@../../icons/log.png"/>
         </ImageView>
         <VBox alignment="CENTER_LEFT">
-            <Text fx:id="logText" styleClass="product-entry-description"/>
+            <Text fx:id="logText"/>
         </VBox>
     </HBox>
 </HBox>

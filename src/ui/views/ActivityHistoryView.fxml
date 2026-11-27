@@ -18,6 +18,5 @@
         <URL value="@../components.css" />
     </stylesheets>
     <Text styleClass="h2">Activity History</Text>
-    <ListView fx:id="activityHistoryList" styleClass="list-view" VBox.vgrow="ALWAYS" />
-
+    <ListView fx:id="activityHistoryList" styleClass="list-view" VBox.vgrow="ALWAYS"/>
 </VBox>
