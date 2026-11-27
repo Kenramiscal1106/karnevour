@@ -12,6 +12,12 @@ import java.time.LocalDate;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+/**
+ * A singleton that holds the inventory, this class accepts {@link ItemHolder} Classes and stores the {@link ItemHolder}
+ * in an {@link ObservableList<ItemHolder>}. This class holds the manipulation and methods to shape the inventory system,
+ * and logic to perfom operations.
+ *
+ */
 public class Inventory {
     /*
     holds the inventory of the company
@@ -22,27 +28,56 @@ public class Inventory {
     private final static Inventory instance = new Inventory();
     private final static Logger logger = Logger.getInstance();
 
+    /**
+     * Returns the instance of {@link Inventory}
+     *
+     * @return Inventory singleton
+     */
     public static Inventory getInstance() {
         return instance;
     }
 
     // getters
+
+    /**
+     * Returns the whole {@link ItemHolder} list held by the {@link Inventory}
+     *
+     * @return {@link ObservableList<ItemHolder>} stored in the inventory
+     */
     public ObservableList<ItemHolder> getItemHolderList() {
         return this.itemHolderList;
     }
 
+    /**
+     * A shortcut method that returns the item Class
+     *
+     * @param uid unique id held by the {@link ItemHolder}
+     * @return String of the class simple name
+     */
     public String getItemClass(String uid) {
         ItemHolder item = getItemHolderByUid(uid);
 
         return item == null ? null : item.getItem().getClass().getSimpleName();
     }
 
-    // shortcuts
-
+    /**
+     * Verify's if an {@link Item} exist via searching for {@link ItemHolder}
+     *
+     * @param uid unique id of the {@link ItemHolder}
+     * @return true if it exists, else false
+     */
     public boolean doesItemExist(String uid){
         return this.itemHolderList.stream().filter(itemHolder -> itemHolder.getUid().equals(uid)).findFirst().orElse(null) != null;
     }
 
+    /**
+     * Returns the {@link ItemHolder} via {@param uid}
+     *
+     * @param uid unique id for the {@link ItemHolder}
+     * @return {@link ItemHolder} if it exists
+     *
+     * @throws IllegalArgumentException if the {@param uid} and {@param ItemHolder} does not exist
+     */
     public ItemHolder getItemHolderByUid(String uid) {
         ItemHolder holder = this.itemHolderList.stream().filter(itemHolder -> itemHolder.getUid().equals(uid)).findFirst().orElse(null);
 
@@ -52,13 +87,32 @@ public class Inventory {
         return holder;
     }
 
+    /**
+     * A shortcut method that returns the {@link Item} via {@param uid}
+     *
+     * @param uid a unique id for the {@link ItemHolder}
+     * @return {@link Item} if it exists
+     *
+     * @throws IllegalArgumentException if the {@param uid} and {@param ItemHolder} does not exist
+     */
     public Item getItemById(String uid) {
         ItemHolder holder = getItemHolderByUid(uid);
 
         return holder == null ? null : holder.getItem();
     }
 
-    // ill add these for now
+    /**
+     * Adds an {@link Item} to the {@link Inventory}, adds a {@link Log} to the {@link Logger}
+     *
+     * @param uid a unique id for the {@link ItemHolder}
+     * @param item a unique {@link Item}
+     * @param unit a unique unit of measurement
+     * @param itemInStock a non-negative value
+     * @param lowStockLimit a non-negative value
+     * @param user a non null {@link User}
+     *
+     * @throws IllegalArgumentException if {@link User} is null or {@link ItemHolder} already exists
+     */
     public void addItem(String uid, Item item, String unit, double itemInStock, double lowStockLimit, User user) {
         if (user == null)
             throw new IllegalArgumentException("No user passed");
@@ -78,8 +132,19 @@ public class Inventory {
         this.itemHolderList.add(new ItemHolder(uid, item, unit, itemInStock, lowStockLimit));
     }
 
+    /**
+     * Removes an item in the {@link Inventory}, adds a {@link Log} to the {@link Logger}
+     *
+     * @param uid a unique id for the {@link ItemHolder}
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if {@link User} or {@link ItemHolder} does not exist
+     */
     public void removeItemInInventory(String uid, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(uid);
+
+        if (!doesItemExist(uid))
+            throw new IllegalArgumentException("No such item exists");
 
         if (user == null)
             throw new IllegalArgumentException("No user passed");
@@ -96,6 +161,15 @@ public class Inventory {
         this.itemHolderList.remove(itemHolder);
     }
 
+    /**
+     * Restocks an item by using a method in {@link ItemHolder}, adds a {@link Log} to the {@link Logger}
+     *
+     * @param uid a unique id for the {@link ItemHolder}
+     * @param amount a non-zero, non-negative value
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if no {@link User} is null or {@param amount} is a negative or zero value
+     */
     public void restockItem(String uid, double amount, User user) {
         ItemHolder hold = this.getItemHolderByUid(uid);
 
@@ -117,11 +191,24 @@ public class Inventory {
         hold.updateItemInStock(amount, "add");
     }
 
+    /**
+     * Reduces an item amount by using a method in {@link ItemHolder}, adds a {@link Log} to the {@link Logger}
+     *
+     * @param uid a unique id for the {@link ItemHolder}
+     * @param amount a non-zero, non-negative value
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if no {@link User} is null or {@param amount} is a negative or zero value
+     * or {@param itemInStock} is lower than {@param amount}
+     */
     public void reduceItemAmount(String uid, double amount, User user) {
         ItemHolder hold = this.getItemHolderByUid(uid);
 
         if (user == null)
             throw new IllegalArgumentException("No user passed");
+
+        if (amount<=0)
+            throw new IllegalArgumentException("Amount passed is zero or negative");
 
         if (hold.getItemInStock() < amount)
             throw new IllegalArgumentException("Amount to be deducted is more than in stock");
@@ -138,6 +225,20 @@ public class Inventory {
         hold.updateItemInStock(amount, "subtract");
     }
 
+    /**
+     * Replaces an existing {@link Item} in {@link Inventory} via {@link ItemHolder}, adds a {@link Log} to the {@link Logger}
+     *
+     * @param oldUid the uid of the {@link ItemHolder} being replaced
+     * @param newUid the uid of the {@link ItemHolder} replacement
+     * @param newItem new non-null {@link Item}
+     * @param newUnit new unique unit of measurement
+     * @param newItemInStock new non-negative value
+     * @param newLowStockLimit new non-negative value
+     * @param user a non-null {@link User}
+     *
+     * @throws IllegalArgumentException if no {@link User} is passed
+     * @throws NullPointerException if {@link Item} is null
+     */
     public void replaceItemInInventory(String oldUid, String newUid, Item newItem, String newUnit, double newItemInStock, double newLowStockLimit, User user) {
         ItemHolder itemHolder = this.getItemHolderByUid(oldUid);
 
